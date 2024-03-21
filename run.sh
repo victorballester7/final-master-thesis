@@ -10,7 +10,7 @@ cd src/
 # remove old files
 make sclean clean dist > /dev/null 2>&1
 # create necessary folders
-mkdir -p ../data ../images ../data/kspectrum ../data/mspectrum ../data/output ../data/vectrans
+mkdir -p ../data ../images ../data/kspectrum ../data/mspectrum ../data/output ../data/vectrans ../data/Eprofile
 
 
 # compile the code

@@ -42,10 +42,8 @@ PROGRAM HD2D
 ! of the fields and external force matrixes
 
    DOUBLE COMPLEX, ALLOCATABLE, DIMENSION (:,:) :: ps
-   DOUBLE COMPLEX, ALLOCATABLE, DIMENSION (:,:) :: aa
 
    DOUBLE COMPLEX, ALLOCATABLE, DIMENSION (:,:) :: fk
-   DOUBLE COMPLEX, ALLOCATABLE, DIMENSION (:,:) :: ek
 
 !
 ! Temporal data storing matrixes
@@ -61,19 +59,21 @@ PROGRAM HD2D
    DOUBLE PRECISION :: dt,dt_new,cfl
    DOUBLE PRECISION :: kup,kdn
    DOUBLE PRECISION :: prm1,prm2
-   DOUBLE PRECISION :: dump,tmp,tmp1,tmp2
+   DOUBLE PRECISION :: dump,tmp,tmp1
    DOUBLE PRECISION :: f0,u0
-   DOUBLE PRECISION :: e0,a0
    DOUBLE PRECISION :: time
    DOUBLE PRECISION :: nu,hnu
 
    INTEGER :: mult,stat
    INTEGER :: t,o
    INTEGER :: i,j
-   INTEGER :: ki,kj
+   INTEGER :: ki
    INTEGER :: ic,id,iu
    INTEGER :: jc,jd,ju
    INTEGER :: timet,timec,times
+
+   ! my variables
+   INTEGER :: threshold
 
    CHARACTER     :: c,d,u
    CHARACTER*3   :: node,ext
@@ -209,12 +209,19 @@ PROGRAM HD2D
 
 
 !FORCING
+   threshold = 10
    DO j = 1,n
       DO i = 1,n
-         R1(i,j) = sin(2*kup*pi*(dble(i)-1)/dble(n)) &
-            +cos(2*kup*pi*(dble(j)-1)/dble(n)) &
-            +cos(2*kdn*pi*(dble(i)-1)/dble(n)) &
-            *sin(2*kdn*pi*(dble(j)-1)/dble(n))
+         ! if n/2-10 <= i <= n/2+10 .and. n/2-10 <= j <= n/2+10 then add force eqaul to 1
+         IF ( (i.ge.n/2-threshold).and.(i.le.n/2+threshold) .and. (j.ge.n/2-threshold).and.(j.le.n/2+threshold) ) THEN
+            R1(i,j) = 1.0d0
+         ELSE
+            R1(i,j) = 0.0d0
+         ENDIF
+         !  R1(i,j) = sin(2*kup*pi*(dble(i)-1)/dble(n)) &
+         !     +cos(2*kup*pi*(dble(j)-1)/dble(n)) &
+         !     +cos(2*kdn*pi*(dble(i)-1)/dble(n)) &
+         !     *sin(2*kdn*pi*(dble(j)-1)/dble(n))
       END DO
    END DO
    CALL rfftwnd_f77_one_real_to_complex(planrc, R1, ps)
@@ -316,6 +323,10 @@ PROGRAM HD2D
             dt_new = 0.5d0
          endif
          dt=dt_new/mult
+         ! if it's the first time, print header
+         IF (t.eq.ini) THEN
+            print*,"DBG", "           t", "   dt", "                        time","                     energy","        enstrophy"
+         ENDIF
          print*,"DBG",t,dt,time,ener,enst
       ENDIF
 
@@ -338,6 +349,7 @@ PROGRAM HD2D
          u = char(ju)
          ext = c // d // u
          CALL spectrum(ps,ext,1,dir_data)
+         CALL Eprof(ps,ext,dir_data)
          CALL laplak2(ps,C1)     ! make W
          CALL vectrans(ps,ps,C1,'euu',ext,dir_data)
          CALL vectrans(C1,ps,C1,'vrt',ext,dir_data)

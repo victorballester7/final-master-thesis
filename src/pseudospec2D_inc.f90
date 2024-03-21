@@ -289,8 +289,6 @@ SUBROUTINE hdcheck(a,b,t,eng,ens,dir)
    DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: a,b
    DOUBLE PRECISION    :: eng,ens,feng,fens,dens
    DOUBLE PRECISION    :: t
-   DOUBLE PRECISION    :: tmq,tmp
-   INTEGER :: i,j
    CHARACTER*100 :: dir
 
 !
@@ -348,7 +346,6 @@ SUBROUTINE mhdcheck(a,b,c,d,t,eng,dir)
    DOUBLE PRECISION  :: crs, dcrs, fcrs ,ecrs, hcrs
    DOUBLE PRECISION  :: asq, dasq, fasq, hasq
    DOUBLE PRECISION  :: t
-   INTEGER :: i,j
    CHARACTER*100 :: dir
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -426,7 +423,7 @@ SUBROUTINE spectrum(a,ext,kin,dir)
 !      USE mpivars
    IMPLICIT NONE
 
-   DOUBLE PRECISION, DIMENSION(n/2+1)        :: Ek,Ektot
+   DOUBLE PRECISION, DIMENSION(n/2+1)        :: Ek
    DOUBLE COMPLEX, DIMENSION(n/2+1,n)          :: a
    DOUBLE PRECISION        :: tmp,dbl
    INTEGER     :: kin
@@ -493,10 +490,10 @@ SUBROUTINE vectrans(a,b,c,ext1,ext2,dir)
 !      USE mpivars
    IMPLICIT NONE
 
-   DOUBLE PRECISION, DIMENSION(n/2+1)        :: Ek,Ektot
+   DOUBLE PRECISION, DIMENSION(n/2+1)        :: Ek
    DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: a,b,c,d
-   DOUBLE PRECISION        :: tmp,tmp1,tmp2,tmp3
-   INTEGER     :: kmn,kin,dbl
+   DOUBLE PRECISION        :: tmp
+   INTEGER     :: kmn,dbl
    INTEGER     :: i,j
    CHARACTER*3 :: ext1,ext2
    CHARACTER*100 :: dir
@@ -537,3 +534,80 @@ SUBROUTINE vectrans(a,b,c,ext1,ext2,dir)
 
    RETURN
 END SUBROUTINE vectrans
+
+!*****************************************************************
+SUBROUTINE Eprof(a,ext,dir)
+!-----------------------------------------------------------------
+!
+! Computes the energy profile in circles of radius 1, 2, 3, ...
+! The output is written to a file by the first node.
+!
+! Parameters
+!     a  : streamfunction or vector potential
+!     ext: the extension used when writting the file
+!
+   USE kes
+   USE grid
+   USE fft
+   USE ali
+!      USE mpivars
+   IMPLICIT NONE
+
+   DOUBLE PRECISION, DIMENSION(n/2+1)        :: E_R
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n)          :: a
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: c1
+   DOUBLE PRECISION, DIMENSION(n,n)    :: r1
+   INTEGER     :: r
+   INTEGER, DIMENSION(n/2+1) :: E_Num ! Number of points in each circle
+   INTEGER     :: i,j
+   CHARACTER*3 :: ext
+   CHARACTER*100 :: dir
+
+!
+! Sets Ek to zero
+!
+   DO i = 1,n/2+1
+      E_R(i) = 0.0d0
+      E_Num(i) = 0.0d0
+   END DO
+!
+! Computes the contribution for u_x = partial_y psi
+!
+   CALL derivk2(a,c1,2)
+   CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r1)
+   DO i = 1,n
+      DO j = 1,n
+         ! if (i,j) is the center of the circle, skip it
+         IF (i.eq.(n+1)/2 .AND. j.eq.(n+1)/2) CYCLE
+         r = int(sqrt(real((i-(n+1)/2)**2+(j-(n+1)/2)**2)))
+         E_R(r) = E_R(r) + r1(i,j)**2
+         E_Num(r) = E_Num(r) + 1
+      END DO
+   END DO
+
+! Computes the contribution for u_y = -partial_x psi
+   CALL derivk2(a,c1,1)
+   CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r1)
+   DO i = 1,n
+      DO j = 1,n
+         ! if (i,j) is the center of the circle, skip it
+         IF (i.eq.(n+1)/2 .AND. j.eq.(n+1)/2) CYCLE
+         r = int(sqrt(real((i-(n+1)/2)**2+(j-(n+1)/2)**2)))
+         E_R(r) = E_R(r) + r1(i,j)**2
+      END DO
+   END DO
+
+   DO i = 1,n/2+1
+      IF (E_Num(i).gt.0) THEN
+         E_R(i) = E_R(i)/dble(E_Num(i))
+      ENDIF
+   END DO
+
+   OPEN(1,file=trim(dir)//'Eprofile/Eprofile.' // ext // '.txt')
+   WRITE(1,20) E_R
+20 FORMAT( E23.15 )
+   CLOSE(1)
+
+   RETURN
+END SUBROUTINE Eprof
+!*****************************************************************
