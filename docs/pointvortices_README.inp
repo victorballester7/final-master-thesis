@@ -1,0 +1,6 @@
+n             number of point vortices in the system (should be even to ensure that the total circulation is zero)
+C             absolute value of the circulation of each vortex
+R             radius of the circle on which the vortices are placed
+dt            initial time step
+T             total time of the simulation
+dt_out        time interval between output files

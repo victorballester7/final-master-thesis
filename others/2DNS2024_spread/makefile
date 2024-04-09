@@ -12,51 +12,51 @@
 # When EXTEN is equal to 1 you can use the variable F90EXT 
 # to change the extension of the F90/95 files.
 
-#
-# Intel comp  jxb  
-COMP     = f95 -c
-LINK     = f95
+
+COMP     = mpiifort -c
+LINK     = mpiifort
 UNDER    = 0
 EXTEN    = 0
 APPEND   = _
 F90EXT   = f90
-LMPI     = -limf  -lmpi
+LMPI     = -O3 -no-prec-div -fp-model fast=2 -align
 IDIR     =
 LDIR     =
-FFTWLDIR = /usr/local/fftw/2.1.5/lib/
-LFFTW    = -ldrfftw -ldfftw -L$(FFTWLDIR) -L/usr/lib/ 
+FFTWLDIR = /linkhome/rech/genlpe01/rvwz001//LIBS/FFTI2/lib
+LFFTW    = -ldrfftw -ldfftw -L$(FFTWLDIR)
 SHELL    = /bin/bash
 MAKE     = /usr/bin/make
 PERL     = /usr/bin/perl
 ECHO     = echo
 
-BINDIR   = ../bin
-DATA		 = ../data
-IMAGES   = ../images
 
 default:
 	@$(ECHO) "Usage: make <action>"
 	@$(ECHO) "Possible actions are: hd2D, mhd2D, hall25, clean, dist"
 
+fftp.o:
+	$(COMP) $(IDIR) fftp.$(F90EXT)
+
+fftp2D.o:
+	@$(MAKE) fftp.o
+	$(COMP) $(IDIR) fftp_mod.$(F90EXT)
+	$(COMP) $(IDIR) $(LDIR) $(LMPI) $(LFFTW) fftp2D.$(F90EXT)
 
 pseudospec2D_inc.o:
-	$(COMP) $(IDIR) pseudospec2D_mod.$(F90EXT) -o $(BINDIR)/pseudospec2D_mod.o
-	$(COMP) $(IDIR) pseudospec2D_inc.$(F90EXT) -o $(BINDIR)/pseudospec2D_inc.o
+	$(COMP) $(IDIR) pseudospec2D_mod.$(F90EXT)
+	$(COMP) $(IDIR) pseudospec2D_inc.$(F90EXT)
 
 pseudospec2D_adv.o: 
-	$(COMP) $(IDIR) pseudospec2D_mod.$(F90EXT) -o $(BINDIR)/pseudospec2D_mod.o
-	$(COMP) $(IDIR) pseudospec2D_adv.$(F90EXT) -o $(BINDIR)/pseudospec2D_adv.o
-
-
-pseudospec25D_inc.o:
-	$(COMP) $(IDIR) pseudospec25D_inc.$(F90EXT) -o $(BINDIR)/pseudospec25D_inc.o
+	$(COMP) $(IDIR) pseudospec2D_mod.$(F90EXT)
+	$(COMP) $(IDIR) pseudospec2D_adv.$(F90EXT)
 
 hd2D:
 	@$(MAKE) modify
+	@$(MAKE) fftp2D.o
 	@$(MAKE) pseudospec2D_inc.o
-	$(COMP) $(IDIR) hd2D.pc.$(F90EXT) -o $(BINDIR)/hd2D.pc.o
-	$(LINK) $(BINDIR)/pseudospec2D_mod.o \
-          $(BINDIR)/pseudospec2D_inc.o $(BINDIR)/hd2D.pc.o $(LDIR) $(LFFTW) -o $(BINDIR)/hd2D
+	$(COMP) $(IDIR) hd2D.para.$(F90EXT)
+	$(LINK) fftp.o fftp2D.o fftp_mod.o pseudospec2D_mod.o \
+          pseudospec2D_inc.o hd2D.para.o $(LDIR) $(LMPI) $(LFFTW) -o hd2D
 	@$(MAKE) undo
 
 
@@ -82,12 +82,12 @@ undo:
         done; fi
 
 clean:
-	rm -f $(BINDIR)/*.o $(BINDIR)/*.d $(BINDIR)/*.s $(BINDIR)/*.int $(BINDIR)/*.inf $(BINDIR)/*.mod $(BINDIR)/*bal.txt $(BINDIR)/work.pc* $(BINDIR)/ifc*
+	rm -f *.o *.d *.s *.int *.inf *.mod work.pc* ifc*
 	@$(MAKE) undo
 
 dist:
-	rm -f $(BINDIR)/hd2D $(BINDIR)/mhd2D $(BINDIR)/hall25 $(BINDIR)/adv2D
+	rm -f hd2D mhd2D hall25 adv2D mhd2DB
 	@$(MAKE) clean
 
 sclean: 
-	rm -rf $(DATA)/* $(IMAGES)/*
+	rm -f *.out spec*.txt *bal.txt vectran*.txt 

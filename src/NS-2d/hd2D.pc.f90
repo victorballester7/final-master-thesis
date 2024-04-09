@@ -24,6 +24,7 @@ PROGRAM HD2D
    USE var
    USE kes
    USE grid
+   USE random
    IMPLICIT NONE
 
 !
@@ -54,7 +55,7 @@ PROGRAM HD2D
 !
 ! Some auxiliary matrixes
 
-   DOUBLE PRECISION :: ener
+   DOUBLE PRECISION :: ener, enerk
    DOUBLE PRECISION :: enst
    DOUBLE PRECISION :: dt,dt_new,cfl
    DOUBLE PRECISION :: kup,kdn
@@ -73,7 +74,8 @@ PROGRAM HD2D
    INTEGER :: timet,timec,times
 
    ! my variables
-   INTEGER :: threshold
+   INTEGER :: threshold, seed, iflow
+
 
    CHARACTER     :: c,d,u
    CHARACTER*3   :: node,ext
@@ -100,7 +102,7 @@ PROGRAM HD2D
 !     stat: last output of a previous run
 !     mult: time step multiplier
 
-   OPEN(1,file='../src/status.prm',status='unknown')
+   OPEN(1,file='./status.prm',status='unknown')
    READ(1,*) stat
    READ(1,*) mult
    READ(1,*) time
@@ -124,7 +126,7 @@ PROGRAM HD2D
 !     ldir : local directory for I/O
 !     dir_data : global directory for I/O
 
-   OPEN(1,file='../src/input.prm',status='unknown')
+   OPEN(1,file='./input.prm',status='unknown')
    READ(1,*) cfl         !  1
    READ(1,*) step        !  2
    READ(1,*) tstep       !  3
@@ -138,7 +140,9 @@ PROGRAM HD2D
    READ(1,*) hnu         ! 11
    READ(1,*) prm1        ! 12
    READ(1,*) prm2        ! 13
-   READ(1,'(a100)') ldir ! 14
+   READ(1,*) seed       ! 14
+   READ(1,*) iflow       ! 15
+   READ(1,'(a100)') ldir ! 16
    READ(1,'(a100)') dir_data
    CLOSE(1)
    cfl = cfl/dble(mult)
@@ -209,33 +213,7 @@ PROGRAM HD2D
 
 
 !FORCING
-   threshold = 10
-   DO j = 1,n
-      DO i = 1,n
-         ! if n/2-10 <= i <= n/2+10 .and. n/2-10 <= j <= n/2+10 then add force eqaul to 1
-         IF ( (i.ge.n/2-threshold).and.(i.le.n/2+threshold) .and. (j.ge.n/2-threshold).and.(j.le.n/2+threshold) ) THEN
-            R1(i,j) = 1.0d0
-         ELSE
-            R1(i,j) = 0.0d0
-         ENDIF
-         !  R1(i,j) = sin(2*kup*pi*(dble(i)-1)/dble(n)) &
-         !     +cos(2*kup*pi*(dble(j)-1)/dble(n)) &
-         !     +cos(2*kdn*pi*(dble(i)-1)/dble(n)) &
-         !     *sin(2*kdn*pi*(dble(j)-1)/dble(n))
-      END DO
-   END DO
-   CALL rfftwnd_f77_one_real_to_complex(planrc, R1, ps)
-   CALL energy(ps,ener,1)
-   tmp=f0/sqrt(ener)
-   DO j = 1,n
-      DO i = 1,n/2+1
-         IF ((ka2(i,j).le.kmax).and.(ka2(i,j).ge.tiny)) THEN
-            fk(i,j) = tmp*ps(i,j)
-         ELSE
-            fk(i,j) = 0.0d0
-         ENDIF
-      END DO
-   END DO
+   CALL forcing(iflow,f0,kup,kdn,seed,fk)
 
 ! INITIAL CONDITIONS
    IF (stat.eq.0) THEN
@@ -253,6 +231,11 @@ PROGRAM HD2D
       DO ki=1,5
          DO j = 1,n
             DO i = 1,n
+               !  IF ( (i.ge.n/2-threshold).and.(i.le.n/2+threshold) .and. (j.ge.n/2-threshold).and.(j.le.n/2+threshold) ) THEN
+               !     R1(i,j) = 1.0d0
+               !  ELSE
+               !     R1(i,j) = 0.0d0
+               !  ENDIF
                R1(i,j) = R1(i,j)                                     &
                   + 1.0d0*sin(2.0d0*ki *pi*(dble(i)-1)/dble(n)) &
                   + 1.0d0*sin(2.0d0*ki *pi*(dble(j)-1)/dble(n)) &
@@ -304,6 +287,15 @@ PROGRAM HD2D
 !#################### MAIN LOOP ######################
    RK : DO t = ini,step
 
+!!!!!!!  RANDOM FORCING  !!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      CALL forcing(iflow,f0,kup,kdn,seed,fk)  !! set fk=0
+      ! CALL energy(fk,enerk,1)
+      ! tmp1=f0/sqrt(0.5*enerk*dt)*randu(seed)
+      ! fk  = tmp1*fk
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 ! Every 'cstep' steps, generates external files
 ! to check consistency and convergency. See the
 ! mhdcheck subroutine for details.
@@ -351,6 +343,9 @@ PROGRAM HD2D
          CALL spectrum(ps,ext,1,dir_data)
          CALL Eprof(ps,ext,dir_data)
          CALL laplak2(ps,C1)     ! make W
+
+         !  CALL ring_vorticity(C1,ext,dir_data)
+
          CALL vectrans(ps,ps,C1,'euu',ext,dir_data)
          CALL vectrans(C1,ps,C1,'vrt',ext,dir_data)
       ENDIF
@@ -374,7 +369,7 @@ PROGRAM HD2D
 
          DO j = 1,n
             DO i = 1,n/2+1
-               C1(i,j) = ps(i,j)/dble(n)**2
+               C1(i,j) = ps(i,j)/dble(n)**2 ! normalizes for the FFT
             END DO
          END DO
          CALL rfftwnd_f77_one_complex_to_real(plancr, C1, R1)

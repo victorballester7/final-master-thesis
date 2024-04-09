@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "g++ build & run active file",
+      "command": "/usr/bin/g++",
+      "args": ["-std=c++11", "-Wall", "-Wextra", "-Wpedantic", "-Wshadow", "-Wformat=2", "-Wcast-align", "-Wconversion", "-Wsign-conversion", "-Wnull-dereference", "-g3", "-Ofast", "-o", "${workspaceFolder}/bin/point-vortices/main", "${workspaceFolder}/bin/point-vortices/main.o", "${workspaceFolder}/bin/point-vortices/rk78.o", "${workspaceFolder}/bin/point-vortices/pointvortices_field.o", "-lm"]
+    }
+  ],
+  "version": "2.0.0"
+}

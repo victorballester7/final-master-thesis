@@ -198,7 +198,7 @@ SUBROUTINE energy(a,b,kin)
    bloc = 0.0d0
    dbl  = 2.0d0
 
-   tmp = 1./dble(n)**4
+   tmp = 1./dble(n)**4 ! Normalization factor n^2 for FFT and we have to square it because the field is raised to the power of 2
 
 !
 ! Computes the square of the scalar field
@@ -309,11 +309,11 @@ SUBROUTINE hdcheck(a,b,t,eng,ens,dir)
 !      IF (myrank.eq.0) THEN
    OPEN(1,file=trim(dir)//'energy_bal.txt',position='append')
    WRITE(1,20) t,eng,ens,feng
-20 FORMAT( D22.14,D22.14,D22.14,D22.14 )
+20 FORMAT( E22.14,E22.14,E22.14,E22.14 )
    CLOSE(1)
    OPEN(1,file=trim(dir)//'enstrophy_bal.txt',position='append')
    WRITE(1,21) t,ens,dens,fens
-21 FORMAT( D22.14,D22.14,D22.14,D22.14 )
+21 FORMAT( E22.14,E22.14,E22.14,E22.14 )
    CLOSE(1)
 !      ENDIF
    RETURN
@@ -535,12 +535,143 @@ SUBROUTINE vectrans(a,b,c,ext1,ext2,dir)
    RETURN
 END SUBROUTINE vectrans
 
+
+!*****************************************************************
+SUBROUTINE shift(a,b,dx,dy)
+!-----------------------------------------------------------------
+!
+! Two-dimensional displacement
+!
+! Parameters
+!     a  : input matrix
+!     b  : output
+!
+   USE ali
+   USE kes
+   USE var
+   USE grid
+   IMPLICIT NONE
+
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: a,b
+   DOUBLE PRECISION        :: dx,dy
+   INTEGER :: i,j
+
+   DO i = 1,n/2+1
+      DO j = 1,n
+!!               IF ((ka2(j,i).le.kmax2).and.(ka2(j,i).ge.kmin2)) THEN
+         b(i,j) = a(i,j) *exp(-im*(ka(i)*dx+ka(j)*dy))
+!!               ELSE
+!!                  b(j,i) = 0.0d0
+!!               ENDIF
+      END DO
+   END DO
+
+   RETURN
+END SUBROUTINE shift
+
+
+!*****************************************************************
+SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
+!-----------------------------------------------------------------
+
+   USE var
+   USE kes
+   USE ali
+   USE grid
+   USE random
+   USE fft
+   IMPLICIT NONE
+
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n)     :: fk,c1,c2
+   DOUBLE PRECISION, DIMENSION(n,n)   :: r1
+   INTEGER :: i,j,jj,iflow,ikup
+   INTEGER :: seed
+   DOUBLE PRECISION        :: f0,kup,kdn,zz,zx,zy,kf
+   DOUBLE PRECISION        :: tmp,tmp1,tmp2
+   DOUBLE PRECISION        :: phase1,phase2,dkup
+
+   kf=0.5d0*dble(kup+kdn)
+   !if (myrank.eq.0) print*,"DBG pseudo: * iflow=",iflow,f0,kf
+!!!!!!!  STEADY FORCING  !!!!!!!!!!!
+   IF (iflow.eq.0) THEN
+      DO j = 1,n
+         DO i = 1,n
+            r1(i,j) = sin(2*kup*pi*(dble(i)-1)/dble(n)) &
+               * sin(2*kdn*pi*(dble(j)-1)/dble(n))
+         END DO
+      END DO
+      CALL rfftwnd_f77_one_real_to_complex(planrc,r1,fk)
+      CALL energy(fk,tmp1,1)
+      tmp=f0/sqrt(tmp1)! ==> sum k^2 fk^2=f0^2
+      DO i = 1,n/2+1
+         DO j = 1,n
+            IF ((ka2(i,j).le.kmax).and.(ka2(i,j).ge.tiny)) THEN
+               fk(i,j) = tmp*fk(i,j)
+            ELSE
+               fk(i,j) = 0.0d0
+            ENDIF
+         END DO
+      END DO
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!! (4) RING of FIRE !!!!
+   ELSE IF (iflow.eq.4) THEN
+      !if (myrank.eq.0) print*,"DBG pseudo: iflow=",iflow,f0,kf
+      ikup = 2*int(kf)+1
+      dkup = dble(kf)/2
+      DO j = 1,n
+         DO i = 1,n
+            zz=(2*pi*(dble(i-n/2)-1)/dble(n))**2
+            zz=(2*pi*(dble(j-n/2)-1)/dble(n))**2+zz
+            zz=0.5d0*kup*kup*zz
+            if (zz.gt.80.d0) zz=80.0d0
+            r1(i,j) = f0*exp(-zz)
+         END DO
+      END DO
+      CALL rfftwnd_f77_one_real_to_complex(planrc,r1,c1)
+      DO i = 1,n/2+1
+         DO j = 1,n
+            fk(i,j) = 0.0
+         END DO
+      END DO
+      DO jj=1,10
+         phase1 = 2*pi*randu(seed)
+         tmp1= pi/kdn/2*sin(phase1)
+         tmp2= pi/kdn/2*cos(phase1)
+         CALL shift(c1,c2,tmp1,tmp2)
+         DO i = 1,n/2+1
+            DO j = 1,n
+               fk(i,j) = fk(i,j) +c2(i,j)
+            END DO
+         END DO
+         tmp1= -tmp1
+         tmp2= -tmp2
+         CALL shift(c1,c2,tmp1,tmp2)
+         DO i = 1,n/2+1
+            DO j = 1,n
+               fk(i,j) = fk(i,j) -c2(i,j)
+            END DO
+         END DO
+      END DO  !! jj
+      DO i = 1,n/2+1
+         DO j = 1,n
+            IF (ka2(i,j).ge.0.1) THEN
+               fk(i,j) = fk(i,j)/ka2(i,j)
+            ELSE
+               fk(i,j) = 0.0d0
+            ENDIF
+         END DO
+      END DO
+   ENDIF
+   RETURN
+END SUBROUTINE forcing
+
+
 !*****************************************************************
 SUBROUTINE Eprof(a,ext,dir)
 !-----------------------------------------------------------------
 !
 ! Computes the energy profile in circles of radius 1, 2, 3, ...
-! The output is written to a file by the first node.
+! The output is written to a file containing only one column, corresponding to the energy at each radius.
 !
 ! Parameters
 !     a  : streamfunction or vector potential
@@ -573,13 +704,15 @@ SUBROUTINE Eprof(a,ext,dir)
 !
 ! Computes the contribution for u_x = partial_y psi
 !
+
+   ! normalization of c1 for FFT
    CALL derivk2(a,c1,2)
    CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r1)
    DO i = 1,n
       DO j = 1,n
          ! if (i,j) is the center of the circle, skip it
-         IF (i.eq.(n+1)/2 .AND. j.eq.(n+1)/2) CYCLE
-         r = int(sqrt(real((i-(n+1)/2)**2+(j-(n+1)/2)**2)))
+         r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
+         r = r+1 ! to avoid the zero radius
          E_R(r) = E_R(r) + r1(i,j)**2
          E_Num(r) = E_Num(r) + 1
       END DO
@@ -590,16 +723,15 @@ SUBROUTINE Eprof(a,ext,dir)
    CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r1)
    DO i = 1,n
       DO j = 1,n
-         ! if (i,j) is the center of the circle, skip it
-         IF (i.eq.(n+1)/2 .AND. j.eq.(n+1)/2) CYCLE
-         r = int(sqrt(real((i-(n+1)/2)**2+(j-(n+1)/2)**2)))
+         r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
+         r = r+1 ! to avoid the zero radius
          E_R(r) = E_R(r) + r1(i,j)**2
       END DO
    END DO
 
    DO i = 1,n/2+1
       IF (E_Num(i).gt.0) THEN
-         E_R(i) = E_R(i)/dble(E_Num(i))
+         E_R(i) = E_R(i)/dble(E_Num(i))/dble(n)**4 ! n^4 = (n^2)^2, where the n^2 is the normalization factor for the FFT and the other ^2 is because the field is squared
       ENDIF
    END DO
 
@@ -610,4 +742,70 @@ SUBROUTINE Eprof(a,ext,dir)
 
    RETURN
 END SUBROUTINE Eprof
+!*****************************************************************
+
+!*****************************************************************
+SUBROUTINE ring_vorticity(w,ext,dir)
+!-----------------------------------------------------------------
+!
+! Computes the vorticity profile in circles of radius 1, 2, 3, ...
+! The output is written to a file containing only one column, corresponding to the vorticity at each radius.
+!
+! Parameters
+!     a  : vorti
+!     ext: the extension used when writting the file
+!
+   USE kes
+   USE grid
+   USE fft
+   USE ali
+
+   IMPLICIT NONE
+
+   DOUBLE PRECISION, DIMENSION(n/2+1)        :: W_R
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n)          :: w
+   DOUBLE PRECISION, DIMENSION(n,n)    :: r1
+   INTEGER     :: r
+   INTEGER, DIMENSION(n/2+1) :: W_Num ! Number of points in each circle
+   INTEGER     :: i,j
+   CHARACTER*3 :: ext
+   CHARACTER*100 :: dir
+
+!
+! Sets Ek to zero
+!
+   DO i = 1,n/2+1
+      W_R(i) = 0.0d0
+      W_Num(i) = 0.0d0
+   END DO
+!
+! Computes the contribution for u_x = partial_y psi
+!
+
+   CALL rfftwnd_f77_one_complex_to_real(plancr, w, r1)
+
+   DO i = 1,n
+      DO j = 1,n
+         ! if (i,j) is the center of the circle, skip it
+         r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
+         r = r+1 ! to avoid the zero radius
+         W_R(r) = W_R(r) + r1(i,j)**2
+         W_Num(r) = W_Num(r) + 1
+      END DO
+   END DO
+
+   DO i = 1,n/2+1
+      IF (W_Num(i).gt.0) THEN
+         W_R(i) = W_R(i)/dble(W_Num(i))/dble(n)**4 ! n^4 = (n^2)^2, where the n^2 is the normalization factor for the FFT and the other ^2 is because the field is squared
+      ENDIF
+   END DO
+
+   OPEN(1,file=trim(dir)//'vorticity_ring/vorticity_ring.' // ext // '.txt')
+   WRITE(1,24) W_R
+24 FORMAT( E23.15 )
+   CLOSE(1)
+
+   RETURN
+
+END SUBROUTINE ring_vorticity
 !*****************************************************************
