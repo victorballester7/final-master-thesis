@@ -344,7 +344,7 @@ PROGRAM HD2D
          CALL Eprof(ps,ext,dir_data)
          CALL laplak2(ps,C1)     ! make W
 
-         !  CALL ring_vorticity(C1,ext,dir_data)
+         CALL ring_vorticity(C1,ext,dir_data)
 
          CALL vectrans(ps,ps,C1,'euu',ext,dir_data)
          CALL vectrans(C1,ps,C1,'vrt',ext,dir_data)

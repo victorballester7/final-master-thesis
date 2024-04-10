@@ -752,18 +752,18 @@ SUBROUTINE ring_vorticity(w,ext,dir)
 ! The output is written to a file containing only one column, corresponding to the vorticity at each radius.
 !
 ! Parameters
-!     a  : vorti
+!     a  : vorticity field
 !     ext: the extension used when writting the file
 !
    USE kes
+   USE ali
    USE grid
    USE fft
-   USE ali
 
    IMPLICIT NONE
 
    DOUBLE PRECISION, DIMENSION(n/2+1)        :: W_R
-   DOUBLE COMPLEX, DIMENSION(n/2+1,n)          :: w
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n)          :: w, c1
    DOUBLE PRECISION, DIMENSION(n,n)    :: r1
    INTEGER     :: r
    INTEGER, DIMENSION(n/2+1) :: W_Num ! Number of points in each circle
@@ -782,7 +782,14 @@ SUBROUTINE ring_vorticity(w,ext,dir)
 ! Computes the contribution for u_x = partial_y psi
 !
 
-   CALL rfftwnd_f77_one_complex_to_real(plancr, w, r1)
+   ! copy the vorticity field to c1 (because the plan c2r modifies the input)
+   DO i = 1,n/2+1
+      DO j = 1,n
+         c1(i,j) = w(i,j)
+      END DO
+   END DO
+   CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r1)
+
 
    DO i = 1,n
       DO j = 1,n
