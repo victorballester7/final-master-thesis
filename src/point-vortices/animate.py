@@ -68,14 +68,13 @@ def animate(folder_path: str, save: bool = False):
     print("Total time for animating: ", int(
         UNIT_TIME * (end_time - start_time)), LABEL_TIME)
 
-    # if save:
-    #     # Save the animation
-    #     filename = 'data/videos/' + plot_var + '_Pr=' + str(Pr) + '_Le=' + str(
-    #         Le) + '_Ra_T=' + str(Ra_T) + '_R_rho=' + str(R_rho) + '.mp4'
-    #     ani.save(filename, writer='ffmpeg', dpi=300, fps=FPS)
-    # else:
-    # Show the animation
-    plt.show()
+    if save:
+        # Save the animation
+        filename = 'videos/pointvortices.' + 'N=' + str(num_vortices) + '.mp4'
+        ani.save(filename, writer='ffmpeg', dpi=300, fps=FPS)
+    else:
+        # Show the animation
+        plt.show()
 
 
 # count time
