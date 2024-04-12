@@ -27,15 +27,15 @@ def animate(folder_path: str, save: bool = False):
     interval = 1000 / FPS  # interval between frames in milliseconds
 
     # Print some information
-    print("Length of data: ", num_frames)
-    print("Number of frames: ", num_frames)
-    print("Interval: ", interval)
-    print("Expected duration: ", duration)
+    # print("Length of data: ", num_frames)
+    # print("Number of frames: ", num_frames)
+    # print("Interval: ", interval)
+    # print("Expected duration: ", duration)
 
     # Create data
     # vortices = [ax.plot([], [], 'o', lw=2, color='red' if circulation[i] == True else 'blue')
     # for i in range(num_vortices)]
-    print(circulation)
+    # print(circulation)
     vortices = []
     for i in range(num_vortices):
         aux, = ax.plot(

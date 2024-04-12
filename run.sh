@@ -7,12 +7,14 @@ RESET='\033[0m'
 
 pwd=$(pwd)
 
+myNS="2DNS2024_simple"
+
 echo -e "${YELLOW}Preparing...${RESET}"
-cd src/NS-2d
+cd src/$myNS
 # remove old files
 make sclean clean dist > /dev/null 2>&1
 # create necessary folders
-mkdir -p $pwd/data $pwd/images $pwd/data/kspectrum $pwd/data/mspectrum $pwd/data/output $pwd/data/vectrans $pwd/data/Eprofile $pwd/data/vorticity_ring
+mkdir -p $pwd/data $pwd/images $pwd/data/kspectrum $pwd/data/mspectrum $pwd/data/output $pwd/data/vectrans $pwd/data/EnergyProf $pwd/data/EnstrophyProf
 
 
 # compile the code
@@ -26,7 +28,7 @@ echo -e "${GREEN}Compilation done!${RESET}"
 # run the code
 
 echo -e "${YELLOW}Running...${RESET}"
-../../bin/NS-2d/hd2D
+../../bin/$myNS/hd2D
 if [ $? -ne 0 ]; then
   echo -e "${RED}Running failed!${RESET}"
   exit 1

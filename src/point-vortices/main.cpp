@@ -10,7 +10,7 @@
 #include "../../include/rk78.h"
 
 #define TOL 1e-6  // tolerance for the RK78 method
-
+#define RK78 1
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -65,11 +65,12 @@ int main(int argc, char* argv[]) {
   prm.C = new double[n];      // circulations
 
   // set circulations
-  for (int i = 0; i < n; i++) {
-    if (i % 2 == 0)
-      prm.C[i] = C;
-    else
-      prm.C[i] = -C;
+  double eps = C / 100;  // small perturbation to avoid the same circulations
+  pair<double, double> z;
+  for (int i = 0; i < n; i += 2) {
+    z = standard_normal();
+    prm.C[i] = C + eps * z.first;
+    prm.C[i + 1] = -C + eps * z.second;
   }
 
   // set initial conditions (random in the circle of radius R)
@@ -92,16 +93,18 @@ int main(int argc, char* argv[]) {
 
   while (t < T - TOL) {
     // simulate
+
+#ifdef RK78
     if (rk78(&t, X, &dt, hmin, hmax, TOL, N, pointvortices_field, &prm) != 0) {
       cout << "Error in the integration" << endl;
       return 1;
     }
-
-    // if (rk4(&t, X, &dt, N, pointvortices_field, &prm) != 0) {
-    //   cout << "Error in the integration" << endl;
-    //   return 1;
-    // }
-
+#else
+    if (rk4(&t, X, &dt, N, pointvortices_field, &prm) != 0) {
+      cout << "Error in the integration" << endl;
+      return 1;
+    }
+#endif
     // save data
     if (t > plot_count * plot_dt - TOL) {
       saveData(n, X, prm.C, t, plot_count, filename_output);

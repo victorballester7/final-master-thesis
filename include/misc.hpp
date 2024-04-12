@@ -1,3 +1,4 @@
+#include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -15,4 +16,14 @@ void saveData(int n, double* X, double* C, double t, int plot_count, string file
     file_output << X[2 * i] << " " << X[2 * i + 1] << " " << (C[i] > 0) << endl;
   }
   file_output.close();
+}
+
+pair<double, double> standard_normal() {
+  double u1 = (double)rand() / RAND_MAX;
+  double u2 = (double)rand() / RAND_MAX;
+
+  double z0 = sqrt(-2 * log(u1)) * cos(2 * M_PI * u2);
+  double z1 = sqrt(-2 * log(u1)) * sin(2 * M_PI * u2);
+
+  return {z0, z1};
 }
