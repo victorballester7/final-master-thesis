@@ -1,2 +1,3 @@
 # remove .txt in data/
 data/**/*.txt
+**/.directory

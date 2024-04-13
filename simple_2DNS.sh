@@ -5,17 +5,21 @@ GREEN='\033[1;32m'
 RED='\033[1;31m'
 RESET='\033[0m'
 
+pwd=$(pwd)
+
+myNS="simple_2DNS"
+
 echo -e "${YELLOW}Preparing...${RESET}"
-
+cd src/$myNS
+# remove old files
+make sclean clean dist > /dev/null 2>&1
 # create necessary folders
-rm -rf data/pointvortices
-mkdir -p data data/pointvortices
+mkdir -p $pwd/data $pwd/images $pwd/data/kspectrum $pwd/data/mspectrum $pwd/data/output $pwd/data/vectrans $pwd/data/EnergyProf $pwd/data/EnstrophyProf
 
-cd src/pointvortices
 
 # compile the code
 echo -e "${YELLOW}Compiling...${RESET}"
-make
+make hd2D
 if [ $? -ne 0 ]; then
   echo -e "${RED}Compilation failed!${RESET}"
   exit 1
@@ -24,8 +28,7 @@ echo -e "${GREEN}Compilation done!${RESET}"
 # run the code
 
 echo -e "${YELLOW}Running...${RESET}"
-cd ../..
-./bin/pointvortices/main
+../../bin/$myNS/hd2D
 if [ $? -ne 0 ]; then
   echo -e "${RED}Running failed!${RESET}"
   exit 1
