@@ -447,15 +447,15 @@ SUBROUTINE hdcheck(a,b,t,inu,nu,imu,mu,eng,ens,dir)
    CHARACTER*100 :: dir
 
 !
-! Computes the mean energy and enstrophy
+! Computes the mean energies and enstrophies for different terms (kinetic, dissipation, hypo-Dissipation)
 !
-   CALL energy(a, eng,1    )
-   CALL energy(a,deng,1+inu)
-   CALL energy(a,heng,1-imu)
+   CALL energy(a, eng,1    ) ! Kinetic energy
+   CALL energy(a,deng,1+inu) ! Dissipation Energy
+   CALL energy(a,heng,1-imu) ! Hypo-dissipation Energy
 
-   CALL energy(a, ens,2    )
-   CALL energy(a,dens,2+inu)
-   CALL energy(a,hens,2-imu)
+   CALL energy(a, ens,2    ) ! Enstrophy
+   CALL energy(a,dens,2+inu) ! Dissipation Enstrophy
+   CALL energy(a,hens,2-imu) ! Hypo-dissipation Enstrophy
 
 
 !
@@ -833,7 +833,7 @@ SUBROUTINE initialcond(a,seed)
    CALL fftp2d_real_to_complex(planrc,R1,a,MPI_COMM_WORLD)
    RETURN
 
-END SUBROUTINE IC
+END SUBROUTINE initialcond
 !-----------------------------------------------------------------
 
 
@@ -1283,8 +1283,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-   OPEN(1,file=trim(dir) // '/output/hd2Dps.' // node // '.' &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dps.' // node // '.'// ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO i = ista,iend
@@ -1293,8 +1292,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-   OPEN(1,file=trim(dir) // '/output/hd2Dww.' // node // '.' &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dww.' // node // '.'// ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO i = ista,iend
@@ -1303,8 +1301,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-   OPEN(1,file=trim(dir) // '/hd2Dfw.' // node // '.' &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // node // '.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO i = ista,iend
@@ -1313,8 +1310,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-   OPEN(1,file=trim(dir) // '/hd2Dfp.' // node // '.' &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // node // '.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    RETURN

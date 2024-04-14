@@ -428,6 +428,7 @@ PROGRAM HD2D
       IF (timec.eq.cstep) THEN
          timec = 0
          CALL hdcheck(ps,fk,time,inu,nu,imu,mu,ener,enst,ldir)
+         ! if it's the first time, print header
          IF (t.eq.ini .AND. myrank.eq.0) THEN
             print*,"DBG", "           t", "   dt", "                        time","                     energy","        enstrophy"
          ENDIF
@@ -527,9 +528,13 @@ PROGRAM HD2D
          DO i = ista,iend
             DO j = 1,n
                IF ((ka2(j,i).le.kmax2).and.(ka2(j,i).ge.tiny)) THEN
+
+                  ! this reformulation can be deduced from the general formula of y'=Ay+b: y_{n+1}=e^(A*dt)[y_n + int_0^dt e^(A(-s))b(s)ds]
+                  ! explicit Euler is equivalent to approximating the latter integral by e^(A*0)b(0)dt= b(0)dt
+                  ! ==> y_{n+1}=e^(A*dt)[y_n + b(y_n)dt]
                   C1(j,i) = ps(j,i)+ dt*(-C1(j,i)/ka2(j,i) + fk(j,i))/dble(o)
-                  tmp     = exp(-(mu/ka2(j,i)**imu + nu*ka2(j,i)**inu)*dt/dble(o))
-                  !! tmp     = 1.0D0 /(1.0d0 + (mu/ka2(j,i)**imu+nu*ka2(j,i)**inu)*dt/dble(o))
+                  tmp     = exp(-(-mu/ka2(j,i)**imu + nu*ka2(j,i)**inu)*dt/dble(o))
+                  !! tmp     = 1.0D0 /(1.0d0 + (-mu/ka2(j,i)**imu+nu*ka2(j,i)**inu)*dt/dble(o))
                   C1(j,i) = C1(j,i) *tmp
                ELSE
                   C1(j,i) = 0.0d0

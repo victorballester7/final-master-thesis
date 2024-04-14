@@ -70,7 +70,8 @@ def animate(folder_path: str, save: bool = False):
 
     if save:
         # Save the animation
-        filename = 'videos/pointvortices.' + 'N=' + str(num_vortices) + '.mp4'
+        filename = 'videos/pointvortices/pointvortices.' + \
+            'N=' + str(num_vortices) + '.mp4'
         ani.save(filename, writer='ffmpeg', dpi=300, fps=FPS)
     else:
         # Show the animation

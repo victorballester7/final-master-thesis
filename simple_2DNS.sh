@@ -6,6 +6,7 @@ RED='\033[1;31m'
 RESET='\033[0m'
 
 pwd=$(pwd)
+data=$pwd/data/simple_2DNS
 
 myNS="simple_2DNS"
 
@@ -14,7 +15,7 @@ cd src/$myNS
 # remove old files
 make sclean clean dist > /dev/null 2>&1
 # create necessary folders
-mkdir -p $pwd/data $pwd/images $pwd/data/kspectrum $pwd/data/mspectrum $pwd/data/output $pwd/data/vectrans $pwd/data/EnergyProf $pwd/data/EnstrophyProf
+mkdir -p $data $pwd/images $data/kspectrum $data/mspectrum $data/output $data/vectrans $data/EnergyProf $data/EnstrophyProf
 
 
 # compile the code

@@ -9,11 +9,11 @@
 16.00d0             % kup      9
 2.0e-3              % nu      10
 1                   % inu     11
-0.1                 % mu      12
+-0.1                 % mu      12
 0                   % imu     13
 4                   % iflow   14
 1                   % seed    15
 0                   % prm1    16
 0                   % prm2    17
 2                   % p       18
-../../data          
+../../data/simple_2DNS

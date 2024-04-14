@@ -31,8 +31,8 @@ PERL     = /usr/bin/perl
 ECHO     = echo
 
 BINDIR   = ../../bin/simple_2DNS
-DATA		 = ../../data
-IMAGES   = ../../images
+DATA		 = ../../data/simple_2DNS
+IMAGES   = ../../images/simple_2DNS
 
 default:
 	@$(ECHO) "Usage: make <action>"

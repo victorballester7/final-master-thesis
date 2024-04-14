@@ -270,7 +270,7 @@ END SUBROUTINE inerprod
 
 
 !*****************************************************************
-SUBROUTINE hdcheck(a,b,t,eng,ens,dir)
+SUBROUTINE hdcheck(a,b,t,inu,nu,imu,mu,eng,ens,dir)
 !-----------------------------------------------------------------
 !
 ! Consistency check for the conservation of energy in HD 2D
@@ -282,21 +282,28 @@ SUBROUTINE hdcheck(a,b,t,eng,ens,dir)
 !
    USE kes
    USE grid
-!      USE mpivars
+   !  USE mpivars
 
    IMPLICIT NONE
 
    DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: a,b
-   DOUBLE PRECISION    :: eng,ens,feng,fens,dens
-   DOUBLE PRECISION    :: t
+   DOUBLE PRECISION    :: eng,deng,heng,feng
+   DOUBLE PRECISION    :: ens,dens,hens,fens
+   DOUBLE PRECISION    :: t,nu,mu
+   INTEGER :: inu,imu
    CHARACTER*100 :: dir
 
 !
-! Computes the mean energy and enstrophy
+! Computes the mean energies and enstrophies for different terms (kinetic, dissipation, hypo-Dissipation)
 !
-   CALL energy(a, eng,1)
-   CALL energy(a, ens,2)
-   CALL energy(a,dens,3)
+   CALL energy(a, eng,1    ) ! Kinetic energy
+   CALL energy(a,deng,1+inu) ! Dissipation Energy
+   CALL energy(a,heng,1-imu) ! Hypo-dissipation Energy
+
+   CALL energy(a, ens,2    ) ! Enstrophy
+   CALL energy(a,dens,2+inu) ! Dissipation Enstrophy
+   CALL energy(a,hens,2-imu) ! Hypo-dissipation Enstrophy
+
 
 !
 ! Computes the energy injection rate
@@ -306,18 +313,17 @@ SUBROUTINE hdcheck(a,b,t,eng,ens,dir)
 !
 ! Creates external files to store the results
 !
-!      IF (myrank.eq.0) THEN
    OPEN(1,file=trim(dir)//'/energy_bal.txt',position='append')
-   WRITE(1,20) t,eng,ens,feng
-20 FORMAT( E22.14,E22.14,E22.14,E22.14 )
+   WRITE(1,20) t,eng,nu*deng,mu*heng,feng
+20 FORMAT( E22.14,E22.14,E22.14,E22.14,E22.14 )
    CLOSE(1)
    OPEN(1,file=trim(dir)//'/enstrophy_bal.txt',position='append')
-   WRITE(1,21) t,ens,dens,fens
-21 FORMAT( E22.14,E22.14,E22.14,E22.14 )
+   WRITE(1,21) t,ens,nu*dens,mu*hens,fens
+21 FORMAT( E22.14,E22.14,E22.14,E22.14,E22.14 )
    CLOSE(1)
-!      ENDIF
    RETURN
 END SUBROUTINE hdcheck
+
 
 !*****************************************************************
 SUBROUTINE mhdcheck(a,b,c,d,t,eng,dir)
@@ -580,7 +586,7 @@ SUBROUTINE initialcond(a,seed)
    IMPLICIT NONE
    DOUBLE COMPLEX, DIMENSION(n/2+1,n)     :: a
    DOUBLE PRECISION, DIMENSION(n,n)   :: R1
-   INTEGER :: i,j,jj,ki
+   INTEGER :: i,j,ki
    INTEGER :: seed
    DOUBLE PRECISION :: phase1,phase2,phase3,phase4
 
@@ -607,7 +613,7 @@ SUBROUTINE initialcond(a,seed)
    CALL rfftwnd_f77_one_real_to_complex(planrc, R1, a)
    RETURN
 
-END SUBROUTINE IC
+END SUBROUTINE initialcond
 !-----------------------------------------------------------------
 
 
@@ -628,9 +634,9 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
    DOUBLE PRECISION, DIMENSION(n,n)   :: r1
    INTEGER :: i,j,jj,iflow,ikup
    INTEGER :: seed
-   DOUBLE PRECISION        :: f0,kup,kdn,zz,zx,zy,kf
+   DOUBLE PRECISION        :: f0,kup,kdn,zz,kf
    DOUBLE PRECISION        :: tmp,tmp1,tmp2
-   DOUBLE PRECISION        :: phase1,phase2,dkup
+   DOUBLE PRECISION        :: phase1,dkup
 
    kf=0.5d0*dble(kup+kdn)
    !if (myrank.eq.0) print*,"DBG pseudo: * iflow=",iflow,f0,kf
@@ -806,7 +812,7 @@ END SUBROUTINE EnergyEnstropy_profiles
 !*****************************************************************
 
 !*****************************************************************
-SUBROUTINE outputfields(a,f,ext,dir)
+SUBROUTINE outputfields(a,f,ext,node,dir)
 !-----------------------------------------------------------------
 !
 ! Computes the energy profile in circles of radius 1, 2, 3, ...
@@ -827,7 +833,7 @@ SUBROUTINE outputfields(a,f,ext,dir)
    DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: a,f, C1
    DOUBLE PRECISION, DIMENSION(n,n)    :: R1
    INTEGER     :: i,j
-   CHARACTER*3 :: ext
+   CHARACTER*3 :: ext,node
    CHARACTER*100 :: dir
 
    DO i = 1,n/2+1
@@ -836,8 +842,7 @@ SUBROUTINE outputfields(a,f,ext,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dps.' // &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dps.' // node // '.'// ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO i = 1,n/2+1
@@ -846,8 +851,7 @@ SUBROUTINE outputfields(a,f,ext,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dww.' // &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dww.' // node // '.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO i = 1,n/2+1
@@ -856,8 +860,7 @@ SUBROUTINE outputfields(a,f,ext,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/hd2Dfw.' // &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // node // '.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO i = 1,n/2+1
@@ -866,10 +869,53 @@ SUBROUTINE outputfields(a,f,ext,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/hd2Dfp.' // &
-      // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // node // '.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    RETURN
 END SUBROUTINE outputfields
 !*****************************************************************
+
+!*****************************************************************
+SUBROUTINE CFL_condition(cfl,c1,inu,nu,dt)
+!-----------------------------------------------------------------
+
+!        Parameters
+!     cfl :cfl factor
+!      c1 : stream fun
+   !  USE mpivars
+   USE kes
+   USE ali
+   USE grid
+   USE fft
+   IMPLICIT NONE
+
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: c1,c3,c4
+   DOUBLE PRECISION, DIMENSION(n,n)    :: r1,r2,r3
+   INTEGER :: i,j,inu
+   DOUBLE PRECISION        :: tmp,dt,nu,cfl
+   DOUBLE PRECISION        :: tmp1,kcut,nrm
+
+   kcut=(dble(n)/3.0d0)
+   nrm=(dble(n))**2
+   CALL derivk2(c1,c3,1)
+   CALL derivk2(c1,c4,2)
+   CALL rfftwnd_f77_one_complex_to_real(plancr,c3,r1)
+   CALL rfftwnd_f77_one_complex_to_real(plancr,c4,r2)
+   DO j = 1,n
+      DO i = 1,n
+         r3(i,j) = r1(i,j)*r1(i,j)+r2(i,j)*r2(i,j) ! u^2+v^2
+      END DO
+   END DO
+   tmp1=maxval(r3)
+   ! think of dx = 1/kcut
+   ! 1st CFL condition (advection): CFL * dx/dt >= max_speed
+   ! 2nd CFL condition (diffusion): nu * dt/dx^(2*inu) <= CFL  ==> CFL * dx/dt >= nu * kcut^(2*inu-1)
+
+   ! so we take CFL * dx/dt >= max_speed + nu * kcut^(2*inu-1)
+   tmp=sqrt(tmp1)/nrm+nu*kcut**(2*inu-1)
+   dt = cfl/(kcut*tmp)
+   !! if (myrank.eq.0) print*,"*",myrank,dt,cfl,tmp,sqrt(tmp1)/nrm,nu*kcut**(2*inu-1)
+
+   RETURN
+END SUBROUTINE CFL_condition
