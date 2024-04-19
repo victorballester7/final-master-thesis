@@ -1,0 +1,19 @@
+0.5       %!! CFL           ! 1
+ 101  %!! step          ! 2
+ 100  %!! tstep         ! 3
+  10  %!! sstep         ! 4
+   1  %!! cstep         ! 5
+1.0       %!! f0            ! 6
+1.0       %!! u0            ! 7
+ 16.0     %!! kdn           ! 8
+ 20.0     %!! kup           ! 9
+2.0e-3    %!! nu            ! 10
+1         %!! inu           ! 11
+0.1       %!! mu            ! 12
+2         %!! imu           ! 13
+8         %!! iflow         ! 14
+1         %!! seed          ! 15
+0.0       %!! prm1          ! 16
+0.0       %!! prm2          ! 17 
+2         %!! p_moment_energy_enstrophy      !18
+./data

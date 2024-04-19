@@ -855,7 +855,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,dt,myseed,fk)
    INTEGER :: i,j,jj,iflow,ikup
    INTEGER :: seed,myseed
    DOUBLE PRECISION        :: f0,kup,kdn,dt,zz,zx,zy,kf
-   DOUBLE PRECISION        :: tmp,tmp1,tmp2,radius
+   DOUBLE PRECISION        :: tmp,tmp1,tmp2,amp,radius
    DOUBLE PRECISION        :: phase1,phase2,dkup
 
    kf=0.5d0*dble(kup+kdn)
@@ -1049,9 +1049,61 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,dt,myseed,fk)
             ENDIF
          END DO
       END DO
+   ELSE IF (iflow.eq.5) THEN
+      !if (myrank.eq.0) print*,"DBG pseudo: iflow=",iflow,f0,kf
+!         ikup = 2*int(kf)+1
+!         dkup = dble(kup)/2
+      DO j = jsta,jend
+         DO i = 1,n
+            zz=(2*pi*(dble(i-n/2)-1)/dble(n))**2
+            zz=(2*pi*(dble(j-n/2)-1)/dble(n))**2+zz
+            zz=0.5d0*kup*kup*zz
+            if (zz.gt.80.d0) zz=80.0d0
+            r1(i,j) = f0*exp(-zz)
+         END DO
+      END DO
+      CALL fftp2d_real_to_complex(planrc,r1,c1,MPI_COMM_WORLD)
+      DO i = ista,iend
+         DO j = 1,n
+            fk(j,i) = 0.0
+         END DO
+      END DO
+      DO jj=1,10
+         CALL MPI_BCAST(myseed,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+         phase1 = 2*pi*randu(myseed)
+         radius = sqrt(abs(randu(myseed)))/kdn
+         tmp1= radius*sin(phase1)
+         tmp2= radius*cos(phase1)
+         amp = randu(myseed)
+         CALL shift(c1,c2,tmp1,tmp2)
+         DO i = ista,iend
+            DO j = 1,n
+               fk(j,i) = fk(j,i) +amp*c2(j,i)
+            END DO
+         END DO
+         phase1 = 2*pi*randu(myseed)
+         radius = sqrt(abs(randu(myseed)))/kdn
+         tmp1= radius*sin(phase1)
+         tmp2= radius*cos(phase1)
+         CALL shift(c1,c2,tmp1,tmp2)
+         DO i = ista,iend
+            DO j = 1,n
+               fk(j,i) = fk(j,i) -amp*c2(j,i)
+            END DO
+         END DO
+      END DO  !! jj
+      DO i = ista,iend
+         DO j = 1,n
+            IF (ka2(j,i).ge.0.1) THEN
+               fk(j,i) = fk(j,i)/ka2(j,i)
+            ELSE
+               fk(j,i) = 0.0d0
+            ENDIF
+         END DO
+      END DO
 !!!!!!!  (5) VORTEX LINE FORCING  !!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!  PSI = exp(-(kup*x)**2)+exp(-(kup*y)**2)
-   ELSE IF (iflow.gt.4) THEN
+   ELSE IF (iflow.gt.5) THEN
       ikup = 2*int(kf)+1
       dkup = dble(kf)/1.5
       DO j = jsta,jend
@@ -1270,7 +1322,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
    USE mpivars
    IMPLICIT NONE
 
-   DOUBLE COMPLEX, DIMENSION(n,ista:iend)          :: a
+   DOUBLE COMPLEX, DIMENSION(n,ista:iend)          :: a,f
    DOUBLE COMPLEX, DIMENSION(n,ista:iend) :: C1
    DOUBLE PRECISION, DIMENSION(n,jsta:jend)    :: R1
    INTEGER     :: i,j

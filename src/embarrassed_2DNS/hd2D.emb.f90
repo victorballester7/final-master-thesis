@@ -294,18 +294,18 @@ PROGRAM HD2D
       CALL forcing(iflow,f0,kup,kdn,myseed,fk)
       ! CALL energy(fk,enerk,1)
       ! tmp1=f0/sqrt(0.5*enerk*dt)*randu(seed)
-      ! fk  = tmp1*fk
       CALL energy(fk,enerk,1)
       tmp1 = f0/sqrt(enerk)
-      DO j = 1,n
-         DO i = 1,n/2+1
-            IF ((ka2(i,j).le.kmax2).and.(ka2(i,j).ge.tiny)) THEN
-               fk(i,j) = tmp1*fk(i,j)
-            ELSE
-               fk(i,j) = 0.0d0
-            ENDIF
-         END DO
-      END DO
+      fk  = tmp1*fk
+      ! DO j = 1,n
+      !    DO i = 1,n/2+1
+      !       IF ((ka2(i,j).le.kmax2).and.(ka2(i,j).ge.tiny)) THEN
+      !          fk(i,j) = tmp1*fk(i,j)
+      !       ELSE
+      !          fk(i,j) = 0.0d0
+      !       ENDIF
+      !    END DO
+      ! END DO
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ! Every 'cstep' steps, generates external files

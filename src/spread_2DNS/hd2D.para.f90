@@ -130,7 +130,6 @@ PROGRAM HD2D
 ! the status of a previous run (if any)
 !     stat: last output of a previous run
 !     mult: time step multiplier
-
    IF (myrank.eq.0) THEN
       OPEN(1,file='status.prm',status='unknown')
       READ(1,*) stat
@@ -270,27 +269,27 @@ PROGRAM HD2D
       timec = cstep
 
 ! STREAM FUNCTION R1
-      ! DO i = ista,iend
-      !    DO j = 1,n
-      !       !! IF ((ka2(j,i).le.kup*kup).and.(ka2(j,i).ge.kdn*kdn)) THEN
-      !       IF ((ka2(j,i).le.kup*kup).and.(ka2(j,i).ge.tiny  )) THEN
-      !          tmp = ka2(j,i)/(kdn+1)**2
-      !          if (tmp.gt.80.0d0) tmp=80.0d0
-      !          phase1 = 2*pi*randu(myseed)
-      !          ps(j,i) = exp(im*phase1)*exp(-tmp)
-      !       ELSE
-      !          ps(j,i) = 0.
-      !       ENDIF
-      !    END DO
-      ! END DO
-      ! IF (myrank.eq.0) THEN
-      !    DO j = 1,n
-      !       jj=n-j+2
-      !       if (jj.gt.n) jj=1
-      !       ps(j,1) = conjg(ps(jj,1))
-      !    END DO
-      ! ENDIF
-      CALL initialcond(ps,myseed)
+      DO i = ista,iend
+         DO j = 1,n
+            !! IF ((ka2(j,i).le.kup*kup).and.(ka2(j,i).ge.kdn*kdn)) THEN
+            IF ((ka2(j,i).le.kup*kup).and.(ka2(j,i).ge.tiny  )) THEN
+               tmp = ka2(j,i)/(kdn+1)**2
+               if (tmp.gt.80.0d0) tmp=80.0d0
+               phase1 = 2*pi*randu(myseed)
+               ps(j,i) = exp(im*phase1)*exp(-tmp)
+            ELSE
+               ps(j,i) = 0.
+            ENDIF
+         END DO
+      END DO
+      IF (myrank.eq.0) THEN
+         DO j = 1,n
+            jj=n-j+2
+            if (jj.gt.n) jj=1
+            ps(j,1) = conjg(ps(jj,1))
+         END DO
+      ENDIF
+      ! CALL initialcond(ps,myseed)
       CALL energy(ps,enerk,1)
       CALL MPI_BCAST(enerk,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
       tmp=u0/sqrt(enerk)
@@ -303,8 +302,6 @@ PROGRAM HD2D
             ENDIF
          END DO
       END DO
-      !! if (myrank.eq.0) print*,"PRCV 1"
-      !! CALL parseval(ps,ps)
 
    ELSE ! we start from a previous run
       print*,'READING...',stat
@@ -333,63 +330,64 @@ PROGRAM HD2D
       if (myrank.eq.0) print*,"READING DONE!"
       CALL fftp2d_real_to_complex(planrc,R1,ps,MPI_COMM_WORLD)
       if (myrank.eq.0) print*,"READING & FFT DONE!"
-      CALL parseval(ps,ps)
    ENDIF
 
 !!!!!!! STEADY or RANDOM FORCING  !!!!!!!!!!!
-!    IF (iflow.le.3) THEN
-!       CALL CFL_condition(CFL,ps,inu,nu,dt)
-!       CALL forcing(iflow,f0,kup,kdn,dt,seed,fk)
-!       !print*,myrank,iflow,f0,kup,kdn,dt,myseed
-!    ENDIF
-!    ext4='ffff'
-!    CALL spectrum(fk,ext4,ldir)
-! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!    DO i = ista,iend
-!       DO j = 1,n
-!          C1(j,i) = ps(j,i)/dble(n)**2 ! fourier normalization
-!       END DO
-!    END DO
-!    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-!    OPEN(1,file=trim(ldir) // '/output/hd2Dps.' // node // '.' &
-!       // '000' // '.out',form='unformatted')
-!    WRITE(1) R1
-!    CLOSE(1)
-!    DO i = ista,iend
-!       DO j = 1,n
-!          C1(j,i) = ps(j,i)*ka2(j,i)/dble(n)**2 ! fourier normalization for the vorticity
-!       END DO
-!    END DO
-!    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-!    OPEN(1,file=trim(ldir) // '/output/hd2Dww.' // node // '.' &
-!       // '000' // '.out',form='unformatted')
-!    WRITE(1) R1
-!    CLOSE(1)
-!    CALL forcing(iflow,f0,kup,kdn,dt,seed,fk)  !! set fk=0
-!    CALL energy(fk,enerk,1)
-!    tmp1=f0/sqrt(0.5*enerk)
-!    CALL MPI_BCAST(tmp1,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
-!    fk  = tmp1*fk
-!    DO i = ista,iend
-!       DO j = 1,n
-!          C1(j,i) = fk(j,i)*ka2(j,i)/dble(n)**2 ! this is for the forcing in the vorticity equation, because the forcing f is in the streamfunction equation
-!       END DO
-!    END DO
-!    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-!    OPEN(1,file=trim(ldir) // '/output/hd2Dfw.' // node // '.' &
-!       // '000' // '.out',form='unformatted')
-!    WRITE(1) R1
-!    CLOSE(1)
-!    DO i = ista,iend
-!       DO j = 1,n
-!          C1(j,i) = fk(j,i)/dble(n)**2
-!       END DO
-!    END DO
-!    CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-!    OPEN(1,file=trim(ldir) // '/output/hd2Dfp.' // node // '.' &
-!       // '000' // '.out',form='unformatted')
-!    WRITE(1) R1
-!    CLOSE(1)
+   IF (iflow.le.3) THEN
+      CALL CFL_condition(CFL,ps,inu,nu,dt)
+      CALL forcing(iflow,f0,kup,kdn,dt,seed,fk)
+      !print*,myrank,iflow,f0,kup,kdn,dt,myseed
+   ENDIF
+   ext4='ffff'
+   CALL spectrum(fk,ext4,ldir)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   DO i = ista,iend
+      DO j = 1,n
+         C1(j,i) = ps(j,i)/dble(n)**2 ! fourier normalization
+      END DO
+   END DO
+   CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
+   OPEN(1,file=trim(ldir) // '/output/hd2Dps.' // node // '.' &
+      // '000' // '.out',form='unformatted')
+   WRITE(1) R1
+   CLOSE(1)
+   DO i = ista,iend
+      DO j = 1,n
+         C1(j,i) = ps(j,i)*ka2(j,i)/dble(n)**2 ! fourier normalization for the vorticity
+      END DO
+   END DO
+   CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
+   OPEN(1,file=trim(ldir) // '/output/hd2Dww.' // node // '.' &
+      // '000' // '.out',form='unformatted')
+   WRITE(1) R1
+   CLOSE(1)
+   CALL forcing(iflow,f0,kup,kdn,dt,seed,fk)  !! set fk=0
+   CALL energy(fk,enerk,1)
+   tmp1=f0/sqrt(0.5*enerk)
+   CALL MPI_BCAST(tmp1,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+   fk  = tmp1*fk
+   DO i = ista,iend
+      DO j = 1,n
+         C1(j,i) = fk(j,i)*ka2(j,i)/dble(n)**2 ! this is for the forcing in the vorticity equation, because the forcing f is in the streamfunction equation
+      END DO
+   END DO
+   CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
+   OPEN(1,file=trim(ldir) // '/output/hd2Dfw.' // node // '.' &
+      // '000' // '.out',form='unformatted')
+   WRITE(1) R1
+   CLOSE(1)
+   DO i = ista,iend
+      DO j = 1,n
+         C1(j,i) = fk(j,i)/dble(n)**2
+      END DO
+   END DO
+   CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
+   OPEN(1,file=trim(ldir) // '/output/hd2Dfp.' // node // '.' &
+      // '000' // '.out',form='unformatted')
+   WRITE(1) R1
+   CLOSE(1)
+   !  if (myrank.eq.0) print*,"DBG 7"
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
    if (myrank.eq.0) print*,"START RK",step
@@ -400,26 +398,20 @@ PROGRAM HD2D
    RK : DO t = ini,step
       CALL CFL_condition(CFL,ps,inu,nu,dt)
 
+      ! if (myrank.eq.0) print*,"DBG 8"
 
 
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,dt,seed,fk)
+      ! if (myrank.eq.0) print*,"DBG 9"
       CALL energy(fk,enerk,1)
       tmp1 = f0/sqrt(enerk)
       ! tmp1=f0/sqrt(0.5*enerk*dt)*randu(seed)
-      DO j = 1,n
-         DO i = ista,iend
-            IF ((ka2(i,j).le.kmax2).and.(ka2(i,j).ge.tiny)) THEN
-               fk(i,j) = tmp*fk(i,j)
-            ELSE
-               fk(i,j) = 0.0d0
-            ENDIF
-         END DO
-      END DO
-
+      ! if (myrank.eq.0) print*,"DBG 10"
       CALL MPI_BCAST(tmp1,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
       fk  = tmp1*fk
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      ! if (myrank.eq.0) print*,"DBG 11"
 
 
 ! Every 'cstep' steps, generates external files
@@ -434,6 +426,7 @@ PROGRAM HD2D
          ENDIF
          if (myrank.eq.0) print*,"DBG",t,dt,time,ener,enst
       ENDIF
+      ! if (myrank.eq.0) print*,"DBG 12"
 
 ! Every 'sstep' steps, generates external files
 ! with the power spectrum
@@ -458,10 +451,14 @@ PROGRAM HD2D
          d = char(jd)
          u = char(ju)
          ext4 = th // c // d // u
+         !  if (myrank.eq.0) print*,"DBG 13"
          CALL spectrum(ps,ext4,ldir)
          CALL EnergyEnstropy_profiles(ps,p,ext4,ldir)
+         !  if (myrank.eq.0) print*,"DBG 14"
          CALL laplak2(ps,C1)     ! make W
+         !  if (myrank.eq.0) print*,"DBG 15"
          CALL vectrans(ps,ps,C1,'euu',ext4,ldir)
+         !  if (myrank.eq.0) print*,"DBG 16"
          CALL vectrans(C1,ps,C1,'vrt',ext4,ldir)
          !CALL structure(ps,ext4)
          IF (myrank.eq.0) THEN
@@ -472,6 +469,7 @@ PROGRAM HD2D
          ENDIF
 
       ENDIF
+      ! if (myrank.eq.0) print*,"DBG 17"
 
 ! Every 'tstep' steps, stores the results of the integration
 

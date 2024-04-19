@@ -17,9 +17,10 @@ def readslice(inputfilename, nx, ny):
 
 
 dir = './data/output/'
+output_dir = './images/'
 STR = 'ww.'
 num_procs = 40
-outnum_st = 0
+outnum_st = 1
 outnum_nd = 20
 outnum = 6
 reso = 512
@@ -110,6 +111,7 @@ for outnum in range(outnum_st, outnum_nd):
     figure(2)
     im1 = plt.imshow(data2, cmap=cm.hot)
     cbar1 = plt.colorbar(im1)
-    # plt.savefig('FlowD_'+STR+str("%03d" % outnum)+'png' ) #%
+    plt.savefig(output_dir + 'FlowD_' + STR +
+                str("%03d" % outnum) + '.png')  # %
     # (dtemp,stemp,qname))
-    plt.show()
+    # plt.show()

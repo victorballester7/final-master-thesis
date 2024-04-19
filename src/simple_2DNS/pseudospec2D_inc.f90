@@ -635,8 +635,8 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
    INTEGER :: i,j,jj,iflow,ikup
    INTEGER :: seed
    DOUBLE PRECISION        :: f0,kup,kdn,zz,kf
-   DOUBLE PRECISION        :: tmp,tmp1,tmp2
-   DOUBLE PRECISION        :: phase1,dkup
+   DOUBLE PRECISION        :: tmp,tmp1,tmp2,amp,radius
+   DOUBLE PRECISION        :: phase1,phase2,dkup
 
    kf=0.5d0*dble(kup+kdn)
    !if (myrank.eq.0) print*,"DBG pseudo: * iflow=",iflow,f0,kf
@@ -709,6 +709,60 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
             ENDIF
          END DO
       END DO
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!! (5) DISC of FIRE !!!!
+   ELSE IF (iflow.eq.5) THEN
+      !if (myrank.eq.0) print*,"DBG pseudo: iflow=",iflow,f0,kf
+!         ikup = 2*int(kf)+1
+!         dkup = dble(kup)/2
+      DO j = 1,n
+         DO i = 1,n
+            zz=(2*pi*(dble(i-n/2)-1)/dble(n))**2
+            zz=(2*pi*(dble(j-n/2)-1)/dble(n))**2+zz
+            zz=0.5d0*kup*kup*zz
+            if (zz.gt.80.d0) zz=80.0d0
+            r1(i,j) = f0*exp(-zz)
+         END DO
+      END DO
+      CALL rfftwnd_f77_one_real_to_complex(planrc,r1,c1)
+      DO i = 1,n/2+1
+         DO j = 1,n
+            fk(i,j) = 0.0
+         END DO
+      END DO
+      DO jj=1,10
+         phase1 = 2*pi*randu(seed)
+         radius = sqrt(abs(randu(seed)))/kdn
+         tmp1= radius*sin(phase1)
+         tmp2= radius*cos(phase1)
+         amp = randu(seed)
+         CALL shift(c1,c2,tmp1,tmp2)
+         DO i = 1,n/2+1
+            DO j = 1,n
+               fk(i,j) = fk(i,j) +amp*c2(i,j)
+            END DO
+         END DO
+         phase1 = 2*pi*randu(seed)
+         radius = sqrt(abs(randu(seed)))/kdn
+         tmp1= radius*sin(phase1)
+         tmp2= radius*cos(phase1)
+         CALL shift(c1,c2,tmp1,tmp2)
+         DO i = 1,n/2+1
+            DO j = 1,n
+               fk(i,j) = fk(i,j) -amp*c2(i,j)
+            END DO
+         END DO
+      END DO  !! jj
+      DO i = 1,n/2+1
+         DO j = 1,n
+            IF (ka2(i,j).ge.0.1) THEN
+               fk(i,j) = fk(i,j)/ka2(i,j)
+            ELSE
+               fk(i,j) = 0.0d0
+            ENDIF
+         END DO
+      END DO
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    ENDIF
    RETURN
 END SUBROUTINE forcing

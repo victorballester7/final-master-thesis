@@ -18,7 +18,7 @@ def readslice(inputfilename, nx, ny):
 
 input_dir = 'data/simple_2DNS/output/'
 output_dir = 'images/simple_2DNS/'
-STR = 'ww.'
+STR = 'fw.'
 num_procs = 1
 outnum_st = 1
 outnum_nd = 400

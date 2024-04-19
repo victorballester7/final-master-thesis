@@ -16,8 +16,8 @@ def readslice(inputfilename, nx, ny):
     return field
 
 
-input_dir = 'data/output/'
-output_dir = 'images/'
+input_dir = './data/output/'
+output_dir = './images/'
 STR = 'ww.'
 num_procs = 1
 outnum_st = 1
@@ -44,9 +44,8 @@ for ion in range(outnum_st, outnum_nd):
         print('#', islice, 'hd2D' + STR + str("%03d" %
                                               islice) + '.' + str("%03d" %
                                                                   outnum) + '.out', size(data1))
-        filename = os.path.join(script_dir, '../../' + input_dir + 'hd2D' + STR + str("%03d" %
-                                                                                      islice) + '.' + str("%03d" %
-                                                                                                          outnum) + '.out')
+        filename = input_dir + 'hd2D' + STR + \
+            str("%03d" % islice) + '.' + str("%03d" % outnum) + '.out'
         f = open(filename, 'rb')
         f.seek(4)
         data1 = np.fromfile(f, dtype='d', count=int(nx * (ny + 1)))
@@ -61,9 +60,8 @@ for ion in range(outnum_st, outnum_nd):
         print('#', islice, 'hd2D' + STR + str("%03d" %
                                               islice) + '.' + str("%03d" %
                                                                   outnum) + '.out', size(data1))
-        filename = os.path.join(script_dir, '../../' + input_dir + 'hd2D' + STR + str("%03d" %
-                                                                                      islice) + '.' + str("%03d" %
-                                                                                                          outnum) + '.out')
+        filename = input_dir + 'hd2D' + STR + \
+            str("%03d" % islice) + '.' + str("%03d" % outnum) + '.out'
         f = open(filename, 'rb')
         f.seek(4)
         data1 = np.fromfile(f, dtype='d', count=int(nx * (ny)))
@@ -81,10 +79,7 @@ for ion in range(outnum_st, outnum_nd):
     # im1 = plt.imshow(data2, cmap=cm.hot)
     im1 = plt.imshow(tanh(0.02 * data2), cmap=cm.rainbow)
     # cbar1 = plt.colorbar(im1)
-    filename = os.path.join(script_dir, '../../' + output_dir + 'FlowD_' +
-                            STR +
-                            str("%03d" %
-                                outnum) +
-                            '.png')  # % (dtemp,stemp,qname))
+    filename = output_dir + 'FlowD_' + STR + \
+        str("%03d" % outnum) + '.png'  # % (dtemp,stemp,qname))
     plt.savefig(filename)
     # plt.show()
