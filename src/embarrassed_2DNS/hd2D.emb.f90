@@ -243,7 +243,7 @@ PROGRAM HD2D
       times = sstep
 
 !STREAM FUNCTION R1
-      CALL initialcond(ps,myseed)
+      CALL initialcond(iflow,u0,kup,kdn,dt,seed,myseed,ps)
       CALL energy(ps,ener,1)
       tmp1=u0/sqrt(ener)
       DO j = 1,n
@@ -293,9 +293,8 @@ PROGRAM HD2D
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,myseed,fk)
       ! CALL energy(fk,enerk,1)
-      ! tmp1=f0/sqrt(0.5*enerk*dt)*randu(seed)
       CALL energy(fk,enerk,1)
-      tmp1 = f0/sqrt(enerk)
+      tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
       fk  = tmp1*fk
       ! DO j = 1,n
       !    DO i = 1,n/2+1
@@ -310,7 +309,7 @@ PROGRAM HD2D
 
 ! Every 'cstep' steps, generates external files
 ! to check consistency and convergency. See the
-! mhdcheck subroutine for details.
+! hdcheck subroutine for details.
 
       IF (timec.eq.cstep) THEN
          timec = 0
@@ -341,7 +340,7 @@ PROGRAM HD2D
          d = char(jd)
          u = char(ju)
          ext = c // d // u
-         CALL spectrum(ps,ext,1,node,ldir)
+         CALL spectrum(ps,ext,node,ldir)
          CALL EnergyEnstropy_profiles(ps,p,ext,node,ldir)
          CALL laplak2(ps,C1)     ! make W
          CALL vectrans(ps,ps,C1,'euu',ext,node,ldir)
@@ -400,7 +399,7 @@ PROGRAM HD2D
                   ! ==> y_{n+1}=e^(A*dt)[y_n + b(y_n)dt]
                   C1(i,j) = (ps(i,j)+ dt*( - C1(i,j)/ka2(i,j)  &
                      + fk(i,j))/dble(o))
-                  tmp    = exp(-(-mu/ka2(i,j)**imu+nu*ka2(i,j)**inu)*dt/dble(o))
+                  tmp    = exp(-(mu/ka2(i,j)**imu+nu*ka2(i,j)**inu)*dt/dble(o))
                   !! tmp     = 1.0D0 /(1.0d0 + (-mu/ka2(j,i)**imu+nu*ka2(j,i)**inu)*dt/dble(o))
                   C1(i,j) = C1(i,j) *tmp
                ELSE

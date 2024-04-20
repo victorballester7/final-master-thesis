@@ -19,11 +19,11 @@ def readslice(inputfilename, nx, ny):
 dir = './data/output/'
 output_dir = './images/'
 STR = 'ww.'
-num_procs = 40
+num_procs = 1
 outnum_st = 1
 outnum_nd = 20
 outnum = 6
-reso = 512
+reso = 256
 nx = reso
 ny = int(reso / num_procs)
 cut = reso - ny * num_procs

@@ -10,11 +10,6 @@
 ! NOTATION: index 'i' is 'x'
 !           index 'j' is 'y'
 !
-! 2003 Pablo D. Mininni.
-!      Department of Physics,
-!      Facultad de Ciencias Exactas y Naturales.
-!      Universidad de Buenos Aires.
-!      e-mail: mininni@df.uba.ar
 !=================================================================
 
 !*****************************************************************
@@ -33,7 +28,6 @@ SUBROUTINE derivk2(a,b,dir)
    USE kes
    USE var
    USE grid
-!      USE mpivars
    IMPLICIT NONE
 
    DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: a,b
@@ -91,7 +85,7 @@ SUBROUTINE laplak2(a,b)
    INTEGER :: i,j
 
    DO j = 1,n
-      DO i = 1,n/2+1
+      DO i = 1,n/2+ 1
          IF ((ka2(i,j).le.kmax2).and.(ka2(i,j).ge.tiny)) THEN
             b(i,j) = -ka2(i,j)*a(i,j)
          ELSE
@@ -115,7 +109,6 @@ SUBROUTINE poisson(a,b,c)
 !     b: input matrix
 !     c: Poisson bracket {A,B} [output]
 !
-!      USE mpivars
    USE kes
    USE ali
    USE grid
@@ -132,8 +125,6 @@ SUBROUTINE poisson(a,b,c)
 !
    CALL derivk2(a,c1,1)
    CALL derivk2(b,c2,2)
-!     CALL fftp2d_complex_to_real(plancr,c1,r1,MPI_COMM_WORLD)
-!     CALL fftp2d_complex_to_real(plancr,c2,r2,MPI_COMM_WORLD)
    CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r1)
    CALL rfftwnd_f77_one_complex_to_real(plancr, c2, r2)
    DO j = 1,n
@@ -147,8 +138,6 @@ SUBROUTINE poisson(a,b,c)
 !
    CALL derivk2(a,c1,2)
    CALL derivk2(b,c2,1)
-!     CALL fftp2d_complex_to_real(plancr,c1,r1,MPI_COMM_WORLD)
-!     CALL fftp2d_complex_to_real(plancr,c2,r2,MPI_COMM_WORLD)
    CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r1)
    CALL rfftwnd_f77_one_complex_to_real(plancr, c2, r2)
    DO j = 1,n
@@ -156,7 +145,6 @@ SUBROUTINE poisson(a,b,c)
          r3(i,j) = (r3(i,j)-r1(i,j)*r2(i,j))/dble(n)**4
       END DO
    END DO
-!     CALL fftp2d_real_to_complex(planrc,r3,c,MPI_COMM_WORLD)
    CALL rfftwnd_f77_one_real_to_complex(planrc, r3, c)
    DO j = 1,n
       DO i = 1,n/2+1
@@ -172,14 +160,12 @@ END SUBROUTINE poisson
 SUBROUTINE energy(a,b,kin)
 !-----------------------------------------------------------------
 !
-! Computes the mean kinetic or magnetic energy in 2D,
-! and the mean square current density or vorticity.
-! The output is valid only in the first node.
+! Computes the energy, vorticity or square of the scalar field
 !
 ! Parameters
 !     a  : input matrix with the scalar field
 !     b  : at the output contains the energy
-!     kin: =2 computes the square of the scalar field
+!     kin: =2 computes the square of the scalar field (~streamfunction)
 !          =1 computes the energy
 !          =0 computes the current or vorticity
 !
@@ -200,13 +186,6 @@ SUBROUTINE energy(a,b,kin)
 
    tmp = 1./dble(n)**4 ! Normalization factor n^2 for FFT and we have to square it because the field is raised to the power of 2
 
-!
-! Computes the square of the scalar field
-!
-! Computes the energy
-!
-! Computes the current or vorticity
-!
    DO j = 1,n
       DO i = 1,n/2+1
          dbl  = 2.0d0
@@ -217,16 +196,10 @@ SUBROUTINE energy(a,b,kin)
       END DO
    END DO
    b=bloc
-!
-! Computes the reduction between nodes
-!
-!      CALL MPI_REDUCE(bloc,b,1,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
-!                      MPI_COMM_WORLD,ierr)
 
    RETURN
 END SUBROUTINE energy
 
-!###############################
 !*****************************************************************
 SUBROUTINE inerprod(a,b,kin,rslt)
 !-----------------------------------------------------------------
@@ -237,7 +210,6 @@ SUBROUTINE inerprod(a,b,kin,rslt)
 
    USE kes
    USE grid
-!      USE mpivars
    USE ali
 
    IMPLICIT NONE
@@ -249,7 +221,7 @@ SUBROUTINE inerprod(a,b,kin,rslt)
    INTEGER :: i,j
 
    tmp = 0.0d0
-   tmq = 1./dble(n)**4
+   tmq = 1./dble(n)**4 ! Normalization factor n^2 for FFT and we have to square it because we have two fields
 
    DO j = 1,n
       DO i = 1,n/2+1
@@ -261,8 +233,6 @@ SUBROUTINE inerprod(a,b,kin,rslt)
       END DO
    END DO
    rslt=tmp
-!      CALL MPI_REDUCE(tmp,rslt,1,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
-!                      MPI_COMM_WORLD,ierr)
 
    RETURN
 END SUBROUTINE inerprod
@@ -279,6 +249,14 @@ SUBROUTINE hdcheck(a,b,t,inu,nu,imu,mu,eng,ens,node,dir)
 !     a  : streamfunction
 !     b  : external force
 !     t  : time
+!     inu: power of the laplacian for the viscosity
+!     nu : viscosity
+!     imu: power of the laplacian for the hypo-viscosity
+!     mu : hypo-viscosity
+!     eng: at the output contains the kinetic energy
+!     ens: at the output contains the enstrophy
+!    node: node name of the core
+!     dir: directory where the results are stored
 !
    USE kes
    USE grid
@@ -314,7 +292,6 @@ SUBROUTINE hdcheck(a,b,t,inu,nu,imu,mu,eng,ens,node,dir)
 !
 ! Creates external files to store the results
 !
-!      IF (myrank.eq.0) THEN
    OPEN(1,file=trim(dir)//'/energy_bal.'//node//'.txt',position='append')
    WRITE(1,20) t,eng,nu*deng,mu*heng,feng
 20 FORMAT( E22.14,E22.14,E22.14,E22.14,E22.14 )
@@ -323,13 +300,12 @@ SUBROUTINE hdcheck(a,b,t,inu,nu,imu,mu,eng,ens,node,dir)
    WRITE(1,21) t,ens,nu*dens,mu*hens,fens
 21 FORMAT( E22.14,E22.14,E22.14,E22.14,E22.14 )
    CLOSE(1)
-!      ENDIF
    RETURN
 END SUBROUTINE hdcheck
 
 
 !*****************************************************************
-SUBROUTINE spectrum(a,ext,kin,node,dir)
+SUBROUTINE spectrum(a,ext,node,dir)
 !-----------------------------------------------------------------
 !
 ! Computes the energy power spectrum in 2D.
@@ -338,12 +314,11 @@ SUBROUTINE spectrum(a,ext,kin,node,dir)
 ! Parameters
 !     a  : streamfunction or vector potential
 !     ext: the extension used when writting the file
-!     kin: =1 computes the kinetic spectrum
-!          =0 computes the magnetic spectrum
+!    node: node name of the core
+!     dir: directory where the results are stored
 !
    USE kes
    USE grid
-!      USE mpivars
    IMPLICIT NONE
 
    DOUBLE PRECISION, DIMENSION(n/2+1)        :: Ek
@@ -362,36 +337,26 @@ SUBROUTINE spectrum(a,ext,kin,node,dir)
    DO i = 1,n/2+1
       Ek(i) = 0.0d0
    END DO
-!
-! Computes the energy spectrum
-!
+
+
+   ! Computes the velocity energy spectrum
+
    tmp = 1.0d0/dble(n)**4
    DO j = 1,n
       DO i = 1,n/2+1
          dbl = 2.0d0
          IF (i.eq.1) dbl=1.0d0
-         kmn = int(sqrt(ka2(i,j))+.5d0)
+         kmn = int(sqrt(ka2(i,j))+.5d0) ! we add 0.5 to prevent kmn from being 0
          IF ((kmn.gt.0).and.(kmn.le.n/2+1)) THEN
             Ek(kmn) = Ek(kmn)+dbl*ka2(i,j)*abs(a(i,j))**2*tmp
          ENDIF
       END DO
    END DO
-!
-! Computes the reduction between nodes
-! and exports the result to a file
-!
-!      CALL MPI_REDUCE(Ek,Ektot,n/2+1,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
-!                      MPI_COMM_WORLD,ierr)
-!      IF (myrank.eq.0) THEN
-   IF (kin.eq.1) THEN
-      OPEN(1,file=trim(dir)//'/kspectrum/kspectrum.'//node//'.' // ext // '.txt')
-   ELSE
-      OPEN(1,file=trim(dir)//'/mspectrum/mspectrum.'//node//'.' // ext // '.txt')
-   ENDIF
+
+   OPEN(1,file=trim(dir)//'/kspectrum/kspectrum.'//node//'.' // ext // '.txt')
    WRITE(1,20) Ek
 20 FORMAT( E23.15 )
    CLOSE(1)
-!      ENDIF
 
    RETURN
 END SUBROUTINE spectrum
@@ -400,9 +365,7 @@ END SUBROUTINE spectrum
 SUBROUTINE vectrans(a,b,c,ext1,ext2,node,dir)
 !-----------------------------------------------------------------
 !
-! Computes the square vector potential transfer in
-! Fourier space in 2D MHD. The output is written
-! to a file by the first node.
+! Computes the square vector potential transfer in Fourier space in 2D HD. The output is written to a file by the first node.
 !
 ! Parameters
 !     a  : streamfunction
@@ -411,7 +374,6 @@ SUBROUTINE vectrans(a,b,c,ext1,ext2,node,dir)
 !
    USE kes
    USE grid
-!      USE mpivars
    IMPLICIT NONE
 
    DOUBLE PRECISION, DIMENSION(n/2+1)        :: Ek
@@ -444,17 +406,12 @@ SUBROUTINE vectrans(a,b,c,ext1,ext2,node,dir)
       END DO
    END DO
 !
-! Computes the reduction between nodes
-! and exports the result to a file
-!
-!      CALL MPI_REDUCE(Ek,Ektot,n/2+1,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
-!                      MPI_COMM_WORLD,ierr)
-!      IF (myrank.eq.0) THEN
+! Computes the reduction between nodes and exports the result to a file
+
    OPEN(1,file=trim(dir)//'/vectrans/vectrans_'// ext1 //'.'//node//'.' // ext2 // '.txt')
    WRITE(1,20) Ek
 20 FORMAT( E23.15 )
    CLOSE(1)
-!      ENDIF
 
    RETURN
 END SUBROUTINE vectrans
@@ -469,6 +426,8 @@ SUBROUTINE shift(a,b,dx,dy)
 ! Parameters
 !     a  : input matrix
 !     b  : output
+!     dx : displacement in the x-direction
+!     dy : displacement in the y-direction
 !
    USE ali
    USE kes
@@ -480,8 +439,8 @@ SUBROUTINE shift(a,b,dx,dy)
    DOUBLE PRECISION        :: dx,dy
    INTEGER :: i,j
 
-   DO i = 1,n/2+1
-      DO j = 1,n
+   DO j = 1,n
+      DO i = 1,n/2+1
          b(i,j) = a(i,j) *exp(-im*(ka(i)*dx+ka(j)*dy))
       END DO
    END DO
@@ -489,54 +448,67 @@ SUBROUTINE shift(a,b,dx,dy)
    RETURN
 END SUBROUTINE shift
 
-
 !*****************************************************************
-SUBROUTINE initialcond(a,seed)
+SUBROUTINE CFL_condition(cfl,c1,inu,nu,dt)
 !-----------------------------------------------------------------
-! a is the streamfunction
-! seed is the seed for the random number generator
-   USE var
+
+! Parameters
+!     cfl : cfl factor
+!      c1 : stream fun
+!     inu : power of the laplacian
+!      nu : viscosity
+!      dt : time step
+
    USE kes
    USE ali
    USE grid
-   USE random
    USE fft
    IMPLICIT NONE
-   DOUBLE COMPLEX, DIMENSION(n/2+1,n)     :: a
-   DOUBLE PRECISION, DIMENSION(n,n)   :: R1
-   INTEGER :: i,j,jj,ki
-   INTEGER :: seed
-   DOUBLE PRECISION :: phase1,phase2,phase3,phase4
 
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: c1,c3,c4
+   DOUBLE PRECISION, DIMENSION(n,n)    :: r1,r2,r3
+   INTEGER :: i,j,inu
+   DOUBLE PRECISION        :: tmp,dt,nu,cfl
+   DOUBLE PRECISION        :: tmp1,kcut,nrm
+
+   kcut=(dble(n)/3.0d0)
+   nrm=(dble(n))**2
+   CALL derivk2(c1,c3,1)
+   CALL derivk2(c1,c4,2)
+   CALL rfftwnd_f77_one_complex_to_real(plancr,c3,r1)
+   CALL rfftwnd_f77_one_complex_to_real(plancr,c4,r2)
    DO j = 1,n
       DO i = 1,n
-         R1(i,j) = 0.0d0
+         r3(i,j) = r1(i,j)*r1(i,j)+r2(i,j)*r2(i,j) ! u^2+v^2
       END DO
    END DO
-   DO ki=1,5
-      DO j = 1,n
-         DO i = 1,n
-            phase1=randu(seed)
-            phase2=randu(seed)
-            phase3=randu(seed)
-            phase4=randu(seed)
-            R1(i,j) = R1(i,j)                                &
-               + 1.0d0*sin(2.0d0*ki *pi*(dble(i)-1)/dble(n)+phase1) &
-               + 1.0d0*sin(2.0d0*ki *pi*(dble(j)-1)/dble(n)+phase2) &
-               + 1.0d0*sin(2.0d0*ki *pi*(dble(i)-1)/dble(n)+phase3) &
-               * 1.0d0*sin(2.0d0*ki *pi*(dble(j)-1)/dble(n)+phase4)
-         END DO
-      END DO
-   ENDDO
-   CALL rfftwnd_f77_one_real_to_complex(planrc, R1, a)
-   RETURN
+   tmp1=maxval(r3)
+   ! think of dx = 1/kcut
+   ! 1st CFL condition (advection): CFL * dx/dt >= max_speed
+   ! 2nd CFL condition (diffusion): nu * dt/dx^(2*inu) <= CFL  ==> CFL * dx/dt >= nu * kcut^(2*inu-1)
 
-END SUBROUTINE initialcond
-!-----------------------------------------------------------------
+   ! so we take CFL * dx/dt >= max_speed + nu * kcut^(2*inu-1)
+   tmp=sqrt(tmp1)/nrm+nu*kcut**(2*inu-1)
+   dt = cfl/(kcut*tmp)
+
+   RETURN
+END SUBROUTINE CFL_condition
+
+
+
 
 !*****************************************************************
-SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
-!-----------------------------------------------------------------
+SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
+   !-----------------------------------------------------------------
+   ! Sets the forcing term for the streamfunction
+! Parameters
+! iflow : type of forcing
+! f0    : amplitude of the forcing
+! kup   : 1st wavenumber of the forcing
+! kdn   : 2nd wavenumber of the forcing
+! seed: the seed for the random number generator (global)
+! myseed: the seed for the random number generator (local for each core)
+! fk    : where the forcing is stored
 
    USE var
    USE kes
@@ -548,40 +520,14 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
 
    DOUBLE COMPLEX, DIMENSION(n/2+1,n)     :: fk,c1,c2
    DOUBLE PRECISION, DIMENSION(n,n)   :: r1
-   INTEGER :: i,j,jj,iflow,ikup
-   INTEGER :: seed
-   DOUBLE PRECISION        :: f0,kup,kdn,zz,zx,zy,kf
-   DOUBLE PRECISION        :: tmp,tmp1,tmp2
-   DOUBLE PRECISION        :: phase1,phase2,dkup
+   INTEGER :: i,j,jj,iflow
+   INTEGER :: seed,myseed
+   DOUBLE PRECISION        :: f0,kup,kdn,zz
+   DOUBLE PRECISION        :: tmp1,tmp2,amp,radius
+   DOUBLE PRECISION        :: phase1,phase2
 
-   kf=0.5d0*dble(kup+kdn)
-   !if (myrank.eq.0) print*,"DBG pseudo: * iflow=",iflow,f0,kf
-!!!!!!!  STEADY FORCING  !!!!!!!!!!!
-   IF (iflow.eq.0) THEN
-      DO j = 1,n
-         DO i = 1,n
-            r1(i,j) = sin(2*kup*pi*(dble(i)-1)/dble(n)) &
-               * sin(2*kdn*pi*(dble(j)-1)/dble(n))
-         END DO
-      END DO
-      CALL rfftwnd_f77_one_real_to_complex(planrc,r1,fk)
-      CALL energy(fk,tmp1,1)
-      tmp=f0/sqrt(tmp1)! ==> sum k^2 fk^2=f0^2
-      DO i = 1,n/2+1
-         DO j = 1,n
-            IF ((ka2(i,j).le.kmax2).and.(ka2(i,j).ge.tiny)) THEN
-               fk(i,j) = tmp*fk(i,j)
-            ELSE
-               fk(i,j) = 0.0d0
-            ENDIF
-         END DO
-      END DO
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      !!! (4) DISK of FIRE !!!!
-   ELSE IF (iflow.eq.3) THEN
-      !if (myrank.eq.0) print*,"DBG pseudo: iflow=",iflow,f0,kf
-      ikup = 2*int(kf)+1
-      dkup = dble(kf)/2
+   !!! (4) RING of FIRE !!!!
+   IF (iflow.eq.4) THEN
       DO j = 1,n
          DO i = 1,n
             zz=(2*pi*(dble(i-n/2)-1)/dble(n))**2
@@ -592,81 +538,35 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
          END DO
       END DO
       CALL rfftwnd_f77_one_real_to_complex(planrc,r1,c1)
-      DO i = 1,n/2+1
-         DO j = 1,n
-            fk(i,j) = 0.0
-         END DO
-      END DO
-      DO jj=1,10
-         phase1 = 2*pi*randu(seed)
-         tmp1= pi/kdn/2*sin(phase1)
-         tmp2= pi/kdn/2*cos(phase1)
-         CALL shift(c1,c2,tmp1,tmp2)
-         DO i = 1,n/2+1
-            DO j = 1,n
-               fk(i,j) = fk(i,j) +c2(i,j)
-            END DO
-         END DO
-         tmp1= -tmp1
-         tmp2= -tmp2
-         CALL shift(c1,c2,tmp1,tmp2)
-         DO i = 1,n/2+1
-            DO j = 1,n
-               fk(i,j) = fk(i,j) -c2(i,j)
-            END DO
-         END DO
-      END DO  !! jj
-      DO i = 1,n/2+1
-         DO j = 1,n
-            IF (ka2(i,j).ge.0.1) THEN
-               fk(i,j) = fk(i,j)/ka2(i,j)
-            ELSE
-               fk(i,j) = 0.0d0
-            ENDIF
-         END DO
-      END DO
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      !!! (4) RING of FIRE !!!!
-   ELSE IF (iflow.eq.4) THEN
-      !if (myrank.eq.0) print*,"DBG pseudo: iflow=",iflow,f0,kf
-      ikup = 2*int(kf)+1
-      dkup = dble(kf)/2
       DO j = 1,n
-         DO i = 1,n
-            zz=(2*pi*(dble(i-n/2)-1)/dble(n))**2
-            zz=(2*pi*(dble(j-n/2)-1)/dble(n))**2+zz
-            zz=0.5d0*kup*kup*zz
-            if (zz.gt.80.d0) zz=80.0d0
-            r1(i,j) = f0*exp(-zz)
-         END DO
-      END DO
-      CALL rfftwnd_f77_one_real_to_complex(planrc,r1,c1)
-      DO i = 1,n/2+1
-         DO j = 1,n
+         DO i = 1,n/2+1
             fk(i,j) = 0.0
          END DO
       END DO
       DO jj=1,10
          phase1 = 2*pi*randu(seed)
-         tmp1= pi/kdn/2*sin(phase1)
-         tmp2= pi/kdn/2*cos(phase1)
+         radius = pi/kdn
+         tmp1= radius*sin(phase1)
+         tmp2= radius*cos(phase1)
+         amp = randu(seed)
          CALL shift(c1,c2,tmp1,tmp2)
-         DO i = 1,n/2+1
-            DO j = 1,n
-               fk(i,j) = fk(i,j) +c2(i,j)
+         DO j = 1,n
+            DO i = 1,n/2+1
+               fk(i,j) = fk(i,j) +amp*c2(i,j)
             END DO
          END DO
-         tmp1= -tmp1
-         tmp2= -tmp2
+         phase1 = 2*pi*randu(seed)
+         tmp1= radius*sin(phase1)
+         tmp2= radius*cos(phase1)
          CALL shift(c1,c2,tmp1,tmp2)
-         DO i = 1,n/2+1
-            DO j = 1,n
-               fk(i,j) = fk(i,j) -c2(i,j)
+         DO j = 1,n
+            DO i = 1,n/2+1
+               fk(i,j) = fk(i,j) -amp*c2(i,j)
             END DO
          END DO
       END DO  !! jj
-      DO i = 1,n/2+1
-         DO j = 1,n
+      DO j = 1,n
+         DO i = 1,n/2+1
             IF (ka2(i,j).ge.0.1) THEN
                fk(i,j) = fk(i,j)/ka2(i,j)
             ELSE
@@ -674,10 +574,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
             ENDIF
          END DO
       END DO
-  ELSE IF (iflow.eq.5) THEN
-      !if (myrank.eq.0) print*,"DBG pseudo: iflow=",iflow,f0,kf
-!         ikup = 2*int(kf)+1
-!         dkup = dble(kup)/2
+   ELSE IF (iflow.eq.5) THEN
       DO j = 1,n
          DO i = 1,n
             zz=(2*pi*(dble(i-n/2)-1)/dble(n))**2
@@ -718,18 +615,59 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
       END DO  !! jj
       DO i = 1,n/2+1
          DO j = 1,n
-            IF (ka2(i,j).ge.0.1) THEN
-               fk(i,j) = fk(i,j)/ka2(i,j)
+            IF ((ka2(i,j).le.kmax2).and.(ka2(i,j).ge.tiny)) THEN
+               fk(i,j) = fk(i,j)/ka2(i,j) ! we want streamfunction forcing
             ELSE
                fk(i,j) = 0.0d0
             ENDIF
          END DO
       END DO
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
+   ELSE IF (iflow.gt.5) THEN
+      DO j = 1,n
+         DO i = 1,n/2+1
+            fk(i,j) = 0.0d0
+         END DO
+      END DO
    ENDIF
    RETURN
 END SUBROUTINE forcing
 
+ !*****************************************************************
+SUBROUTINE initialcond(iflow,u0,kup,kdn,seed,myseed,a)
+   !-----------------------------------------------------------------
+   ! Sets the initial condition for the streamfunction
+! Parameters
+! iflow : type of forcing
+! u0    : amplitude of the initial condition
+! kup   : 1st wavenumber of the forcing
+! kdn   : 2nd wavenumber of the forcing
+! seed: the seed for the random number generator (global)
+! myseed: the seed for the random number generator (local for each core)
+! a     : streamfunction
+
+   USE var
+   USE kes
+   USE ali
+   USE grid
+   USE random
+   USE fft
+   IMPLICIT NONE
+   DOUBLE COMPLEX, DIMENSION(n/2+1,n)     :: a
+   INTEGER :: seed, myseed, iflow, i,j
+   DOUBLE PRECISION :: u0,kup,kdn,tmp1,enerk
+
+   CALL forcing(iflow,u0,kup,kdn,seed,myseed,a)
+   CALL energy(a,enerk,1)
+   tmp1=u0/sqrt(enerk) ! we normalize the energy injection rate, not the forcing amplitude
+   DO j = 1,n
+      DO i = 1,n/2+1
+         a(i,j) = tmp1*a(i,j)
+      END DO
+   END DO
+   RETURN
+
+END SUBROUTINE initialcond
+ !-----------------------------------------------------------------
 
 !*****************************************************************
 SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
@@ -740,10 +678,10 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
 !
 ! Parameters
 !     a  : streamfunction or vector potential
-!     w  : vorticity
 !     p  : p-th moment of the field (p=2 for the usual energy and enstrophy)
 !     ext: the extension used when writting the file
-!
+!   node: node name of the core
+!     dir: directory where the results are stored
    USE kes
    USE grid
    USE fft
@@ -797,8 +735,8 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
    CALL laplak2(a,c1)     ! make W = vorticity
    CALL rfftwnd_f77_one_complex_to_real(plancr, c1, r3)
 
-   DO i = 1,n
-      DO j = 1,n
+   DO j = 1,n
+      DO i = 1,n
          r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
          r = r+1 ! to avoid the zero radius
          E_R(r) = E_R(r) + (r1(i,j)**2 + r2(i,j)**2)**(p/2)
@@ -815,11 +753,11 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
       ENDIF
    END DO
 
-   OPEN(1,file=trim(dir)//'/EnergyProf/Energy.' // trim(p_str)// '.'//node//'.'// ext // '.txt')
+   OPEN(1,file=trim(dir)//'/EnergyProf/Energy.p=' // trim(p_str)// '.'//node//'.'// ext // '.txt')
    WRITE(1,20) E_R
 20 FORMAT( E23.15 )
    CLOSE(1)
-   OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.'// trim(p_str)//'.' //node//'.' // ext // '.txt')
+   OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.p='// trim(p_str)//'.' //node//'.' // ext // '.txt')
    WRITE(1,24) W_R
 24 FORMAT( E23.15 )
    CLOSE(1)
@@ -835,10 +773,12 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
 ! The output is written to a file containing only one column, corresponding to the energy at each radius.
 !
 ! Parameters
-!     a  : streamfunction
-!     p  : p-th moment of the field (p=2 for the usual energy and enstrophy)
-!     ext: the extension used when writting the file
-!
+!     a : streamfunction
+!    f  : forcing term in the streamfunction
+!     p : p-th moment of the field (p=2 for the usual energy and enstrophy)
+!    ext: the extension used when writting the file
+!   node: node name of the core
+!    dir: directory where the results are stored
    USE kes
    USE grid
    USE fft
@@ -852,8 +792,8 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
    CHARACTER*3 :: ext,node
    CHARACTER*100 :: dir
 
-   DO i = 1,n/2+1
-      DO j = 1,n
+   DO j = 1,n
+      DO i = 1,n/2+1
          C1(i,j) = a(i,j)/dble(n)**2 ! normalizes for the FFT
       END DO
    END DO
@@ -861,8 +801,8 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
    OPEN(1,file=trim(dir) // '/output/hd2Dps.' // node // '.'// ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
-   DO i = 1,n/2+1
-      DO j = 1,n
+   DO j = 1,n
+      DO i = 1,n/2+1
          C1(i,j) = a(i,j)*ka2(i,j)/dble(n)**2
       END DO
    END DO
@@ -870,8 +810,8 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
    OPEN(1,file=trim(dir) // '/output/hd2Dww.' // node // '.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
-   DO i = 1,n/2+1
-      DO j = 1,n
+   DO j = 1,n
+      DO i = 1,n/2+1
          C1(i,j) = f(i,j)*ka2(i,j)/dble(n)**2
       END DO
    END DO
@@ -879,8 +819,8 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
    OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // node // '.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
-   DO i = 1,n/2+1
-      DO j = 1,n
+   DO j = 1,n
+      DO i = 1,n/2+1
          C1(i,j) = f(i,j)/dble(n)**2
       END DO
    END DO
@@ -891,47 +831,3 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
    RETURN
 END SUBROUTINE outputfields
 !*****************************************************************
-
-!*****************************************************************
-SUBROUTINE CFL_condition(cfl,c1,inu,nu,dt)
-!-----------------------------------------------------------------
-
-!        Parameters
-!     cfl :cfl factor
-!      c1 : stream fun
-   !  USE mpivars
-   USE kes
-   USE ali
-   USE grid
-   USE fft
-   IMPLICIT NONE
-
-   DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: c1,c3,c4
-   DOUBLE PRECISION, DIMENSION(n,n)    :: r1,r2,r3
-   INTEGER :: i,j,inu
-   DOUBLE PRECISION        :: tmp,dt,nu,cfl
-   DOUBLE PRECISION        :: tmp1,kcut,nrm
-
-   kcut=(dble(n)/3.0d0)
-   nrm=(dble(n))**2
-   CALL derivk2(c1,c3,1)
-   CALL derivk2(c1,c4,2)
-   CALL rfftwnd_f77_one_complex_to_real(plancr,c3,r1)
-   CALL rfftwnd_f77_one_complex_to_real(plancr,c4,r2)
-   DO j = 1,n
-      DO i = 1,n
-         r3(i,j) = r1(i,j)*r1(i,j)+r2(i,j)*r2(i,j) ! u^2+v^2
-      END DO
-   END DO
-   tmp1=maxval(r3)
-   ! think of dx = 1/kcut
-   ! 1st CFL condition (advection): CFL * dx/dt >= max_speed
-   ! 2nd CFL condition (diffusion): nu * dt/dx^(2*inu) <= CFL  ==> CFL * dx/dt >= nu * kcut^(2*inu-1)
-
-   ! so we take CFL * dx/dt >= max_speed + nu * kcut^(2*inu-1)
-   tmp=sqrt(tmp1)/nrm+nu*kcut**(2*inu-1)
-   dt = cfl/(kcut*tmp)
-   !! if (myrank.eq.0) print*,"*",myrank,dt,cfl,tmp,sqrt(tmp1)/nrm,nu*kcut**(2*inu-1)
-
-   RETURN
-END SUBROUTINE CFL_condition
