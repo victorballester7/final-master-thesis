@@ -5,6 +5,7 @@ cd $DIR
 make clean dist
 make hd2D
 
+cp clean.sh RUNFILES/
 cp hd2D RUNFILES/
 cp jobscriptMPI.slurm RUNFILES/
 cp input.prm RUNFILES/
@@ -13,5 +14,5 @@ cp Vis2Db.py RUNFILES/
 
 cp RUNFILES/* $WORK/embarrassed_2DNS/
 
-cd $WORK/spread_2DNS
+cd $WORK/embarrassed_2DNS
 ./clean.sh

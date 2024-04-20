@@ -164,6 +164,31 @@ PROGRAM HD2D
       READ(1,*) p                        ! 18
       READ(1,'(a100)') ldir              ! 19
       CLOSE(1)
+
+      OPEN(1,file=trim(ldir) // '/dim.txt')
+      WRITE(1,*) n
+      CLOSE(1)
+
+      print*, "dim    =",n      !  0
+      print*, "cfl    =",cfl    !  1
+      print*, "step   =",step   !  2
+      print*, "tstep  =",tstep  !  3
+      print*, "sstep  =",sstep  !  4
+      print*, "cstep  =",cstep  !  5
+      print*, "f0     =",f0     !  6
+      print*, "u0     =",u0     !  7
+      print*, "kdn    =",kdn    !  8
+      print*, "kup    =",kup    !  9
+      print*, "nu     =",nu     ! 10
+      print*, "inu    =",inu    ! 11
+      print*, "mu     =",mu    ! 12
+      print*, "imu    =",imu    ! 13
+      print*, "iflow  =",iflow  ! 14
+      print*, "seed   =",seed   ! 15
+      print*, "prm1   =",prm1   ! 16
+      print*, "prm2   =",prm2   ! 17
+      print*, "p      =",p      ! 18
+      print*, "ldir   =",trim(ldir)   ! 19
    ENDIF
 
    CALL MPI_BCAST(  CFL,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr) ! 1
@@ -193,10 +218,10 @@ PROGRAM HD2D
 
    ic = 48
    id = 48
-   iu = 48
+   iu = 48-1
    jc = 48
    jd = 48
-   ju = 48
+   ju = 48-1
 
 !
 ! Some constants for the FFT
@@ -243,7 +268,7 @@ PROGRAM HD2D
       times = sstep
 
 !STREAM FUNCTION R1
-      CALL initialcond(iflow,u0,kup,kdn,dt,seed,myseed,ps)
+      CALL initialcond(iflow,u0,kup,kdn,seed,myseed,ps)
       CALL energy(ps,ener,1)
       tmp1=u0/sqrt(ener)
       DO j = 1,n
@@ -291,8 +316,7 @@ PROGRAM HD2D
       CALL CFL_condition(CFL,ps,inu,nu,dt)
 
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
-      CALL forcing(iflow,f0,kup,kdn,myseed,fk)
-      ! CALL energy(fk,enerk,1)
+      CALL forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       CALL energy(fk,enerk,1)
       tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
       fk  = tmp1*fk
@@ -315,10 +339,10 @@ PROGRAM HD2D
          timec = 0
          CALL hdcheck(ps,fk,time,inu,nu,imu,mu,ener,enst,node,ldir)
          ! if it's the first time, print header
-         IF (t.eq.ini) THEN
+         IF (t.eq.ini .AND. myrank.eq.0) THEN
             print*,"DBG", "           t", "   dt", "                        time","                     energy","        enstrophy"
          ENDIF
-         print*,"DBG",t,dt,time,ener,enst
+         if (myrank.eq.0) print*,"DBG",t,dt,time,ener,enst
       ENDIF
 
 

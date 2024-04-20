@@ -568,7 +568,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       END DO
       DO jj=1,10
          phase1 = 2*pi*randu(seed)
-         radius = pi/kdn
+         radius = pi/kdn/2
          CALL MPI_BCAST(phase1,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
@@ -777,10 +777,10 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,dir)
 !
 ! Computes the reduction between nodes
 !
-   CALL MPI_REDUCE(E_R,E_R_total,1,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
+   CALL MPI_REDUCE(E_R,E_R_total,r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
       MPI_COMM_WORLD,ierr)
 
-   CALL MPI_REDUCE(W_R,W_R_total,1,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
+   CALL MPI_REDUCE(W_R,W_R_total,r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
       MPI_COMM_WORLD,ierr)
 
    IF (myrank.eq.0) THEN

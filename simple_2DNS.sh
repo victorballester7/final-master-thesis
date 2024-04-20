@@ -15,7 +15,7 @@ cd src/$myNS
 # remove old files
 make sclean clean dist > /dev/null 2>&1
 # create necessary folders
-mkdir -p $data $pwd/images $data/kspectrum $data/mspectrum $data/output $data/vectrans $data/EnergyProf $data/EnstrophyProf
+mkdir -p $data $pwd/images $data/kspectrum $data/output $data/vectrans $data/EnergyProf $data/EnstrophyProf
 
 
 # compile the code

@@ -532,7 +532,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,fk)
       END DO
       DO jj=1,10
          phase1 = 2*pi*randu(seed)
-         radius = pi/kdn
+         radius = pi/kdn/2
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
          amp = randu(seed)
@@ -753,7 +753,7 @@ END SUBROUTINE EnergyEnstropy_profiles
 !*****************************************************************
 
 !*****************************************************************
-SUBROUTINE outputfields(a,f,ext,node,dir)
+SUBROUTINE outputfields(a,f,ext,dir)
 !-----------------------------------------------------------------
 !
 ! Computes the energy profile in circles of radius 1, 2, 3, ...
@@ -786,7 +786,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dps.' // node // '.'// ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dps.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO j = 1,n
@@ -795,7 +795,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dww.' // node // '.' // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dww.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO j = 1,n
@@ -804,7 +804,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // node // '.' // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    DO j = 1,n
@@ -813,7 +813,7 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
       END DO
    END DO
    CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // node // '.' // ext // '.out',form='unformatted')
+   OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
    RETURN

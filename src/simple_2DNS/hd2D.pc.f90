@@ -146,12 +146,18 @@ PROGRAM HD2D
    READ(1,*) p                        ! 18
    READ(1,'(a100)') ldir              ! 19
    CLOSE(1)
+
+   OPEN(1,file=trim(ldir) // '/dim.txt')
+   WRITE(1,*) n
+   CLOSE(1)
+
    cfl = cfl/dble(mult)
    step = step*mult
    tstep = tstep*mult
    sstep = sstep*mult
    cstep = cstep*mult
 
+   print*, "dim    =",n      !  0
    print*, "cfl    =",cfl    !  1
    print*, "step   =",step   !  2
    print*, "tstep  =",tstep  !  3
@@ -162,19 +168,24 @@ PROGRAM HD2D
    print*, "kdn    =",kdn    !  8
    print*, "kup    =",kup    !  9
    print*, "nu     =",nu     ! 10
-   print*, "mu    =",mu    ! 11
-   print*, "prm1   =",prm1   ! 12
-   print*, "prm2   =",prm2   ! 13
-   print*, "ldir   =",ldir   ! 14
+   print*, "inu    =",inu    ! 11
+   print*, "mu     =",mu    ! 12
+   print*, "imu    =",imu    ! 13
+   print*, "iflow  =",iflow  ! 14
+   print*, "seed   =",seed   ! 15
+   print*, "prm1   =",prm1   ! 16
+   print*, "prm2   =",prm2   ! 17
+   print*, "p      =",p      ! 18
+   print*, "ldir   =",trim(ldir)   ! 19
 !
 ! Some numerical constants
 
    ic = 48
    id = 48
-   iu = 48
+   iu = 48 - 1
    jc = 48
    jd = 48
-   ju = 48
+   ju = 48 - 1
 
 !
 ! Some constants for the FFT
@@ -221,7 +232,7 @@ PROGRAM HD2D
       times = sstep
 
 !STREAM FUNCTION R1
-      CALL initialcond(ps,seed)
+      CALL initialcond(iflow,u0,kup,kdn,seed,ps)
       CALL energy(ps,ener,1)
       tmp1=u0/sqrt(ener)
       DO j = 1,n
@@ -267,7 +278,6 @@ PROGRAM HD2D
 !#################### MAIN LOOP ######################
    RK : DO t = ini,step
       CALL CFL_condition(CFL,ps,inu,nu,dt)
-
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,seed,fk)  !! set fk=0
       CALL energy(fk,enerk,1)
@@ -341,7 +351,7 @@ PROGRAM HD2D
          u = char(iu)
 
          ext = c // d // u
-         CALL outputfields(ps,fk,ext,node,ldir)
+         CALL outputfields(ps,fk,ext,ldir)
 
       ENDIF
 

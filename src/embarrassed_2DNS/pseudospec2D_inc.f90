@@ -545,7 +545,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       END DO
       DO jj=1,10
          phase1 = 2*pi*randu(seed)
-         radius = pi/kdn
+         radius = pi/kdn/2
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
          amp = randu(seed)
