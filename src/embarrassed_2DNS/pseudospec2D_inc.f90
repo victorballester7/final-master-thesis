@@ -545,7 +545,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       END DO
       DO jj=1,10
          phase1 = 2*pi*randu(seed)
-         radius = pi/kdn/2
+         radius = pi/kdn
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
          amp = randu(seed)
@@ -592,7 +592,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       END DO
       DO jj=1,10
          phase1 = 2*pi*randu(seed)
-         radius = sqrt(abs(randu(seed)))/kdn
+         radius = sqrt(abs(randu(seed)))*pi/kdn ! we don't want the forcing to be uniform in r, but more concentrated at the outer of the disk.
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
          amp = randu(seed)
@@ -603,7 +603,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
             END DO
          END DO
          phase1 = 2*pi*randu(seed)
-         radius = sqrt(abs(randu(seed)))/kdn
+         radius = sqrt(abs(randu(seed)))*pi/kdn ! we don't want the forcing to be uniform in r, but more concentrated at the outer of the disk.
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
          CALL shift(c1,c2,tmp1,tmp2)

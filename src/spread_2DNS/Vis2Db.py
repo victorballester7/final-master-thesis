@@ -95,4 +95,5 @@ for file in range(outnum_nd):
     filename = output_dir + 'FlowD_' + STR + \
         str("%03d" % file) + '.png'
     plt.savefig(filename)
+    plt.close()
 print('****************************')

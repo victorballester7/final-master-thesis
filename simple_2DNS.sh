@@ -11,9 +11,24 @@ data=$pwd/data/simple_2DNS
 myNS="simple_2DNS"
 
 echo -e "${YELLOW}Preparing...${RESET}"
+
 cd src/$myNS
-# remove old files
-make sclean clean dist > /dev/null 2>&1
+
+# check if we start a new run from 0 or not
+# Get the first line of the file
+first_line=$(head -n 1 status.prm)
+# Extract the first string
+first_string=$(echo "$first_line" | awk '{print $1}') 
+# Convert the string to an integer
+n=$(printf "%.0f" "$first_string") # = last output file
+
+if [ $n -eq 0 ]; then
+  # remove old files
+  make sclean clean dist > /dev/null 2>&1
+else
+  make clean dist > /dev/null 2>&1
+fi
+
 # create necessary folders
 mkdir -p $data $pwd/images $data/kspectrum $data/output $data/vectrans $data/EnergyProf $data/EnstrophyProf
 

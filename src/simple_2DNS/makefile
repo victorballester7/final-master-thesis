@@ -82,7 +82,7 @@ undo:
         done; fi
 
 clean:
-	rm -f $(BINDIR)/*.o $(BINDIR)/*.d $(BINDIR)/*.s $(BINDIR)/*.int $(BINDIR)/*.inf $(BINDIR)/*.mod $(BINDIR)/*bal.txt $(BINDIR)/work.pc* $(BINDIR)/ifc*
+	rm -f $(BINDIR)/*.o $(BINDIR)/*.d $(BINDIR)/*.s $(BINDIR)/*.int $(BINDIR)/*.inf $(BINDIR)/*.mod $(BINDIR)/work.pc* $(BINDIR)/ifc*
 	@$(MAKE) undo
 
 dist:

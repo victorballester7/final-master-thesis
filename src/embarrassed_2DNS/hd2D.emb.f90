@@ -63,6 +63,7 @@ PROGRAM HD2D
    DOUBLE PRECISION :: dump,tmp,tmp1
    DOUBLE PRECISION :: f0,u0
    DOUBLE PRECISION :: time
+   DOUBLE PRECISION :: Re_nu
    DOUBLE PRECISION :: nu,mu
    DOUBLE PRECISION :: phase1,phase2,phase3,phase4
 
@@ -153,7 +154,7 @@ PROGRAM HD2D
       READ(1,*) u0          !  7
       READ(1,*) kdn         !  8
       READ(1,*) kup         !  9
-      READ(1,*) nu                       ! 10
+      READ(1,*) Re_nu                       ! 10
       READ(1,*) inu                      ! 11
       READ(1,*) mu                       ! 12
       READ(1,*) imu                      ! 13
@@ -169,6 +170,9 @@ PROGRAM HD2D
       WRITE(1,*) n
       CLOSE(1)
 
+      ! formula for the Reynolds number associated with the kinematic viscosity
+      nu = (f0**2 * 4 * kdn**2/pi)**(1.0/3.0) * kup**(-4.0/3.0) / Re_nu
+
       print*, "dim    =",n      !  0
       print*, "cfl    =",cfl    !  1
       print*, "step   =",step   !  2
@@ -179,6 +183,7 @@ PROGRAM HD2D
       print*, "u0     =",u0     !  7
       print*, "kdn    =",kdn    !  8
       print*, "kup    =",kup    !  9
+      print*, "Re_nu  =",Re_nu     ! 10
       print*, "nu     =",nu     ! 10
       print*, "inu    =",inu    ! 11
       print*, "mu     =",mu    ! 12
@@ -318,7 +323,11 @@ PROGRAM HD2D
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       CALL energy(fk,enerk,1)
-      tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
+      IF (enerk.le.tiny) THEN ! no forcing
+         tmp1=1.0d0
+      ELSE
+         tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
+      ENDIF
       fk  = tmp1*fk
       ! DO j = 1,n
       !    DO i = 1,n/2+1

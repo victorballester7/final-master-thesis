@@ -85,4 +85,5 @@ for file in range(outnum_nd):
                                 file) +
                             '.png')
     plt.savefig(filename)
+    plt.close()
 print('****************************')
