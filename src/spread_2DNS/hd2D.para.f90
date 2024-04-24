@@ -88,7 +88,6 @@ PROGRAM HD2D
    INTEGER :: timet,timec,times
    INTEGER :: seed, myseed
    INTEGER :: iflow,inu,imu,itmp,jtmp,nfat,nthn,ifat,ithn
-   INTEGER :: p
 
    CHARACTER     :: c,d,u,th
    CHARACTER*3   :: node,ext
@@ -193,8 +192,7 @@ PROGRAM HD2D
       READ(1,*) seed                     ! 15
       READ(1,*) prm1                     ! 16
       READ(1,*) prm2                     ! 17
-      READ(1,*) p                        ! 18
-      READ(1,'(a100)') ldir              ! 19
+      READ(1,'(a100)') ldir              ! 18
       CLOSE(1)
 
       OPEN(1,file=trim(ldir) // '/dim.txt')
@@ -223,8 +221,7 @@ PROGRAM HD2D
       print*, "seed   =",seed   ! 15
       print*, "prm1   =",prm1   ! 16
       print*, "prm2   =",prm2   ! 17
-      print*, "p      =",p      ! 18
-      print*, "ldir   =",trim(ldir)   ! 19
+      print*, "ldir   =",trim(ldir)   ! 18
    ENDIF
    CALL MPI_BCAST(  CFL,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr) ! 1
    CALL MPI_BCAST( step,1,MPI_INTEGER,         0,MPI_COMM_WORLD,ierr) ! 2
@@ -243,8 +240,7 @@ PROGRAM HD2D
    CALL MPI_BCAST( seed,1,MPI_INTEGER,         0,MPI_COMM_WORLD,ierr) !15
    CALL MPI_BCAST( prm1,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr) !16
    CALL MPI_BCAST( prm2,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr) !17
-   CALL MPI_BCAST(    p,1,MPI_INTEGER,         0,MPI_COMM_WORLD,ierr) !18
-   CALL MPI_BCAST( ldir,100,MPI_CHARACTER,     0,MPI_COMM_WORLD,ierr) !19
+   CALL MPI_BCAST( ldir,100,MPI_CHARACTER,     0,MPI_COMM_WORLD,ierr) !18
    myseed = seed+myrank
 !
 ! Some numerical constants
@@ -404,7 +400,7 @@ PROGRAM HD2D
          u = char(ju)
          ext4 = th // c // d // u
          CALL spectrum(ps,ext4,ldir)
-         CALL EnergyEnstropy_profiles(ps,p,ext4,ldir)
+         CALL EnergyEnstropy_profiles(ps,ext4,ldir)
          CALL laplak2(ps,C1)     ! make W
          CALL vectrans(ps,ps,C1,'euu',ext4,ldir)
          CALL vectrans(C1,ps,C1,'vrt',ext4,ldir)

@@ -1,7 +1,7 @@
 0.25                 % cfl      1
-15001               % step     2
+200               % step     2
 1000                 % tstep    3
-100                 % sstep    4
+20                 % sstep    4
 20                  % cstep    5
 1.00d0              % f0       6
 1.00d0            % u0       7
@@ -15,6 +15,5 @@
 1                   % seed    15
 0                   % prm1    16
 0                   % prm2    17
-2                   % p       18
 ./data
 

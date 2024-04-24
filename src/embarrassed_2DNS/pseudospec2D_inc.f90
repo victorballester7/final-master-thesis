@@ -670,7 +670,7 @@ END SUBROUTINE initialcond
  !-----------------------------------------------------------------
 
 !*****************************************************************
-SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
+SUBROUTINE EnergyEnstropy_profiles(a,ext,node,dir)
 !-----------------------------------------------------------------
 !
 ! Computes the energy profile in circles of radius 1, 2, 3, ...
@@ -678,7 +678,6 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
 !
 ! Parameters
 !     a  : streamfunction or vector potential
-!     p  : p-th moment of the field (p=2 for the usual energy and enstrophy)
 !     ext: the extension used when writting the file
 !   node: node name of the core
 !     dir: directory where the results are stored
@@ -686,13 +685,13 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
    USE grid
    USE fft
    USE ali
-!      USE mpivars
    IMPLICIT NONE
 
    INTEGER    :: r_max
+   INTEGER :: p_max ! maximum moment of energy and enstrophy: p=1,2,...,p_max
 
 
-   DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:)        :: E_R, W_R
+   DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:,:)        :: E_R, W_R
    DOUBLE COMPLEX, DIMENSION(n/2+1,n)          :: a
    DOUBLE COMPLEX, DIMENSION(n/2+1,n) :: c1, c2
    DOUBLE PRECISION, DIMENSION(n,n)    :: r1,r2, r3
@@ -701,24 +700,23 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
    INTEGER     :: i,j
    CHARACTER*3 :: ext,node
    CHARACTER*100 :: dir
-   CHARACTER*3 :: p_str
    DOUBLE PRECISION :: tmp
 
-   WRITE(p_str,'(i0)') p
-
+   p_max = 8
    r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
 
-   ALLOCATE(E_R(r_max),W_R(r_max),Num(r_max))
+   ALLOCATE(E_R(p_max,r_max),W_R(p_max,r_max),Num(r_max))
 
 !
 ! Sets Ek to zero
 !
    DO i = 1,r_max
-      E_R(i) = 0.0d0
-      W_R(i) = 0.0d0
+      DO p = 1,p_max
+         E_R(p,i) = 0.0d0
+         W_R(p,i) = 0.0d0
+      END DO
       Num(i) = 0.0d0
    END DO
-
 
 
 ! !
@@ -739,27 +737,34 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,node,dir)
       DO i = 1,n
          r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
          r = r+1 ! to avoid the zero radius
-         E_R(r) = E_R(r) + (r1(i,j)**2 + r2(i,j)**2)**(p/2)
-         W_R(r) = W_R(r) + r3(i,j)**p
+         DO p = 1,p_max
+            E_R(p,r) = E_R(p,r) + (r1(i,j)**2 + r2(i,j)**2)**(dble(p)/2.0)
+            W_R(p,r) = W_R(p,r) + abs(r3(i,j))**p
+         END DO
          Num(r) = Num(r) + 1
       END DO
    END DO
 
-   tmp=dble(n)**(2*p)
-   DO i = 1,r_max
-      IF (Num(i).gt.0) THEN
-         E_R(i) = E_R(i)/dble(Num(i))/tmp ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
-         W_R(i) = W_R(i)/dble(Num(i))/tmp
-      ENDIF
+
+   DO p = 1,p_max
+      tmp=dble(n)**(2*p)
+      DO i = 1,r_max
+         IF (Num(i).gt.0) THEN
+            E_R(p,i) = (E_R(p,i)/dble(Num(i))/tmp)**(1.0/dble(p)) ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
+            W_R(p,i) = (W_R(p,i)/dble(Num(i))/tmp)**(1.00/dble(p))
+         ENDIF
+      END DO
    END DO
 
-   OPEN(1,file=trim(dir)//'/EnergyProf/Energy.p=' // trim(p_str)// '.'//node//'.'// ext // '.txt')
-   WRITE(1,20) E_R
-20 FORMAT( E23.15 )
+   OPEN(1,file=trim(dir)//'/EnergyProf/Energy.' //node //'.'// ext // '.txt')
+   DO r = 1,r_max
+      WRITE(1,*) (E_R(p,r),p=1,p_max)
+   END DO
    CLOSE(1)
-   OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.p='// trim(p_str)//'.' //node//'.' // ext // '.txt')
-   WRITE(1,24) W_R
-24 FORMAT( E23.15 )
+   OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.' //node //'.'// ext // '.txt')
+   DO r = 1,r_max
+      WRITE(1,*) (W_R(p,r),p=1,p_max)
+   END DO
    CLOSE(1)
    RETURN
 END SUBROUTINE EnergyEnstropy_profiles

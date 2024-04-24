@@ -76,7 +76,7 @@ PROGRAM HD2D
    INTEGER :: inu,imu
 
    ! my variables
-   INTEGER :: threshold, seed, iflow,p
+   INTEGER :: threshold, seed, iflow
 
 
    CHARACTER     :: c,d,u
@@ -149,8 +149,7 @@ PROGRAM HD2D
    READ(1,*) seed                     ! 15
    READ(1,*) prm1                     ! 16
    READ(1,*) prm2                     ! 17
-   READ(1,*) p                        ! 18
-   READ(1,'(a100)') ldir              ! 19
+   READ(1,'(a100)') ldir              ! 18
    CLOSE(1)
 
    OPEN(1,file=trim(ldir) // '/dim.txt')
@@ -185,8 +184,7 @@ PROGRAM HD2D
    print*, "seed   =",seed   ! 15
    print*, "prm1   =",prm1   ! 16
    print*, "prm2   =",prm2   ! 17
-   print*, "p      =",p      ! 18
-   print*, "ldir   =",trim(ldir)   ! 19
+   print*, "ldir   =",trim(ldir)   ! 18
 !
 ! Some numerical constants
 
@@ -341,7 +339,7 @@ PROGRAM HD2D
          u = char(ju)
          ext = c // d // u
          CALL spectrum(ps,ext,ldir)
-         CALL EnergyEnstropy_profiles(ps,p,ext,ldir)
+         CALL EnergyEnstropy_profiles(ps,ext,ldir)
          CALL laplak2(ps,C1)     ! make W
          CALL vectrans(ps,ps,C1,'euu',ext,ldir)
          CALL vectrans(C1,ps,C1,'vrt',ext,ldir)

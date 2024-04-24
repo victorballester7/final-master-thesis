@@ -27,7 +27,7 @@ def get_dim(dim_dir):
 
 input_dir = 'data/simple_2DNS/output/'
 output_dir = 'images/simple_2DNS/'
-STR = 'fw.'
+STR = 'ww.'
 outnum_nd = get_num_files(input_dir) // 4  # we have ww, ps, fw and fp
 
 dim_dir = 'data/simple_2DNS/dim.txt'

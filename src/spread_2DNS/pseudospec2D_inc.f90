@@ -692,7 +692,7 @@ END SUBROUTINE initialcond
 !-----------------------------------------------------------------
 
 !*****************************************************************
-SUBROUTINE EnergyEnstropy_profiles(a,p,ext,dir)
+SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
 !-----------------------------------------------------------------
 !
 ! Computes the energy profile in circles of radius 1, 2, 3, ...
@@ -700,7 +700,6 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,dir)
 !
 ! Parameters
 !     a  : streamfunction
-!     p  : p-th moment of the field (p=2 for the usual energy and enstrophy)
 !     ext: the extension used when writting the file
 !    dir: directory where the results are stored
    USE kes
@@ -711,34 +710,36 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,dir)
    IMPLICIT NONE
 
    INTEGER    :: r_max
+   INTEGER :: p_max
 
 
-   DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:)        :: E_R, W_R, E_R_total, W_R_total
+   DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:,:)        :: E_R, W_R, E_R_total, W_R_total
    DOUBLE COMPLEX, DIMENSION(n,ista:iend)          :: a
    DOUBLE COMPLEX, DIMENSION(n,ista:iend) :: c1, c2
    DOUBLE PRECISION, DIMENSION(n,jsta:jend)    :: r1,r2, r3
    INTEGER     :: r, p
    INTEGER, ALLOCATABLE, DIMENSION(:) :: Num  ! Number of points in each circle
    INTEGER     :: i,j
-   CHARACTER*3 :: ext
+   CHARACTER*4 :: ext
    CHARACTER*100 :: dir
-   CHARACTER*3 :: p_str
-   DOUBLE PRECISION :: tmp1,tmp2
+   DOUBLE PRECISION :: tmp
 
-   WRITE(p_str,'(i0)') p
-
+   p_max = 8
    r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
 
-   ALLOCATE(E_R(r_max),E_R_total(r_max),W_R(r_max),W_R_total(r_max),Num(r_max))
+   ALLOCATE(E_R(p_max,r_max),E_R_total(p_max,r_max),W_R(p_max,r_max),W_R_total(p_max,r_max),Num(r_max))
 
 !
 ! Sets Ek to zero
 !
    DO i = 1,r_max
-      E_R(i) = 0.0d0
-      W_R(i) = 0.0d0
+      DO p = 1,p_max
+         E_R(p,i) = 0.0d0
+         W_R(p,i) = 0.0d0
+      END DO
       Num(i) = 0.0d0
    END DO
+
 
 
 
@@ -760,37 +761,42 @@ SUBROUTINE EnergyEnstropy_profiles(a,p,ext,dir)
       DO i = 1,n
          r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
          r = r+1 ! to avoid the zero radius
-         E_R(r) = E_R(r) + (r1(i,j)**2 + r2(i,j)**2)**(p/2)
-         W_R(r) = W_R(r) + r3(i,j)**p
+         DO p = 1,p_max
+            E_R(p,r) = E_R(p,r) + (r1(i,j)**2 + r2(i,j)**2)**(dble(p)/2.0)
+            W_R(p,r) = W_R(p,r) + r3(i,j)**p
+         END DO
          Num(r) = Num(r) + 1
       END DO
    END DO
 
 
-   tmp1=dble(n)**(2*p)
-   DO i = 1,r_max
-      IF (Num(i).gt.0) THEN
-         E_R(i) = E_R(i)/dble(Num(i))/tmp1 ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
-         W_R(i) = W_R(i)/dble(Num(i))/tmp1
-      ENDIF
+   DO p = 1,p_max
+      tmp=dble(n)**(2*p)
+      DO i = 1,r_max
+         IF (Num(i).gt.0) THEN
+            E_R(p,i) = (E_R(p,i)/dble(Num(i))/tmp)**(1.0/dble(p)) ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
+            W_R(p,i) = (W_R(p,i)/dble(Num(i))/tmp)**(1.00/dble(p))
+         ENDIF
+      END DO
    END DO
-!
 ! Computes the reduction between nodes
 !
-   CALL MPI_REDUCE(E_R,E_R_total,r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
-      MPI_COMM_WORLD,ierr)
+   CALL MPI_REDUCE(E_R,E_R_total,p_max*r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0,MPI_COMM_WORLD,ierr)
 
-   CALL MPI_REDUCE(W_R,W_R_total,r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
-      MPI_COMM_WORLD,ierr)
+   CALL MPI_REDUCE(W_R,W_R_total,p_max*r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0,MPI_COMM_WORLD,ierr)
+
 
    IF (myrank.eq.0) THEN
-      OPEN(1,file=trim(dir)//'/EnergyProf/Energy.p=' // trim(p_str) //'.' // ext // '.txt')
-      WRITE(1,20) E_R_total
-20    FORMAT( E23.15 )
+      print*, 'Hello'
+      OPEN(1,file=trim(dir)//'/EnergyProf/Energy.' // ext // '.txt')
+      DO r = 1,r_max
+         WRITE(1,*) (E_R_total(p,r),p=1,p_max)
+      END DO
       CLOSE(1)
-      OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.p='// trim(p_str) // '.' // ext // '.txt')
-      WRITE(1,24) W_R_total
-24    FORMAT( E23.15 )
+      OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.' // ext // '.txt')
+      DO r = 1,r_max
+         WRITE(1,*) (W_R_total(p,r),p=1,p_max)
+      END DO
       CLOSE(1)
    ENDIF
    RETURN
