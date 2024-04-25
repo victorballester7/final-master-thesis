@@ -690,7 +690,7 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
    CHARACTER*100 :: dir
    DOUBLE PRECISION :: tmp
 
-   p_max = 8
+   p_max = 8 ! if you want to change this, remeber tochange the number in the format statement in the write statement
    r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
 
    ALLOCATE(E_R(p_max,r_max),W_R(p_max,r_max),Num(r_max))
@@ -747,12 +747,13 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
 
    OPEN(1,file=trim(dir)//'/EnergyProf/Energy.' // ext // '.txt')
    DO r = 1,r_max
-      WRITE(1,*) (E_R(p,r),p=1,p_max)
+      WRITE(1,20) (E_R(p,r),p=1,p_max)
+20    FORMAT(8E22.14)
    END DO
    CLOSE(1)
    OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.' // ext // '.txt')
    DO r = 1,r_max
-      WRITE(1,*) (W_R(p,r),p=1,p_max)
+      WRITE(1,20) (W_R(p,r),p=1,p_max)
    END DO
    CLOSE(1)
    RETURN
