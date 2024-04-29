@@ -78,11 +78,14 @@ PROGRAM HD2D
 
    ! my variables
    INTEGER :: threshold, seed, iflow,myseed
+   INTEGER :: start_time, end_time, rate
 
 
    CHARACTER     :: c,d,u
    CHARACTER*3   :: node,ext
    CHARACTER*100 :: ldir
+
+
 
 !
 ! Initializes the MPI library
@@ -96,6 +99,10 @@ PROGRAM HD2D
    d = char(id)
    u = char(iu)
    node = c // d // u
+
+   ! count execution time
+   IF (myrank.eq.0) CALL system_clock(start_time, rate)
+
 
 !
 ! Allocates memory
@@ -315,7 +322,11 @@ PROGRAM HD2D
 ! Uses Runge-Kutta of order 'ord'
 !#################### MAIN LOOP ######################
    RK : DO t = ini,step
-      CALL CFL_condition(CFL,ps,inu,nu,dt)
+      ! update the time step
+      ! CALL CFL_condition(CFL,ps,inu,nu,dt)
+
+      ! keep dt constant
+      dt = 3.0d-5
 
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,seed,myseed,fk)
@@ -466,5 +477,10 @@ PROGRAM HD2D
    DEALLOCATE( ps,fk )
    DEALLOCATE( C1,C2 )
    DEALLOCATE( ka,ka2)
+
+   IF (myrank.eq.0) THEN
+      CALL system_clock(end_time)
+      print*, "Execution time (seconds): ", (end_time - start_time)/real(rate)
+   ENDIF
 
 END PROGRAM HD2D

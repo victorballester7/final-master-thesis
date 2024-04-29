@@ -709,39 +709,30 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
    USE mpivars
    IMPLICIT NONE
 
-   INTEGER    :: r_max
-   INTEGER :: p_max
+   INTEGER, PARAMETER :: r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
+   INTEGER, PARAMETER :: p_max = 8 ! if you want to change this, remeber tochange the number in the format statement in the write statement
 
-
-   DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:,:)        :: E_R, W_R, E_R_total, W_R_total
+   DOUBLE PRECISION, DIMENSION(r_max*p_max)        :: E_R, W_R, E_R_total, W_R_total
    DOUBLE COMPLEX, DIMENSION(n,ista:iend)          :: a
    DOUBLE COMPLEX, DIMENSION(n,ista:iend) :: c1, c2
    DOUBLE PRECISION, DIMENSION(n,jsta:jend)    :: r1,r2, r3
    INTEGER     :: r, p
-   INTEGER, ALLOCATABLE, DIMENSION(:) :: Num  ! Number of points in each circle
+   INTEGER, DIMENSION(r_max) :: Num, Num_total  ! Number of points in each circle
    INTEGER     :: i,j
    CHARACTER*4 :: ext
    CHARACTER*100 :: dir
    DOUBLE PRECISION :: tmp
 
-   p_max = 8 ! if you want to change this, remeber tochange the number in the format statement in the write statement
-   r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
-
-   ALLOCATE(E_R(p_max,r_max),E_R_total(p_max,r_max),W_R(p_max,r_max),W_R_total(p_max,r_max),Num(r_max))
-
 !
 ! Sets Ek to zero
 !
-   DO i = 1,r_max
+   DO r = 1,r_max
       DO p = 1,p_max
-         E_R(p,i) = 0.0d0
-         W_R(p,i) = 0.0d0
+         E_R((r-1)*p_max+p) = 0.0d0
+         W_R((r-1)*p_max+p) = 0.0d0
       END DO
-      Num(i) = 0.0d0
+      Num(r) = 0.0d0
    END DO
-
-
-
 
 ! !
 ! ! Computes the contribution for u_x = partial_y psi
@@ -762,43 +753,46 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
          r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
          r = r+1 ! to avoid the zero radius
          DO p = 1,p_max
-            E_R(p,r) = E_R(p,r) + (r1(i,j)**2 + r2(i,j)**2)**(dble(p)/2.0)
-            W_R(p,r) = W_R(p,r) + r3(i,j)**p
+            E_R((r-1)*p_max+p) = E_R((r-1)*p_max+p) + (r1(i,j)**2 + r2(i,j)**2)**(dble(p)/2.0)
+            W_R((r-1)*p_max+p) = W_R((r-1)*p_max+p) + abs(r3(i,j))**p
          END DO
          Num(r) = Num(r) + 1
       END DO
    END DO
 
-
-   DO p = 1,p_max
-      tmp=dble(n)**(2*p)
-      DO i = 1,r_max
-         IF (Num(i).gt.0) THEN
-            E_R(p,i) = (E_R(p,i)/dble(Num(i))/tmp)**(1.0/dble(p)) ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
-            W_R(p,i) = (W_R(p,i)/dble(Num(i))/tmp)**(1.00/dble(p))
-         ENDIF
-      END DO
-   END DO
-! Computes the reduction between nodes
-!
+   ! Computes the reduction between nodes
+   !
    CALL MPI_REDUCE(E_R,E_R_total,p_max*r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0,MPI_COMM_WORLD,ierr)
 
    CALL MPI_REDUCE(W_R,W_R_total,p_max*r_max,MPI_DOUBLE_PRECISION,MPI_SUM,0,MPI_COMM_WORLD,ierr)
 
+   CALL MPI_REDUCE(Num,Num_total,r_max,MPI_INTEGER,MPI_SUM,0,MPI_COMM_WORLD,ierr)
 
    IF (myrank.eq.0) THEN
+      DO p = 1,p_max
+         tmp=dble(n)**(2*p)
+         DO r = 1,r_max
+            IF (Num_total(r).gt.0) THEN
+               E_R_total((r-1)*p_max + p) = (E_R_total((r-1)*p_max + p)/dble(Num_total(r))/tmp)**(1.0/dble(p)) ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
+               W_R_total((r-1)*p_max + p) = (W_R_total((r-1)*p_max + p)/dble(Num_total(r))/tmp)**(1.00/dble(p))
+            ENDIF
+         END DO
+      END DO
+
       OPEN(1,file=trim(dir)//'/EnergyProf/Energy.' // ext // '.txt')
       DO r = 1,r_max
-         WRITE(1,20) (E_R(p,r),p=1,p_max)
+         WRITE(1,20) (E_R_total((r-1)*p_max+p),p=1,p_max)
 20       FORMAT(8E22.14)
       END DO
       CLOSE(1)
+
       OPEN(1,file=trim(dir)//'/EnstrophyProf/Enstrophy.' // ext // '.txt')
       DO r = 1,r_max
-         WRITE(1,20) (W_R_total(p,r),p=1,p_max)
+         WRITE(1,20) (W_R_total((r-1)*p_max+p),p=1,p_max)
       END DO
       CLOSE(1)
    ENDIF
+
    RETURN
 END SUBROUTINE EnergyEnstropy_profiles
 !*****************************************************************

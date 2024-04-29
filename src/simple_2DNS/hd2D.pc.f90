@@ -83,9 +83,15 @@ PROGRAM HD2D
    CHARACTER*3   :: node,ext
    CHARACTER*100 :: ldir
 
+   INTEGER :: start_time, end_time, rate
 
 !
    node = '000'
+
+
+   ! count execution time
+
+   CALL system_clock(start_time,rate)
 
 !
 ! Allocates memory
@@ -436,5 +442,9 @@ PROGRAM HD2D
    DEALLOCATE( ps,fk )
    DEALLOCATE( C1,C2 )
    DEALLOCATE( ka,ka2)
+
+   CALL system_clock(end_time)
+   print*, "Execution time (seconds): ", (end_time - start_time)/real(rate)
+
 
 END PROGRAM HD2D

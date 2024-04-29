@@ -93,6 +93,7 @@ PROGRAM HD2D
    CHARACTER*3   :: node,ext
    CHARACTER*4   :: ext4
    CHARACTER*100 :: ldir
+   INTEGER :: start_time, end_time, rate
 
 !
 ! Initializes the MPI library
@@ -108,6 +109,7 @@ PROGRAM HD2D
    u = char(iu)
    node = c // d // u
 
+   IF (myrank.eq.0) CALL system_clock(start_time,rate)
 !
 ! Allocates memory for distributed blocks
 
@@ -512,4 +514,9 @@ PROGRAM HD2D
    DEALLOCATE( C1,C2 )
    DEALLOCATE( ka,ka2 )
 
+
+   IF (myrank.eq.0) THEN
+      CALL system_clock(end_time)
+      print*, "Execution time (seconds): ", (end_time - start_time)/real(rate)
+   ENDIF
 END PROGRAM HD2D
