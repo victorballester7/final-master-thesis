@@ -7,8 +7,9 @@ import time
 from read_data import *
 
 duration = 10  # in seconds
-xmin, xmax = -5, 5
-ymin, ymax = -5, 5
+L = 5
+xmin, xmax = -L, L
+ymin, ymax = -L, L
 
 
 def animate(folder_path: str, save: bool = False):
@@ -82,7 +83,7 @@ def animate(folder_path: str, save: bool = False):
 UNIT_TIME = 1000  # in seconds
 LABEL_TIME = "ms"
 start_time = time.time()
-folder_results = 'data/pointvortices'
+folder_results = 'data/pointvortices/positions'
 
 # Read data
 

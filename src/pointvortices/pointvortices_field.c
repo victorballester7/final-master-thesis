@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../../include/rk78.h"
-
 int pointvortices_field(int n, double t, double x[], double f[], void *param) {
   // the field is ordered in x[] and f[] as x1, y1, z1, vx1, vy1, vz1, x2, y2, z2, vx2, vy2, vz2, ..., where the index i is the particle i-th. If the field is 2D, then the same order is used but without the z components.
   pointvortices_params *prm = (pointvortices_params *)param;

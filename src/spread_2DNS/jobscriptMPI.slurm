@@ -3,7 +3,7 @@
 #SBATCH --ntasks=40                # Nombre total de processus MPI
 #SBATCH --ntasks-per-node=40       # Nombre de processus MPI par noeud
 #SBATCH --hint=nomultithread       # 1 processus MPI par coeur physique (pas d'hyperthreading)
-#SBATCH --time=10:00:00            # Temps d’exécution maximum demande (HH:MM:SS)
+#SBATCH --time=11:59:00            # Temps d’exécution maximum demande (HH:MM:SS)
 #SBATCH --output=TravailMPI%j.out  # Nom du fichier de sortie
 #SBATCH --error=TravailMPI%j.out   # Nom du fichier d'erreur (ici commun avec la sortie)
  

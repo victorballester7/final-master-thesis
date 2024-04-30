@@ -50,7 +50,7 @@ def set_data(folder_path):
     data_blocks_y = []
     circulation = []
     for i in range(num_frames):
-        file_path = f"{folder_path}/positions_{i:04d}.txt"
+        file_path = f"{folder_path}/positions.{i:04d}.txt"
         x, y, circulation = read_data_pos(file_path)
         data_blocks_x.append(x)
         data_blocks_y.append(y)
