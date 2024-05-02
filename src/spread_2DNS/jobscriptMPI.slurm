@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=2D_intm1        # nom du job
-#SBATCH --ntasks=40                # Nombre total de processus MPI
+#SBATCH --ntasks=80                # Nombre total de processus MPI
 #SBATCH --ntasks-per-node=40       # Nombre de processus MPI par noeud
 #SBATCH --hint=nomultithread       # 1 processus MPI par coeur physique (pas d'hyperthreading)
 #SBATCH --time=11:59:00            # Temps d’exécution maximum demande (HH:MM:SS)

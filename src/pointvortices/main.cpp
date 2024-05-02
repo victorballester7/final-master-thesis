@@ -16,13 +16,12 @@ int main(void) {
   const string filename_output_E = "data/pointvortices/EnergyProf/EnergyProf";  // name of the output file to write the positions of the point vortices
   const string space = "    ";                                                  // space to print the parameters
   pointvortices_params prm;                                                     // parameters of the system
-  prm.dim = 2;                                                                  // dimension of the space
+  prm.dim = 3;                                                                  // dimension of the space (2 space dimensions + 1 circulation dimension)
   int n;                                                                        // number of bodies
 
   double R;          // radius of the circle in which the bodies are placed
   double R_exit;     // radius of the circle in which the bodies are simulated
-  double C;          // circulation
-  double alpha;      // drag coefficient for the circulations: C ∝e^(-alpha*t)
+  double C0;         // initial circulation
   double dt;         // time step
   uint totalSteps;   // total number of steps
   uint outSteps;     // number of steps to write the positions of the bodies
@@ -40,8 +39,8 @@ int main(void) {
     file_input >> tmp >> energySteps;
     file_input >> tmp >> printSteps;
     file_input >> tmp >> n;
-    file_input >> tmp >> C;
-    file_input >> tmp >> alpha;
+    file_input >> tmp >> C0;
+    file_input >> tmp >> prm.alpha;
     file_input >> tmp >> R;
     file_input >> tmp >> R_exit;
     file_input >> tmp >> dt;
@@ -54,8 +53,8 @@ int main(void) {
   cout << "Number of votices:  " << space << n << endl;
   cout << "Initial radius:     " << space << R << endl;
   cout << "Exit radius:        " << space << R_exit << endl;
-  cout << "Circulation:        " << space << C << endl;
-  cout << "Drag coefficient:   " << space << alpha << endl;
+  cout << "Circulation:        " << space << C0 << endl;
+  cout << "Drag coefficient:   " << space << prm.alpha << endl;
 
   const int N = prm.dim * n;  // dimension of the field
   prm.EPS = 1e-3;             // softening parameter
@@ -65,18 +64,17 @@ int main(void) {
   uint numSteps = 0;
 
   // allocate memory
-  double* X = new double[N];  // vector of positions (x1,y1,x2,y2,...,xn,yn)
+  double* X = new double[N];  // vector of positions (x1,y1,C1,x2,y2,C2,...,xn,yn,Cn)
   double min_dist, dist;
   int closest;
-  prm.C = new double[n];  // circulations
 
   // set circulations
-  double eps = C / 100;  // small perturbation to avoid the same circulations
+  double eps = C0 / 100;  // small perturbation to avoid the same circulations
   pair<double, double> z;
   for (int i = 0; i < n; i += 2) {
     z = standard_normal();  // generates 2 iid standard normal variables using the Box-Muller method
-    prm.C[i] = C + eps * z.first;
-    prm.C[i + 1] = -C + eps * z.second;
+    X[prm.dim * i + 2] = C0 + eps * z.first;
+    X[prm.dim * (i + 1) + 2] = -C0 + eps * z.second;
   }
 
   // seed the random number generator
@@ -84,11 +82,11 @@ int main(void) {
 
   // set initial conditions (random in the circle of radius R)
   double aux, r;
-  for (int i = 0; i < N; i += 2) {
+  for (int i = 0; i < n; i++) {
     aux = 2 * M_PI * (double)rand() / RAND_MAX;
     r = sqrt(R * abs((double)rand() / RAND_MAX));  // random radius. We do not do it uniformly to avoid having more points per area in the smaller subradii. With the sqrt we have more points in the outer layers.
-    X[i] = r * cos(aux);                           // x position
-    X[i + 1] = r * sin(aux);                       // y position
+    X[prm.dim * i] = r * cos(aux);                 // x position
+    X[prm.dim * i + 1] = r * sin(aux);             // y position
   }
 
   double hmin = dt / 100;
@@ -97,18 +95,12 @@ int main(void) {
   while (numSteps < totalSteps) {
     // save data
     if (numSteps % outSteps == 0) {
-      saveData(n, X, prm.C, filename_output);
+      saveData(n, X, filename_output, &prm);
     }
 
     // plot energy profile
     if (numSteps % energySteps == 0) {
-      EnergyProf(n, X, prm.C, R_exit, filename_output_E);
-    }
-
-    // update the circulations (with drag)
-    if (alpha > TOL) {
-      for (int i = 0; i < n; i++)
-        prm.C[i] *= exp(-alpha * dt);
+      EnergyProf(n, X, R_exit, filename_output_E, &prm);
     }
 
     // simulate
@@ -126,13 +118,13 @@ int main(void) {
 
     // check if a body has exited the domain
     for (int i = 0; i < n; i++) {
-      if (X[2 * i] * X[2 * i] + X[2 * i + 1] * X[2 * i + 1] > R_exit * R_exit) {
+      if (X[prm.dim * i] * X[prm.dim * i] + X[prm.dim * i + 1] * X[prm.dim * i + 1] > R_exit * R_exit) {
         // search the closest point to i-th body (advection of 2 bodies in a straight line)
         min_dist = R_exit;  // Radius of the circle
         closest = -1;
         for (int j = 0; j < n; j++) {
-          if (i == j) continue;  // do not compare with itself (i=j
-          dist = (X[2 * i] - X[2 * j]) * (X[2 * i] - X[2 * j]) + (X[2 * i + 1] - X[2 * j + 1]) * (X[2 * i + 1] - X[2 * j + 1]);
+          if (i == j) continue;  // do not compare with itself
+          dist = (X[prm.dim * i] - X[prm.dim * j]) * (X[prm.dim * i] - X[prm.dim * j]) + (X[prm.dim * i + 1] - X[prm.dim * j + 1]) * (X[prm.dim * i + 1] - X[prm.dim * j + 1]);
           if (dist < min_dist) {
             min_dist = dist;
             closest = j;
@@ -141,15 +133,15 @@ int main(void) {
         // set again randomly in the circle of radius R the body i
         aux = 2 * M_PI * (double)rand() / RAND_MAX;
         r = sqrt(R * abs((double)rand() / RAND_MAX));
-        X[2 * i] = r * cos(aux);
-        X[2 * i + 1] = r * sin(aux);
+        X[prm.dim * i] = r * cos(aux);
+        X[prm.dim * i + 1] = r * sin(aux);
 
         if (min_dist < R_exit / 100) {  // there is a body very close to i, so we remove it as well
           // set again randomly in the circle of radius R the body closest to i
           aux = 2 * M_PI * (double)rand() / RAND_MAX;
           r = sqrt(R * abs((double)rand() / RAND_MAX));
-          X[2 * closest] = r * cos(aux);
-          X[2 * closest + 1] = r * sin(aux);
+          X[prm.dim * closest] = r * cos(aux);
+          X[prm.dim * closest + 1] = r * sin(aux);
         }
       }
     }

@@ -249,7 +249,7 @@ PROGRAM HD2D
 
    ic = 48
    id = 48
-   iu = 48-1
+   iu = 48
    jt = 48
    jc = 48
    jd = 48
@@ -292,7 +292,7 @@ PROGRAM HD2D
 !!!!!! INITIAL CONDITIONS !!!!!!!!!!!!!!!
    IF (stat.eq.0) THEN ! we start from scratch
       ini = 1
-      timet = 0 !!tstep
+      timet = 0 !tstep
       times = sstep
       timec = cstep
 

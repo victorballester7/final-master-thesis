@@ -227,7 +227,7 @@ PROGRAM HD2D
 
    ic = 48
    id = 48
-   iu = 48-1
+   iu = 48
    jc = 48
    jd = 48
    ju = 48-1
@@ -272,7 +272,7 @@ PROGRAM HD2D
 ! INITIAL CONDITIONS
    IF (stat.eq.0) THEN ! we start from scratch
       ini = 1
-      timet = tstep
+      timet = 0
       timec = cstep
       times = sstep
 
@@ -326,7 +326,7 @@ PROGRAM HD2D
       ! CALL CFL_condition(CFL,ps,inu,nu,dt)
 
       ! keep dt constant
-      dt = 3.0d-5
+      dt = 6.0d-5
 
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,seed,myseed,fk)

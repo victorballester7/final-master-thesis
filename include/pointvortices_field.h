@@ -5,9 +5,9 @@
 extern "C" {
 #endif
 typedef struct pointvortices_params {
-  int dim;     // dimension of the space (2 or 3)
-  double *C;   // circulations
-  double EPS;  // softening parameter
+  int dim;       // dimension of the space (2 or 3)
+  double alpha;  // drag coefficient for the circulations: C' = -alpha * C
+  double EPS;    // softening parameter
 } pointvortices_params;
 
 // -----------------------------------------------------

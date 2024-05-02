@@ -574,6 +574,7 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
             ENDIF
          END DO
       END DO
+      !!! (4) DISK of FIRE !!!!
    ELSE IF (iflow.eq.5) THEN
       DO j = 1,n
          DO i = 1,n
@@ -591,19 +592,19 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
          END DO
       END DO
       DO jj=1,10
-         phase1 = 2*pi*randu(seed)
-         radius = sqrt(abs(randu(seed)))*pi/kdn ! we don't want the forcing to be uniform in r, but more concentrated at the outer of the disk.
+         phase1 = 2*pi*randu(myseed)
+         radius = sqrt(abs(randu(myseed)))*pi/kdn ! we don't want the forcing to be uniform in r, but more concentrated at the outer of the disk.
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
-         amp = randu(seed)
+         amp = randu(myseed)
          CALL shift(c1,c2,tmp1,tmp2)
          DO i = 1,n/2+1
             DO j = 1,n
                fk(i,j) = fk(i,j) +amp*c2(i,j)
             END DO
          END DO
-         phase1 = 2*pi*randu(seed)
-         radius = sqrt(abs(randu(seed)))*pi/kdn ! we don't want the forcing to be uniform in r, but more concentrated at the outer of the disk.
+         phase1 = 2*pi*randu(myseed)
+         radius = sqrt(abs(randu(myseed)))*pi/kdn ! we don't want the forcing to be uniform in r, but more concentrated at the outer of the disk.
          tmp1= radius*sin(phase1)
          tmp2= radius*cos(phase1)
          CALL shift(c1,c2,tmp1,tmp2)
