@@ -746,15 +746,17 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,node,dir)
       tmp=dble(n)**(2*p)
       DO r = 1,r_max
          IF (Num(r).gt.0) THEN
-            E_R((r-1)*p_max + p) = (E_R((r-1)*p_max + p)/dble(Num(r))/tmp)**(1.0/dble(p)) ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
-            W_R((r-1)*p_max + p) = (W_R((r-1)*p_max + p)/dble(Num(r))/tmp)**(1.00/dble(p))
+            E_R((r-1)*p_max + p) = (E_R((r-1)*p_max + p)/tmp)**(1.0/dble(p)) ! n^2p = (n^2)^p, where the n^2 is the normalization factor for the FFT and the other ^p is because the field is raised to the power of p
+            W_R((r-1)*p_max + p) = (W_R((r-1)*p_max + p)/tmp)**(1.00/dble(p))
          ENDIF
       END DO
    END DO
-
+   
+   
+   ! We will write also the number of points in each circle in order to then sum all the contributions for the different cores.
    OPEN(1,file=trim(dir)//'/EnergyProf/Energy.' //node //'.'// ext // '.txt')
    DO r = 1,r_max
-      WRITE(1,20) (E_R((r-1)*p_max+p),p=1,p_max)
+      WRITE(1,*) (E_R((r-1)*p_max+p),p=1,p_max)  
 20    FORMAT(8E22.14)
    END DO
    CLOSE(1)

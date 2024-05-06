@@ -198,7 +198,7 @@ PROGRAM HD2D
       CLOSE(1)
 
       OPEN(1,file=trim(ldir) // '/dim.txt')
-      WRITE(1,*) n
+      WRITE(1,*) n, nprocs
       CLOSE(1)
 
       ! formula for the Reynolds number associated with the kinematic viscosity
@@ -261,7 +261,7 @@ PROGRAM HD2D
 !     tiny: minimum truncation for dealiasing
 
    kmax2 = (dble(n)/3.d0)**2
-   tiny =  0.000001d0
+   tiny =  1.0d-10
    enerk = 1.0d0
    enst =  1.0d0
 
@@ -355,11 +355,11 @@ PROGRAM HD2D
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       CALL energy(fk,enerk,1)
-      IF (enerk.le.tiny) THEN ! no forcing
-         tmp1=1.0d0
-      ELSE
-         tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
-      ENDIF
+      !IF (enerk.le.tiny) THEN ! no forcing
+      !   tmp1=1.0d0
+      !ELSE
+      tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
+      !ENDIF
       CALL MPI_BCAST(tmp1,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
       fk  = tmp1*fk
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -1,0 +1,40 @@
+# # copy the files to IDRIS
+date=$(date +"%Y%m%d") # current date
+file1="simple_2DNS"
+file2="spread_2DNS"
+file3="embarrassed_2DNS"
+file4="pointvortices"
+
+myPWD=$(pwd)
+
+# working directory in IDRIS supercomputer
+WORKIDRIS="/home/victor/Desktop/IDRIS/WORK/"
+CODESIDRIS="/home/victor/Desktop/IDRIS/HOME/CODES/"
+
+# create a tmp directory to store the files
+cd src
+mkdir -p ${CODESIDRIS}/${date} ${file2}/RUNFILES ${file3}/RUNFILES
+cp -r ${file1} ${CODESIDRIS}/${date}
+if [ $? -eq 0 ]; then
+    echo "Files from ${file1} copied successfully" 
+else
+    echo "Error copying files"
+fi
+cp -r ${file2} ${CODESIDRIS}/${date}
+if [ $? -eq 0 ]; then
+    echo "Files from ${file2} copied successfully" 
+else
+    echo "Error copying files"
+fi
+cp -r ${file3} ${CODESIDRIS}/${date}
+if [ $? -eq 0 ]; then
+    echo "Files from ${file3} copied successfully" 
+else
+    echo "Error copying files"
+fi
+cp -r ${file4} ${CODESIDRIS}/${date}
+if [ $? -eq 0 ]; then
+    echo "Files from ${file4} copied successfully" 
+else
+    echo "Error copying files"
+fi

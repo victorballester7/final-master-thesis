@@ -21,17 +21,23 @@ tar -cvzf ${date}.tar ${date}/*
 # remove the tmp directory
 rm -r ${date}
 
+# destination in gauss computer
+dest1="~/Desktop/"
+scp ${date}.tar victor@gauss:${dest1}
+
 # destination in IDRIS supercomputer
 dest2="~/CODES/"
-scp ${date}.tar uft62hz@jean-zay.idris.fr:${dest2} 
 
 # we enter in gauss and then in IDRIS
 # 'ssh -t uft62hz@jean-zay.idris.fr /bin/sh' prevents the loading of the .bash_profile, and so we avoid loading the modules each time
-ssh -t uft62hz@jean-zay.idris.fr /bin/sh << EOF
-  cd CODES
-  # remove current directories
-  rm -R -- */
-  tar -xvzf ${date}.tar
+ssh victor@gauss << EOF
+    scp ${dest1}/${date}.tar uft62hz@jean-zay.idris.fr:${dest2}
+    ssh -t uft62hz@jean-zay.idris.fr /bin/sh << INNER_EOF
+        cd CODES
+        # remove current directories
+        rm -R -- */
+        tar -xvzf ${date}.tar
+INNER_EOF
 EOF
 
 # remove the tar file

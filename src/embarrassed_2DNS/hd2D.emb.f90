@@ -173,7 +173,7 @@ PROGRAM HD2D
       CLOSE(1)
 
       OPEN(1,file=trim(ldir) // '/dim.txt')
-      WRITE(1,*) n
+      WRITE(1,*) n, nprocs
       CLOSE(1)
 
       ! formula for the Reynolds number associated with the kinematic viscosity
@@ -331,11 +331,11 @@ PROGRAM HD2D
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,seed,myseed,fk)
       CALL energy(fk,enerk,1)
-      IF (enerk.le.tiny) THEN ! no forcing
-         tmp1=1.0d0
-      ELSE
-         tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
-      ENDIF
+      !IF (enerk.le.tiny) THEN ! no forcing
+      !   tmp1=1.0d0
+      !ELSE
+      tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
+      !ENDIF
       fk  = tmp1*fk
       ! DO j = 1,n
       !    DO i = 1,n/2+1
