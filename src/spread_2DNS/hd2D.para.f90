@@ -1,4 +1,3 @@
-!=================================================================
 PROGRAM HD2D
 !=================================================================
 ! HD2D code
@@ -439,10 +438,10 @@ PROGRAM HD2D
             WRITE(1,12) c//d//u,time
 12          FORMAT( A3,    F12.6)
             CLOSE(1)
-            !OPEN(1,file='status.inp')
-            !WRITE(1,*) c//d//u,'          % stat'
-            !WRITE(1,*) time,'  % time'
-            !CLOSE(1)
+            OPEN(1,file='status.prm')
+            WRITE(1,*) c//d//u,'          % stat'
+            WRITE(1,*) time,'  % time'
+            CLOSE(1)
          ENDIF
       ENDIF
 

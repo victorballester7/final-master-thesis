@@ -7,4 +7,4 @@ C 1
 alpha 0.e-1
 R 0.25
 R_exit 4
-dt 0.00001
+dt 0.0001

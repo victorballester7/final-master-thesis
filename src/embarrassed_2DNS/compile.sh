@@ -7,6 +7,7 @@ make hd2D
 
 cp clean.sh RUNFILES/
 cp clean_tests.sh RUNFILES/
+cp average_tests.sh RUNFILES/
 cp copy2tests.sh RUNFILES/
 cp hd2D RUNFILES/
 cp jobscriptMPI.slurm RUNFILES/

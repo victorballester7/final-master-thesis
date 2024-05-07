@@ -326,7 +326,7 @@ PROGRAM HD2D
       ! CALL CFL_condition(CFL,ps,inu,nu,dt)
 
       ! keep dt constant
-      dt = 6.0d-5
+      dt = 2.0d-5
 
 !!!!!!!  RANDOM FORCING  !!!!!!!!!!!
       CALL forcing(iflow,f0,kup,kdn,seed,myseed,fk)
@@ -407,6 +407,12 @@ PROGRAM HD2D
          ext = c // d // u
          CALL outputfields(ps,fk,ext,node,ldir)
 
+         IF (myrank.eq.0) THEN
+            OPEN(1,file='status.prm')
+            WRITE(1,*) c//d//u,'          % stat'
+            WRITE(1,*) time,'  % time'
+            CLOSE(1)
+         ENDIF
       ENDIF
 
       timet = timet+1
