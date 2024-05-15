@@ -184,4 +184,10 @@ To give you with a glimpse of what you can do with the codes, here are some resu
 
 The following video shows the evolution of the vorticity field of a 2D fluid flow in a doubly periodic domain, for a Reynolds number of 64 and a perturbation region being 8 times smaller than the length of the domain, and the size of the vortices created being 4 times smaller than the size of the perturbation region.
 
+https://github.com/victorballester7/final-master-thesis/assets/78110444/1f183057-01e5-4a4f-bf8f-830e92b06358
+
 ### Point vortices
+
+
+
+
