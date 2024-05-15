@@ -9,7 +9,7 @@ echo -e "${YELLOW}Preparing...${RESET}"
 
 # create necessary folders
 rm -rf data/pointvortices
-mkdir -p data data/pointvortices data/pointvortices/positions data/pointvortices/EnergyProf data/pointvortices/EnergyFlux
+mkdir -p data data/pointvortices data/pointvortices/positions data/pointvortices/EnergyProf data/pointvortices/EnergyFlux data/pointvortices/NumVortices
 
 cd src/pointvortices
 

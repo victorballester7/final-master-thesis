@@ -709,7 +709,8 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
    USE mpivars
    IMPLICIT NONE
 
-   INTEGER, PARAMETER :: r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
+   ! INTEGER, PARAMETER :: r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
+   INTEGER, PARAMETER :: r_max = int(n/2) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
    INTEGER, PARAMETER :: p_max = 8 ! if you want to change this, remeber tochange the number in the format statement in the write statement
 
    DOUBLE PRECISION, DIMENSION(r_max*p_max)        :: E_R, W_R, E_R_total, W_R_total
@@ -752,6 +753,7 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
       DO i = 1,n
          r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
          r = r+1 ! to avoid the zero radius
+         if (r.gt.r_max) cycle
          DO p = 1,p_max
             E_R((r-1)*p_max+p) = E_R((r-1)*p_max+p) + (r1(i,j)**2 + r2(i,j)**2)**(dble(p)/2.0)
             W_R((r-1)*p_max+p) = W_R((r-1)*p_max+p) + abs(r3(i,j))**p
@@ -847,24 +849,26 @@ SUBROUTINE outputfields(a,f,ext,node,dir)
    OPEN(1,file=trim(dir) // '/output/hd2Dww.' // node // '.'// ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
-   DO i = ista,iend
-      DO j = 1,n
-         C1(j,i) = f(j,i)*ka2(j,i)/dble(n)**2
+   if (ext.eq.'001') then
+      DO i = ista,iend
+         DO j = 1,n
+            C1(j,i) = f(j,i)*ka2(j,i)/dble(n)**2
+         END DO
       END DO
-   END DO
-   CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-   OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // node // '.' // ext // '.out',form='unformatted')
-   WRITE(1) R1
-   CLOSE(1)
-   DO i = ista,iend
-      DO j = 1,n
-         C1(j,i) = f(j,i)/dble(n)**2
+      CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
+      OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // node // '.' // ext // '.out',form='unformatted')
+      WRITE(1) R1
+      CLOSE(1)
+      DO i = ista,iend
+         DO j = 1,n
+            C1(j,i) = f(j,i)/dble(n)**2
+         END DO
       END DO
-   END DO
-   CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
-   OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // node // '.' // ext // '.out',form='unformatted')
-   WRITE(1) R1
-   CLOSE(1)
+      CALL fftp2d_complex_to_real(plancr,C1,R1,MPI_COMM_WORLD)
+      OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // node // '.' // ext // '.out',form='unformatted')
+      WRITE(1) R1
+      CLOSE(1)
+   endif
    RETURN
 END SUBROUTINE outputfields
 !*****************************************************************

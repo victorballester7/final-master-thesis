@@ -12,14 +12,13 @@ def readslice(inputfilename, nx, ny):
     return field
 
 
-def get_num_files(folder_path):
-    num_files = len(
-        [
-            f
-            for f in os.listdir(folder_path)
-            if os.path.isfile(os.path.join(folder_path, f))
-        ]
-    )
+def get_num_files(folder_path, STR):
+    num_files = [
+        f
+        for f in os.listdir(folder_path)
+        if os.path.isfile(os.path.join(folder_path, f))
+    ]
+    num_files = len([f for f in num_files if STR in f])
     return num_files
 
 
@@ -33,8 +32,9 @@ def get_dim(dim_dir):
 input_dir = "data/simple_2DNS/output/"
 output_dir = "images/simple_2DNS/"
 STR = "fw."
-outnum_nd = get_num_files(input_dir) // 4  # we have ww, ps, fw and fp
+outnum_nd = get_num_files(input_dir, STR)  # we have ww, ps, fw and fp
 homogeneous = False  # True if we want the same colors for all images
+first_file = 1
 
 dim_dir = "data/simple_2DNS/dim.txt"
 reso = get_dim(dim_dir)
@@ -42,6 +42,8 @@ nx = reso
 ny = nx
 color = "RdBu_r"
 print("reso=", reso)
+print("outnum_nd=", outnum_nd)
+
 script_dir = os.path.dirname(__file__)
 
 data = np.zeros((outnum_nd, reso, reso))
@@ -50,7 +52,13 @@ for file in range(outnum_nd):
     data1 = []
     data2 = np.zeros((reso, reso))
     filename = os.path.join(
-        script_dir, "../../" + input_dir + "hd2D" + STR + str("%03d" % file) + ".out"
+        script_dir,
+        "../../"
+        + input_dir
+        + "hd2D"
+        + STR
+        + str("%03d" % (file + first_file))
+        + ".out",
     )
     f = open(filename, "rb")
     f.seek(4)
@@ -71,7 +79,11 @@ if homogeneous:
 
 for file in range(outnum_nd):
     print("****************************")
-    print("#", "hd2D" + STR + str("%03d" % file) + ".out", pylab.size(data[file, :, :]))
+    print(
+        "#",
+        "hd2D" + STR + str("%03d" % (file + first_file)) + ".out",
+        pylab.size(data[file - 1, :, :]),
+    )
     fig = plt.figure()
     ax = fig.add_subplot()
     data2 = data[file, :, :]
@@ -82,7 +94,13 @@ for file in range(outnum_nd):
     # add colorbar
     cbar = plt.colorbar(myplot)
     filename = os.path.join(
-        script_dir, "../../" + output_dir + "FlowD_" + STR + str("%03d" % file) + ".png"
+        script_dir,
+        "../../"
+        + output_dir
+        + "FlowD_"
+        + STR
+        + str("%03d" % (file + first_file))
+        + ".png",
     )
     plt.savefig(filename)
     plt.close()

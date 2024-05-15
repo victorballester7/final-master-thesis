@@ -180,6 +180,7 @@ PROGRAM HD2D
       nu = (f0**2 * 4 * kdn**2/pi)**(1.0/3.0) * kup**(-4.0/3.0) / Re_nu
 
       print*, "dim    =",n      !  0
+      print*, "nprocs =",nprocs !  0
       print*, "cfl    =",cfl    !  1
       print*, "step   =",step   !  2
       print*, "tstep  =",tstep  !  3
@@ -317,10 +318,12 @@ PROGRAM HD2D
 
 
 
+   if (myrank.eq.0) print*,"START RK",step
 !
 ! Time integration scheme starts here
 ! Uses Runge-Kutta of order 'ord'
 !#################### MAIN LOOP ######################
+   ini = 1
    RK : DO t = ini,step
       ! update the time step
       ! CALL CFL_condition(CFL,ps,inu,nu,dt)
@@ -386,6 +389,12 @@ PROGRAM HD2D
          CALL laplak2(ps,C1)     ! make W
          CALL vectrans(ps,ps,C1,'euu',ext,node,ldir)
          CALL vectrans(C1,ps,C1,'vrt',ext,node,ldir)
+         IF (myrank.eq.0) THEN
+            OPEN(1,file=trim(ldir)//'/spectra_times.txt',position='append')
+            WRITE(1,13) ext,time
+13          FORMAT( A3,    F12.6)
+            CLOSE(1)
+         ENDIF
       ENDIF
 
 ! Every 'tstep' steps, stores the results of the integration
@@ -408,6 +417,10 @@ PROGRAM HD2D
          CALL outputfields(ps,fk,ext,node,ldir)
 
          IF (myrank.eq.0) THEN
+            OPEN(1,file=trim(ldir)//'/field_times.txt',position='append')
+            WRITE(1,12) c//d//u,time
+12          FORMAT( A3,    F12.6)
+            CLOSE(1)
             OPEN(1,file='status.prm')
             WRITE(1,*) c//d//u,'          % stat'
             WRITE(1,*) time,'  % time'

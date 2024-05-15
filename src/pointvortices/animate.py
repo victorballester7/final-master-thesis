@@ -7,12 +7,16 @@ import time
 from read_data import *
 
 duration = 10  # in seconds
-L = 5
-xmin, xmax = -L, L
-ymin, ymax = -L, L
 
 
 def animate(folder_path: str, save: bool = False):
+    # read L from misc.txt
+
+    L, output_pos = get_misc(folder_path + "/../misc.txt")
+    L = L + 1
+    xmin, xmax = -L, L
+    ymin, ymax = -L, L
+
     # Create a figure
     fig, ax = plt.subplots()
 
@@ -39,19 +43,22 @@ def animate(folder_path: str, save: bool = False):
     # print(circulation)
     vortices = []
     for i in range(num_vortices):
-        aux, = ax.plot(
-            [], [], 'o', markersize=2, color='red' if circulation[i] == True else 'blue')
+        (aux,) = ax.plot(
+            [], [], "o", markersize=2, color="red" if circulation[i] == True else "blue"
+        )
         vortices.append(aux)
 
+    # add time text
+    time_text = ax.text(0.02, 0.95, "", transform=ax.transAxes)
+
     # Axes
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
     ax.set_xlim(xmin, xmax)
     ax.set_ylim(ymin, ymax)
-    ax.set_aspect('equal')
+    ax.set_aspect("equal")
 
     def update(frame):
-
         # Update data
         x = data_blocks_x[frame]
         y = data_blocks_y[frame]
@@ -59,21 +66,28 @@ def animate(folder_path: str, save: bool = False):
         for j in range(num_vortices):
             vortices[j].set_data([x[j]], [y[j]])
 
-        return vortices
+        time_text.set_text(
+            "Time = %d %.3d" % (frame * output_pos // 1000, frame * output_pos % 1000)
+        )
+
+        return [vortices, time_text]
 
     # Create the animation
-    ani = FuncAnimation(fig, update, frames=num_frames,
-                        interval=interval, blit=False)
+    ani = FuncAnimation(fig, update, frames=num_frames, interval=interval, blit=False)
 
     end_time = time.time()
-    print("Total time for animating: ", int(
-        UNIT_TIME * (end_time - start_time)), LABEL_TIME)
+    print(
+        "Total time for animating: ",
+        int(UNIT_TIME * (end_time - start_time)),
+        LABEL_TIME,
+    )
 
     if save:
         # Save the animation
-        filename = 'videos/pointvortices/pointvortices.' + \
-            'N=' + str(num_vortices) + '.mp4'
-        ani.save(filename, writer='ffmpeg', dpi=300, fps=FPS)
+        filename = (
+            "videos/pointvortices/pointvortices." + "N=" + str(num_vortices) + ".mp4"
+        )
+        ani.save(filename, writer="ffmpeg", dpi=300, fps=FPS)
     else:
         # Show the animation
         plt.show()
@@ -83,7 +97,7 @@ def animate(folder_path: str, save: bool = False):
 UNIT_TIME = 1000  # in seconds
 LABEL_TIME = "ms"
 start_time = time.time()
-folder_results = 'data/pointvortices/positions'
+folder_results = "data/pointvortices/positions"
 
 # Read data
 

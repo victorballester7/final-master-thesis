@@ -1,3 +1,4 @@
+#include <chrono>
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -7,8 +8,8 @@
 #include "../../include/pointvortices_field.h"
 #include "../../include/rk78.h"
 
-#define TOL 1e-6      // tolerance for the RK78 method
-#define COLLISION 0.1 // tolerance for the collision detection
+#define TOL 1e-6                  // tolerance for the RK78 method
+#define COLLISION (0.05 * R_exit) // tolerance for the collision detection
 #define RK78 1
 using namespace std;
 
@@ -21,13 +22,19 @@ int main(void) {
                                                 // write the positions of the
                                                 // point vortices
   const string filename_output_E =
-      "data/pointvortices/EnergyProf/EnergyProf"; // name of the output file to
-                                                  // write the positions of the
-                                                  // point vortices
+      "data/pointvortices/EnergyProf/Energy"; // name of the output file to
+                                              // write the positions of the
+                                              // point vortices
   const string filename_output_Eflux =
-      "data/pointvortices/EnergyFlux/EnergyFlux"; // name of the output file to
-                                                  // write the positions of the
-                                                  // point vortices
+      "data/pointvortices/EnergyFlux/Energy"; // name of the output file to
+                                              // write the positions of the
+                                              // point vortices
+  const string filename_output_numvortices =
+      "data/pointvortices/NumVortices/NumVortices"; // name of the output file
+                                                    // to write the number of
+                                                    // point vortices
+  const string filename_output_misc = "data/pointvortices/misc.txt";
+  const string filename_output_energyBal = "data/pointvortices/energy_bal.txt";
   const string space = "    "; // space to print the parameters
   pointvortices_params prm;    // parameters of the system
   prm.dim = 3; // dimension of the space (2 space dimensions + 1 circulation
@@ -47,6 +54,8 @@ int main(void) {
   double *E = new double[N_R];     // energy profile
   double *E_aux = new double[N_R]; // energy profile at time t
 
+  time_t t0 = time(0);
+
   // ------------- File input setup ----------------
   ifstream file_input;
   ofstream file_output;
@@ -65,6 +74,12 @@ int main(void) {
     file_input >> tmp >> dt;
   }
   file_input.close();
+
+  file_output.open(filename_output_misc);
+  if (file_output.is_open()) {
+    file_output << R_exit << " " << outSteps << endl;
+  }
+  file_output.close();
 
   // print parameters
   // ------------- Print plot setup -----------------
@@ -88,13 +103,13 @@ int main(void) {
   double dist;
 
   // set circulations
-  double eps = C0 / 100; // small perturbation to avoid the same circulations
+  double eps = 1.; // small perturbation to avoid the same circulations
   pair<double, double> z;
   for (int i = 0; i < n; i += 2) {
     z = standard_normal(); // generates 2 iid standard normal variables using
                            // the Box-Muller method
-    X[prm.dim * i + 2] = C0 + eps * z.first;
-    X[prm.dim * (i + 1) + 2] = -C0 + eps * z.second;
+    X[prm.dim * i + 2] = eps * z.first;
+    X[prm.dim * (i + 1) + 2] = -eps * z.first;
   }
 
   // seed the random number generator
@@ -125,28 +140,13 @@ int main(void) {
     // plot energy profile
     if (numSteps % energySteps == 0) {
       EnergyProf(n, X, N_R, E, R_exit, filename_output_E, &prm);
-      //if (numSteps == 10000) {
-      //  for (int i = 0; i < n; i++) {
-      //    cout << i << " " << sqrt(X[prm.dim * i] * X[prm.dim * i] +
-      //                         X[prm.dim * i + 1] * X[prm.dim * i + 1])
-      //         << endl;
-      //  }
-      //}
+      Energy(n, t, X, filename_output_energyBal, &prm);
+      NumVortices(n, X, N_R, R_exit, filename_output_numvortices, &prm);
     }
 
     if ((numSteps - 1) % energySteps == 0) {
       EnergyProf(n, X, N_R, E_aux, R_exit, filename_output_E, &prm);
       EnergyFlux(dt, N_R, E, E_aux, R_exit, filename_output_Eflux);
-      //if (numSteps == 10001) {
-      //  for (int i = 0; i < N_R; i++) {
-      //    cout << (i+1) * R_exit/N_R << " " << abs(E_aux[i]-E[i]) << endl;
-      //  }
-      //  for (int i = 0; i < n; i++) {
-      //    cout << i << " " << sqrt(X[prm.dim * i] * X[prm.dim * i] +
-      //                         X[prm.dim * i + 1] * X[prm.dim * i + 1])
-      //         << endl;
-      //  }
-      //}
     }
 
     // simulate
@@ -187,8 +187,7 @@ int main(void) {
                    (X[prm.dim * i + 1] - X[prm.dim * j + 1]) *
                        (X[prm.dim * i + 1] - X[prm.dim * j + 1]);
 
-            if (dist < COLLISION &&
-                X[prm.dim * j + 2] * X[prm.dim * i + 2] < 0) {
+            if (dist < COLLISION) {
               resetBody(X, j, R, &prm);
               break;
             }
@@ -205,6 +204,9 @@ int main(void) {
 
     numSteps++;
   }
+
+  time_t t1 = time(0);
+  cout << "Time employed: " << difftime(t1, t0) << " seconds" << endl;
 
   // free memory
   delete[] X;

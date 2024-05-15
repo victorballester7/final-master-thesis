@@ -204,6 +204,7 @@ PROGRAM HD2D
       nu = (f0**2 * 4 * kdn**2/pi)**(1.0/3.0) * kup**(-4.0/3.0) / Re_nu
 
       print*, "dim    =",n      !  0
+      print*, "nprocs =",nprocs !  0
       print*, "cfl    =",cfl    !  1
       print*, "step   =",step   !  2
       print*, "tstep  =",tstep  !  3

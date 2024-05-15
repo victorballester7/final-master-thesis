@@ -1,0 +1,16 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\section{Introduction}\label{sec:intro}
+
+The orbital environment of the Earth is very populated. As of mid-2023, there are around $27\,500$ spacecraft in orbit around the Earth \cite{web:spacetrack}. Among these, around $11\,000$ are active satellites, $2\,300$ are rocket bodies (that is, the propulsion units used to deploy satellites into orbit), $13\,700$ are inactive satellites (debris), and the rest are unclassified objects. And, as years go by, the probability of collision between two spacecraft is continuously increasing. Some serious collisions have already taken place, for instance the high-speed collision between the Iridium 33 and the Kosmos-2251 satellites in 2009 \cite{wiki:collision}.
+
+Orbital dynamics around the Earth are very complex. The Keplerian approximation provides accurate results just for a few hours. Important perturbations of the Keplerian approximation are: the actual gravity field of the Earth (non-Keplerian because the Earth is not a point mass nor a sphere with constant density), atmospheric drag, third-body effects (such as the gravitational pull from the Moon and the Sun) and solar radiation pressure. The most accurate models (see \cite{sgp4OrbitDet}) include all these perturbations, and are able to make reasonably accurate predictions for a few days. This makes possible to keep a catalog of orbiting objects (both active and inactive) through a heterogeneous global network of observing stations, that can be e.g.\ optical (telescopes) or radar-based \cite{web:spacetrack,web:celestrak}. Keeping this catalog requires continuous observation.
+
+The goal of this work is to give quantitative insight in the effect that these perturbations have individually. For that, the necessary models will be mathematically developed. We will construct a reference frame where the Newton's laws of motion are valid. But since we will have to know the position of the satellites relative to a ``fixed'' Earth at each step of the integration process, we will have to construct transformations from the former inertial frame to this latter non-inertial frame. In order to do so, we will have to account for the variations on the Earth's axis of rotation as a function of time.
+
+At the end, we will show the results of the simulations for three types of orbits: LEO (Low Earth Orbit), MEO (Medium Earth Orbit) and GEO (Geostationary Earth Orbit).
+
+In this work we have used the software from O.\,Montenbruck and E.\,Gill \cite{montenbruck} for the computation of the geopotential model and most of the transformations between the reference frames explained in \cref{sec:reference_systems}. Additionally, J.\,M.\,Mondelo facilitated me the code for the RK7(8) numerical integrator. Finally, the code for the highly-accurate model that we will use to compare our results, the SGP4 model, was obtained from \cite{code_sgp4}\footnote{All the code used in this project can be found at \url{https://github.com/victorballester7/final-bachelor-thesis} (accessed on June 25, 2023).}.
+
+\end{document}

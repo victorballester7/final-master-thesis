@@ -11,3 +11,10 @@ if [ $? -eq 0 ]; then
 else
     echo "IDRIS WORK mount failed!"
 fi
+
+sshfs uft62hz@jean-zay.idris.fr:/gpfsstore/rech/gsv/uft62hz ~/Desktop/IDRIS/STORE/
+if [ $? -eq 0 ]; then
+    echo "IDRIS STORE mounted successfully!"
+else
+    echo "IDRIS STORE mount failed!"
+fi

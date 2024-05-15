@@ -8,14 +8,17 @@
 #include "../../include/pointvortices_field.h"
 using namespace std;
 
+const uint num_digits_files = 4;
+
 void saveData(int n, double *X, string filename_output, void *param) {
   ofstream file_output;
   pointvortices_params *prm = (pointvortices_params *)param;
   static uint plot_count = 0;
   // add the plot count to the filename always with 4 digits
-  string filename = filename_output + "." +
-                    string(4 - to_string(plot_count).length(), '0') +
-                    to_string(plot_count) + ".txt";
+  string filename =
+      filename_output + "." +
+      string(num_digits_files - to_string(plot_count).length(), '0') +
+      to_string(plot_count) + ".txt";
   file_output.open(filename);
   for (int i = 0; i < n; i++) {
     file_output << X[prm->dim * i] << " " << X[prm->dim * i + 1] << " "
@@ -63,14 +66,39 @@ double uv2(int n, double *X, double x, double y, void *param) {
   v /= 2 * M_PI;
   return u * u + v * v;
 }
-// compute the energy of the system in
+
+void Energy(int n, double t, double *X, string filename_output, void *param) {
+  ofstream file_output;
+  static int plot_count = 0;
+  file_output.open(filename_output, ios::app); // append to the file
+
+  pointvortices_params *prm = (pointvortices_params *)param;
+  double E = 0;
+  double xx, yy, r2;
+  for (int i = 0; i < n; i++) {
+    for (int j = i + 1; j < n; j++) {
+      xx = X[prm->dim * i] - X[prm->dim * j];
+      yy = X[prm->dim * i + 1] - X[prm->dim * j + 1];
+      r2 = xx * xx + yy * yy + prm->EPS * prm->EPS;
+      E += X[prm->dim * i + 2] * X[prm->dim * j + 2] * log(r2);
+    }
+  }
+  E /= 2 * M_PI;
+
+  file_output << t << " " << E << endl;
+  file_output.close();
+  plot_count++;
+}
+
+// compute the energy of the system in the ring of radius r
 void EnergyProf(int n, double *X, int N_R, double *E, double R_max,
                 string filename_output, void *param) {
   ofstream file_output;
   static int plot_count = 0;
-  string filename = filename_output + "." +
-                    string(4 - to_string(plot_count).length(), '0') +
-                    to_string(plot_count) + ".txt";
+  string filename =
+      filename_output + "." +
+      string(num_digits_files - to_string(plot_count).length(), '0') +
+      to_string(plot_count) + ".txt";
   file_output.open(filename);
 
   double r, aux;
@@ -94,13 +122,15 @@ void EnergyProf(int n, double *X, int N_R, double *E, double R_max,
   plot_count++;
 }
 
+// compute the energy flux of the system in disks of radius r
 void EnergyFlux(double dt, int N_R, double *E0, double *E1, double R_max,
                 string filename_output) {
   ofstream file_output;
   static int plot_count = 0;
-  string filename = filename_output + "." +
-                    string(4 - to_string(plot_count).length(), '0') +
-                    to_string(plot_count) + ".txt";
+  string filename =
+      filename_output + "." +
+      string(num_digits_files - to_string(plot_count).length(), '0') +
+      to_string(plot_count) + ".txt";
   file_output.open(filename);
   double flux, r;
   double E1_total, E0_total;
@@ -118,4 +148,34 @@ void EnergyFlux(double dt, int N_R, double *E0, double *E1, double R_max,
   }
   file_output.close();
   plot_count++;
+}
+
+void NumVortices(int n, double *X, int N_R, double R_max,
+                 string filename_output, void *param) {
+  ofstream file_output;
+  static int plot_count = 0;
+  string filename =
+      filename_output + "." +
+      string(num_digits_files - to_string(plot_count).length(), '0') +
+      to_string(plot_count) + ".txt";
+  file_output.open(filename);
+
+  pointvortices_params *prm = (pointvortices_params *)param;
+
+  double *count = new double[N_R];
+  for (int i = 0; i < N_R; i++)
+    count[i] = 0;
+  double r;
+  for (int i = 0; i < n; i++) {
+    r = sqrt(X[prm->dim * i] * X[prm->dim * i] +
+             X[prm->dim * i + 1] * X[prm->dim * i + 1]);
+    count[(int)(r / R_max * N_R)]++;
+  }
+  for (int i = 1; i <= N_R; i++) {
+    file_output << R_max * i / N_R << " " << count[i - 1] << endl;
+  }
+
+  file_output.close();
+  plot_count++;
+  delete[] count;
 }

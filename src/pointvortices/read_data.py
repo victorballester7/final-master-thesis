@@ -14,7 +14,7 @@ def read_data_pos(file_path):
     # second column stores in Le
     # third column stores in state
     # fourth column stores in times
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         lines = file.readlines()
 
     x = []
@@ -37,8 +37,13 @@ def read_data_pos(file_path):
 
 
 def get_num_frames(folder_path):
-    num_frames = len([f for f in os.listdir(folder_path)
-                      if os.path.isfile(os.path.join(folder_path, f))])
+    num_frames = len(
+        [
+            f
+            for f in os.listdir(folder_path)
+            if os.path.isfile(os.path.join(folder_path, f))
+        ]
+    )
     return num_frames
 
 
@@ -59,3 +64,12 @@ def set_data(folder_path):
     data_blocks_y = np.array(data_blocks_y)
 
     return data_blocks_x, data_blocks_y, circulation
+
+
+def get_misc(dim_dir):
+    f = open(dim_dir, "r")
+    dim_str = f.readlines()
+    f.close()
+    # split the line and return the two values
+    radius, output_pos = dim_str[0].split()
+    return float(radius), int(output_pos)

@@ -676,7 +676,8 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
    USE ali
    IMPLICIT NONE
 
-   INTEGER, PARAMETER :: r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
+   ! INTEGER, PARAMETER :: r_max = int(n/sqrt(2.0)) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
+   INTEGER, PARAMETER :: r_max = int(n/2) ! The maximum radius is the diagonal of the domain (I computed it, there's no need to add 1 to be conservative)
    INTEGER, PARAMETER :: p_max = 8 ! if you want to change this, remeber tochange the number in the format statement in the write statement
 
    DOUBLE PRECISION, DIMENSION(p_max*r_max)        :: E_R, W_R
@@ -721,6 +722,7 @@ SUBROUTINE EnergyEnstropy_profiles(a,ext,dir)
       DO i = 1,n
          r = int(sqrt(real((i-(n/2+0.5))**2+(j-(n/2+0.5))**2)))
          r = r+1 ! to avoid the zero radius
+         if (r.gt.r_max) cycle
          DO p = 1,p_max
             E_R((r-1)*p_max+p) = E_R((r-1)*p_max+p) + (r1(i,j)**2 + r2(i,j)**2)**(dble(p)/2.0)
             W_R((r-1)*p_max+p) = W_R((r-1)*p_max+p) + abs(r3(i,j))**p
@@ -804,24 +806,35 @@ SUBROUTINE outputfields(a,f,ext,dir)
    OPEN(1,file=trim(dir) // '/output/hd2Dww.' // ext // '.out',form='unformatted')
    WRITE(1) R1
    CLOSE(1)
-   DO j = 1,n
-      DO i = 1,n/2+1
-         C1(i,j) = f(i,j)*ka2(i,j)/dble(n)**2
+   if (ext.eq.'001') then
+     OPEN(1,file=trim(dir) // '/output/vorticity.' // ext // '.txt')
+     DO i = 1,n
+        WRITE(1,20) (R1(i,j),j=1,n) ! we write the vorticity field
+   20   FORMAT(E22.14)
+       end do
+   ENDIF
+   if (ext.eq.'001') then
+      DO j = 1,n
+         DO i = 1,n/2+1
+            C1(i,j) = f(i,j)*ka2(i,j)/dble(n)**2
+         END DO
       END DO
-   END DO
-   CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // ext // '.out',form='unformatted')
-   WRITE(1) R1
-   CLOSE(1)
-   DO j = 1,n
-      DO i = 1,n/2+1
-         C1(i,j) = f(i,j)/dble(n)**2
+      CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
+      OPEN(1,file=trim(dir) // '/output/hd2Dfw.' // ext // '.out',form='unformatted')
+      WRITE(1) R1
+      CLOSE(1)
+      DO j = 1,n
+         DO i = 1,n/2+1
+            C1(i,j) = f(i,j)/dble(n)**2
+         END DO
       END DO
-   END DO
-   CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
-   OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // ext // '.out',form='unformatted')
-   WRITE(1) R1
-   CLOSE(1)
+      CALL rfftwnd_f77_one_complex_to_real(plancr,C1,R1)
+      OPEN(1,file=trim(dir) // '/output/hd2Dfp.' // ext // '.out',form='unformatted')
+      WRITE(1) R1
+      CLOSE(1)
+   ENDIF
+   ! print to a file .txt the values of the vorticity field. 
+
    RETURN
 END SUBROUTINE outputfields
 !*****************************************************************
