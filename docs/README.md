@@ -140,8 +140,38 @@ Host jean-zay.idris.fr
   ProxyCommand ssh victor@gauss -W %h:%p
 ```
 
+##### Installing the fftw library
+
+As in the personal computer case, you will need to install an older version of the `fftw` library, in this case the `fftw-2` version. The installation is similar to the one in the personal computer case, but in this case you will have to install the library in the supercomputer. To do so, it's recommended to install it under the `/home/` directory, due to the lack of sudo permissions in the root directory. The installation is done in the same way as in the personal computer case. Don't forget to set the correct path in the `Makefile` of the `spread_2DNS` and `embarrassed_2DNS` codes.
+
 ##### IDRIS Jean Zay
 
-```
+Executing the following command in the root folder of the repository
 
 ```
+./sync_IDRIS.sh
+```
+
+will sync the code with the supercomputer (in a folder called `CODES` in the `~/` directory). To compile the codes do (change my username `uft62hz` for yours):
+
+```
+ssh uft62hz@idris.jean-zay.fr
+CODES/yyyymmdd/spread_2DNS/compile.sh
+```
+
+where `yyyymmdd` is the date of the last syncronization that you did with the supercomputer (same applies for the `embarrassed_2DNS` codes). The code will be compiled in the supercomputer and the necessary files for running the code will be stored in the `$WORK/spread_2DNS/` folder. To run the code, you can use the following command:
+
+```
+cd $WORK/spread_2DNS/
+sbatch jobscript_IDRIS.slurm
+```
+
+And to see that indeed the code is running, you can use the following command:
+
+```
+squeue -u uft62hz
+```
+
+##### MesoPSL
+
+The setup for MesoPSL is similar to the one for IDRIS Jean Zay but the paths of the folders differ.
