@@ -133,7 +133,7 @@ ssh-keygen -t rsa -b 4096 -C "label_name" -f ~/.ssh/id_rsa
 ssh-copy-id -i ~/.ssh/id_rsa.pub victor@gauss
 ```
 
-Then, in order to access directly to the supercomputer from your computer, instead of doing ssh to your lab computer and then ssh to the supercomputer, you add the following lines in the `~/.ssh/config` file:
+(`gauss` is the name of my lab computer). Then, in order to access directly to the supercomputer from your computer, instead of doing ssh to your lab computer and then ssh to the supercomputer, you add the following lines in the `~/.ssh/config` file:
 
 ```
 Host jean-zay.idris.fr
@@ -148,7 +148,7 @@ As in the personal computer case, you will need to install an older version of t
 
 Executing the following command in the root folder of the repository
 
-```
+```shell
 ./sync_IDRIS.sh
 ```
 
@@ -156,7 +156,7 @@ will sync the code with the supercomputer (in a folder called `CODES` in the `~/
 
 ```
 ssh uft62hz@idris.jean-zay.fr
-CODES/yyyymmdd/spread_2DNS/compile.sh
+CODES/yyyymmdd/spread_2DNS/compileIDRIS.sh
 ```
 
 where `yyyymmdd` is the date of the last syncronization that you did with the supercomputer (same applies for the `embarrassed_2DNS` codes). The code will be compiled in the supercomputer and the necessary files for running the code will be stored in the `$WORK/spread_2DNS/` folder. To run the code, you can use the following command:
