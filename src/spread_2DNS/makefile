@@ -23,7 +23,8 @@ LMPI     = -O3 -no-prec-div -fp-model fast=2 -align
 IDIR     =
 LDIR     =
 FFTWLDIR = /linkhome/rech/genlpe01/uft62hz/LIBS/fftw/lib
-LFFTW    = -ldrfftw -ldfftw -L$(FFTWLDIR)
+FFTWLDIR2 = /obs/vballester/LIBS/fftw/lib
+LFFTW    = -ldrfftw -ldfftw -L$(FFTWLDIR) -L$(FFTWLDIR2)
 SHELL    = /bin/bash
 MAKE     = /usr/bin/make
 PERL     = /usr/bin/perl

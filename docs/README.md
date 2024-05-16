@@ -148,7 +148,7 @@ As in the personal computer case, you will need to install an older version of t
 
 Executing the following command in the root folder of the repository
 
-```shell
+```
 ./sync_IDRIS.sh
 ```
 
@@ -187,7 +187,3 @@ The following video shows the evolution of the vorticity field of a 2D fluid flo
 https://github.com/victorballester7/final-master-thesis/assets/78110444/1f183057-01e5-4a4f-bf8f-830e92b06358
 
 ### Point vortices
-
-
-
-
