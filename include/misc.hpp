@@ -11,8 +11,12 @@ pair<double, double> standard_normal();
 
 void resetBody(double *X, int i, double R, void *param);
 
-// computes the square of the velocity of the fluid at the position (x,y) due to
-// the point vortices
+void removeBody(double *X, int j, int *n, void *param);
+
+void addBody(double *X, int *n, double R_in, double C, void *param);
+
+// computes the square of the velocity of the fluid at the position (x,y) due
+// to the point vortices
 double uv2(int n, double *X, double x, double y, void *param);
 
 void Energy(int n, double t, double *X, string filename_output, void *param);

@@ -496,7 +496,7 @@ SUBROUTINE CFL_condition(cfl,c1,inu,nu,dt)
    DOUBLE PRECISION        :: tmp1,tmp2,kcut,nrm
 
    kcut=(dble(n)/3.0d0)
-   nrm=(dble(n))**2
+   nrm=(dble(n))**2 ! normalization factor for the FFT
    CALL derivk2(c1,c3,1)
    CALL derivk2(c1,c4,2)
    CALL fftp2d_complex_to_real(plancr,c3,r1,MPI_COMM_WORLD)

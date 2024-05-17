@@ -42,13 +42,50 @@ void resetBody(double *X, int i, double R, void *param) {
   pointvortices_params *prm = (pointvortices_params *)param;
   double r, aux;
   aux = 2 * M_PI * (double)rand() / RAND_MAX;
-  r = sqrt(R * abs((double)rand() / RAND_MAX));
+  r = sqrt(abs((double)rand() / RAND_MAX)) * R;
   X[prm->dim * i] = r * cos(aux);
   X[prm->dim * i + 1] = r * sin(aux);
 }
 
-// computes the square of the velocity of the fluid at the position (x,y) due to
-// the point vortices
+void removeBody(double *X, int j, int *n, void *param) {
+  pointvortices_params *prm = (pointvortices_params *)param;
+  // remove the j-th body
+  // we do this by moving the last body to the j-th position
+  // and reducing the number of bodies by one
+  for (int k = 0; k < prm->dim; k++) {
+    X[prm->dim * j + k] = X[prm->dim * (*n - 1) + k];
+  }
+  (*n)--;
+  cout << "Body " << j << " removed" << endl;
+  double *X_tmp;
+  if (X_tmp = (double *)realloc(X, prm->dim * (*n) * sizeof(double))) {
+    X = X_tmp;
+  } else {
+    cout << "Error reallocating memory (-)" << endl;
+  }
+}
+
+void addBody(double *X, int *n, double R_in, double C, void *param) {
+  pointvortices_params *prm = (pointvortices_params *)param;
+  double r, aux;
+  aux = 2 * M_PI * (double)rand() / RAND_MAX;
+  double *X_tmp;
+  r = sqrt(abs((double)rand() / RAND_MAX)) * R_in;
+  (*n)++;
+  cout << "Body " << *n << " added" << endl;
+  if (X_tmp = (double *)realloc(X, prm->dim * (*n) * sizeof(double))) {
+    X = X_tmp;
+  } else {
+    cout << "Error reallocating memory (+)" << endl;
+  }
+
+  X[prm->dim * (*n - 1)] = r * cos(aux);
+  X[prm->dim * (*n - 1) + 1] = r * sin(aux);
+  X[prm->dim * (*n - 1) + 2] = C;
+}
+
+// computes the square of the velocity of the fluid at the position (x,y)
+// due to the point vortices
 double uv2(int n, double *X, double x, double y, void *param) {
   double u = 0;
   double v = 0;
@@ -105,8 +142,8 @@ void EnergyProf(int n, double *X, int N_R, double *E, double R_max,
 
   double N_theta = 1000; // number of points in the angular direction
 
-  // for each radius we compute the avergae energy of the system in the ring of
-  // radius r E = 1/N_theta sum_{j=1}^{N_theta} (u_j^2 + v_j^2) / 2
+  // for each radius we compute the avergae energy of the system in the ring
+  // of radius r E = 1/N_theta sum_{j=1}^{N_theta} (u_j^2 + v_j^2) / 2
   for (int i = 1; i <= N_R; i++) {
     r = R_max * i / N_R;
     E[i - 1] = 0;
