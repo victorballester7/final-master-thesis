@@ -17,7 +17,7 @@ cp jobscriptMPI_MESOPSL.slurm RUNFILES/
 cp input.prm RUNFILES/
 cp status.prm RUNFILES/
 cp Vis2Db.py RUNFILES/
-cp movie.py RUNFILES/
+cp average.py RUNFILES/
 
 cp RUNFILES/* $WORKDIR/embarrassed_2DNS
 

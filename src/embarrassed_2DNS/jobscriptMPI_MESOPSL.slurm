@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=2D_intm1        # nom du job
-#SBATCH --time=2-00:00:00          # temps maximal d'exécution du job
+#SBATCH --time=4-00:00:00          # temps maximal d'exécution du job
 #SBATCH --mail-user=victor.ballester-ribo@dauphine.eu --mail-type=ALL
 #SBATCH --clusters=mesopsl1
 #SBATCH --partition=def
