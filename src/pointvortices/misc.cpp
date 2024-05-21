@@ -2,13 +2,15 @@
 #include <cstdio>
 #include <fstream>
 #include <iostream>
+#include <stdlib.h>
+#include <string.h>
 #include <string>
 
 #include "../../include/misc.hpp"
 #include "../../include/pointvortices_field.h"
 using namespace std;
 
-const uint num_digits_files = 4;
+const uint num_digits_files = 5;
 
 void saveData(int n, double *X, string filename_output, void *param) {
   ofstream file_output;
@@ -21,8 +23,16 @@ void saveData(int n, double *X, string filename_output, void *param) {
       to_string(plot_count) + ".txt";
   file_output.open(filename);
   for (int i = 0; i < n; i++) {
+    int j;
+    if (X[prm->dim * i] * X[prm->dim * i] +
+            X[prm->dim * i + 1] * X[prm->dim * i + 1] <
+        0.25 * 0.25) {
+      j = 11111;
+    } else {
+      j = 22222;
+    }
     file_output << X[prm->dim * i] << " " << X[prm->dim * i + 1] << " "
-                << (X[prm->dim * i + 2] > 0) << endl;
+                << (X[prm->dim * i + 2] > 0) << " " << j << endl;
   }
   file_output.close();
   plot_count++;
@@ -47,41 +57,50 @@ void resetBody(double *X, int i, double R, void *param) {
   X[prm->dim * i + 1] = r * sin(aux);
 }
 
-void removeBody(double *X, int j, int *n, void *param) {
+void removeBody(double **X, bool **isInner, int j, int *n, void *param) {
   pointvortices_params *prm = (pointvortices_params *)param;
   // remove the j-th body
   // we do this by moving the last body to the j-th position
   // and reducing the number of bodies by one
   for (int k = 0; k < prm->dim; k++) {
-    X[prm->dim * j + k] = X[prm->dim * (*n - 1) + k];
+    (*X)[prm->dim * j + k] = (*X)[prm->dim * (*n - 1) + k];
   }
+  (*isInner)[j] = (*isInner)[*n - 1];
   (*n)--;
-  cout << "Body " << j << " removed" << endl;
   double *X_tmp;
-  if (X_tmp = (double *)realloc(X, prm->dim * (*n) * sizeof(double))) {
-    X = X_tmp;
+  bool *isInner_tmp;
+  if ((X_tmp = (double *)realloc(*X, prm->dim * (*n) * sizeof(double))) &&
+      (isInner_tmp = (bool *)realloc(*isInner, *n * sizeof(bool)))) {
+    *X = X_tmp;
+    *isInner = isInner_tmp;
   } else {
     cout << "Error reallocating memory (-)" << endl;
+    exit(1);
   }
 }
 
-void addBody(double *X, int *n, double R_in, double C, void *param) {
+void addBody(double **X, bool **isInner, int *n, double R_in, double C,
+             void *param) {
   pointvortices_params *prm = (pointvortices_params *)param;
   double r, aux;
   aux = 2 * M_PI * (double)rand() / RAND_MAX;
   double *X_tmp;
+  bool *isInner_tmp;
   r = sqrt(abs((double)rand() / RAND_MAX)) * R_in;
   (*n)++;
-  cout << "Body " << *n << " added" << endl;
-  if (X_tmp = (double *)realloc(X, prm->dim * (*n) * sizeof(double))) {
-    X = X_tmp;
+  if ((X_tmp = (double *)realloc(*X, prm->dim * (*n) * sizeof(double))) &&
+      (isInner_tmp = (bool *)realloc(*isInner, *n * sizeof(bool)))) {
+    *X = X_tmp;
+    *isInner = isInner_tmp;
   } else {
     cout << "Error reallocating memory (+)" << endl;
+    exit(1);
   }
 
-  X[prm->dim * (*n - 1)] = r * cos(aux);
-  X[prm->dim * (*n - 1) + 1] = r * sin(aux);
-  X[prm->dim * (*n - 1) + 2] = C;
+  (*X)[prm->dim * (*n - 1)] = r * cos(aux);
+  (*X)[prm->dim * (*n - 1) + 1] = r * sin(aux);
+  (*X)[prm->dim * (*n - 1) + 2] = C;
+  (*isInner)[*n - 1] = true;
 }
 
 // computes the square of the velocity of the fluid at the position (x,y)
@@ -209,7 +228,7 @@ void NumVortices(int n, double *X, int N_R, double R_max,
     count[(int)(r / R_max * N_R)]++;
   }
   for (int i = 1; i <= N_R; i++) {
-    file_output << R_max * i / N_R << " " << count[i - 1] << endl;
+    file_output << R_max * i / N_R << " " << count[i - 1] * 1. / n << endl;
   }
 
   file_output.close();

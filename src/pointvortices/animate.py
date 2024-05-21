@@ -26,7 +26,7 @@ def animate(folder_path: str, save: bool = False):
     # set data
     data_blocks_x, data_blocks_y, circulation = set_data(folder_path)
 
-    num_vortices = len(data_blocks_x[0])
+    num_vortices = [len(data_blocks_x[i]) for i in range(num_frames)]
 
     FPS = int(num_frames / duration) + 1  # +1 to ensure positivity
     interval = 1000 / FPS  # interval between frames in milliseconds
@@ -38,11 +38,8 @@ def animate(folder_path: str, save: bool = False):
     # print("Expected duration: ", duration)
 
     # Create data
-    # vortices = [ax.plot([], [], 'o', lw=2, color='red' if circulation[i] == True else 'blue')
-    # for i in range(num_vortices)]
-    # print(circulation)
     vortices = []
-    for i in range(num_vortices):
+    for i in range(num_vortices[0]):
         (aux,) = ax.plot(
             [], [], "o", markersize=2, color="red" if circulation[i] == True else "blue"
         )

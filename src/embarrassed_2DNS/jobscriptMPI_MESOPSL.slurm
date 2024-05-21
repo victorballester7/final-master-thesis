@@ -6,7 +6,7 @@
 #SBATCH --partition=def
 #SBATCH --qos=mesopsl1_def_long
 #SBATCH --account=vballester
-#SBATCH --nodes=3                # Nombre total de processus MPI
+#SBATCH --nodes=4                # Nombre total de processus MPI
 #SBATCH --ntasks-per-node=16       # Nombre de processus MPI par noeud
 #SBATCH --hint=nomultithread       # 1 processus MPI par coeur physique (pas d'hyperthreading)
 #SBATCH --output=TravailMPI%j.out  # Nom du fichier de sortie

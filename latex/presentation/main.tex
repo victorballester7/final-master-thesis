@@ -1,11 +1,11 @@
 % \documentclass[handout]{beamer} %"handout" serveix per a treure els \pause
 \documentclass{beamer} %"handout" serveix per a treure els \pause
 \usepackage{preamble}
+\usepackage{../bibliography}
 
 \usetheme{Copenhagen}
 \usecolortheme{seahorse}
 
-% \addbibresource{references.bib}
 
 %gets rid of bottom navigation bars
 \setbeamertemplate{footline}[frame number]{}
@@ -16,21 +16,107 @@
 %gets rid of footer
 %will override 'frame number' instruction above
 %comment out to revert to previous/default definitions
-\setbeamertemplate{footline}{}
+% \setbeamertemplate{footline}{}
 % Remove the "Figure" prefix from captions
-\captionsetup[figure]{labelformat=empty}
+% \captionsetup[figure]{labelformat=empty}
 % \setbeameroption{show notes}
 
 
-\title{2D turbulence spreading}
+\title{2D Turbulence spreading}
 \author{
-	Víctor Ballester\texorpdfstring{\vspace{0.15cm}\\}{}{\small Supervisors: Alexandros Alexakis (ENS)\\
+	Víctor Ballester\texorpdfstring{\vspace{0.45cm}\\}{}{\small Supervisors: Alexandros Alexakis (ENS)\\
 \qquad\qquad\; Emmanuel Dormy (ENS)}}
+% \institute{Departament de Matemàtiques\\Facultat de Ciències}
 \date{May 24, 2024}
 
 \begin{document}
+\thispagestyle{empty}
 \frame{\titlepage}
-\begin{frame}
-	hasoldsds
+\begin{frame}{Navier-Stokes equations}
+	Navier-Stokes equations describe the motion of fluids. For an \emph{incompressible fluid} (i.e. volume-preserving), they are given by:
+	\begin{align*}
+		\partial_t \mathbf{u} + (\mathbf{u} \cdot \grad) \mathbf{u} & = -\frac{1}{\rho}\grad p + \nu \laplacian \mathbf{u} + \mathbf{f} \\
+		\divp \mathbf{u}                                            & = 0
+	\end{align*}
+	where $\mathbf{u}(\mathbf{x},t)$ is the velocity field, $p(\mathbf{x},t)$ is the pressure, $\rho(\mathbf{x},t)$ is the density, $\nu$ is the kinematic viscosity, and $\mathbf{f}(\mathbf{x},t)$ is an external force. These equations can be simplified by adimensionalizing the variables and they read:
+	\begin{align*}
+		\partial_t \mathbf{u} + (\mathbf{u} \cdot \grad) \mathbf{u} & = -\grad p + \frac{1}{\Re}\laplacian \mathbf{u} + \mathbf{f} \\
+		\divp \mathbf{u}                                            & = 0
+	\end{align*}
+	where $\Re=\frac{UL}{\nu}$ is the Reynolds number, $U$ is a characteristic velocity and $L$ is a characteristic length.
+\end{frame}
+\begin{frame}{What is turbulence?}
+	There is no universally accepted definition of turbulence, but people agree on:
+	\begin{itemize}
+		\item In a turbulent flow, the velocity field is chaotic (in the sense of dynamical systems).
+		\item There is wide range of scales involved in the flow.
+	\end{itemize}
+
+	\begin{minipage}{0.48\textwidth}
+		The onset of turbulence is usually characterized by the \textbf{Reynolds number} (Re), which is a dimensionless quantity that measures the ratio of inertial forces to viscous forces.
+	\end{minipage}\hfill
+	\begin{minipage}{0.48\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.6\textwidth]{images/arrowRe.pdf}
+			\caption{Smoke from a cigarette.}
+			\label{fig:cigarrete}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+\begin{frame}{2D turbulence vs 3D turbulence}
+	They are very different! In a nutshell:
+	\begin{itemize}
+		\item In 2D, the energy injected at intermediate scales transfers to large scales.
+		\item In 3D, the energy injected at large scales transfers to small scales.
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\href{run:videos/video_alex.mp4}{
+			\includegraphics[width=0.4\textwidth]{images/2Dvortices.png}
+		}
+		\caption{2D turbulence}
+		\label{fig:2Dvs3D}
+	\end{figure}
+\end{frame}
+\begin{frame}{Our problem}
+	We consider a periodic box in which we constantly inject energy randomly in the middle. We want to study how this energy spreads in the box.
+	\begin{itemize}
+		\item Will the energy spread to the whole box?
+		\item If so, how long will it take? Which distribution (as a function of the distance to the center) will it follow?
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.3\textwidth]{images/FlowD_fw.002.png}
+		\caption{Vorticity ($\curl \vf{u}$) forcing}
+		\label{fig:forcing}
+	\end{figure}
+\end{frame}
+\begin{frame}{State-of-the-art and advances}
+	\begin{itemize}
+		\item In some 3D cases, the energy dissipates before reaching the boundaries of the box \cite{alexakis}.
+		\item In 2D... seems to spread to the whole box!!
+	\end{itemize}
+	We would like to see that even decreasing the perturbation region, the vortices fill the whole box as $t\to\infty$ and $\Re\to\infty$.
+	\begin{figure}
+		\centering
+		\href{run:./videos/Re64.mp4}{
+			\includegraphics[width=0.4\textwidth]{images/2Dvortices.png}
+		}
+		\caption{2D turbulence}
+		\label{fig:my2D}
+	\end{figure}
+\end{frame}
+\begin{frame}{Post-motivation}
+	The main goal is to understand how flows in the atmosphere work.
+	\begin{itemize}
+		\item In this case, the energy is injected by different local sources, such as storms.
+		\item The atmosphere is a very thin 3D domain.
+	\end{itemize}
+	In these circumstances, will the energy spread to the whole atmosphere? That is, could a cyclone in Florida affect significantly the weather in Europe?
+\end{frame}
+
+\begin{frame}{Bibliography}
+	\printbibliography
 \end{frame}
 \end{document}

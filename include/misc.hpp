@@ -11,9 +11,10 @@ pair<double, double> standard_normal();
 
 void resetBody(double *X, int i, double R, void *param);
 
-void removeBody(double *X, int j, int *n, void *param);
+void removeBody(double **X, bool **isInside, int j, int *n, void *param);
 
-void addBody(double *X, int *n, double R_in, double C, void *param);
+void addBody(double **X, bool **isInside, int *n, double R_in, double C,
+             void *param);
 
 // computes the square of the velocity of the fluid at the position (x,y) due
 // to the point vortices

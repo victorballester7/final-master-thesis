@@ -53,17 +53,18 @@ def set_data(folder_path):
     times = []
     data_blocks_x = []
     data_blocks_y = []
-    circulation = []
+    data_blocks_circulation = []
     for i in range(num_frames):
         file_path = f"{folder_path}/positions.{i:04d}.txt"
         x, y, circulation = read_data_pos(file_path)
         data_blocks_x.append(x)
         data_blocks_y.append(y)
+        data_blocks_circulation.append(circulation)
 
-    data_blocks_x = np.array(data_blocks_x)
-    data_blocks_y = np.array(data_blocks_y)
+    # data_blocks_x = np.array(data_blocks_x)
+    # data_blocks_y = np.array(data_blocks_y)
 
-    return data_blocks_x, data_blocks_y, circulation
+    return data_blocks_x, data_blocks_y, data_blocks_circulation
 
 
 def get_misc(dim_dir):

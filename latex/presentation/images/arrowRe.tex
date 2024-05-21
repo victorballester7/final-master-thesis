@@ -1,0 +1,20 @@
+\documentclass{standalone}
+\include{../../preamble_tikz.sty}
+
+\def\L{5}
+
+\begin{document}
+\begin{tikzpicture}
+	\draw[-Stealth,thick,rotate=90] (0,0) -- (\L,0);
+	\draw[rotate=90] node at (0,0.3) {0};
+	\draw[rotate=90] node at (\L,0.4) {Re};
+
+	\draw[rotate=90] node[rotate=90] at (0.5,-0.5) {Laminar};
+	\draw[rotate=90] node[rotate=90] at (\L - 1.0,-0.5) {Turbulent};
+
+	% include the cigarette
+	\node[inner sep=0pt, anchor=south west] (cigarette) at (0.8,0)
+	{\includegraphics[width=0.2\textwidth]{./cigarrete.png}};
+
+\end{tikzpicture}
+\end{document}

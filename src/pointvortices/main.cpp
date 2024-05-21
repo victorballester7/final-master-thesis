@@ -9,10 +9,12 @@
 
 #define TOL 1e-6                 // tolerance for the RK78 method
 #define COLLISION (0.05 * R_out) // tolerance for the collision detection
-#define MAX_VORTICES 1000        // maximum number of vortices
+#define MAX_VORTICES 2000        // maximum number of vortices
 #define RK78 1
 
 #define SIGN(x) ((x) > 0 ? 1 : -1)
+#define MIN(x, y) ((x) < (y) ? (x) : (y))
+#define MAX(x, y) ((x) > (y) ? (x) : (y))
 
 using namespace std;
 
@@ -45,6 +47,8 @@ int main(void) {
   int n;       // number of bodies
 
   double R_in;      // radius of the circle in which the bodies are placed
+  double R_in_aux;  // auxiliary radius of the circle in which the bodies are
+                    // reinserted
   double R_out;     // radius of the circle in which the bodies are simulated
   double dt;        // time step
   uint totalSteps;  // total number of steps
@@ -95,6 +99,8 @@ int main(void) {
   cout << "Exit radius:        " << space << R_out << endl;
   cout << "Drag coefficient:   " << space << prm.alpha << endl;
 
+  R_in_aux = R_in * 1;
+
   isInner = (bool *)malloc(n * sizeof(bool));
 
   int N = prm.dim * n; // dimension of the field
@@ -139,6 +145,10 @@ int main(void) {
 
   double hmin = dt / 100;
   double hmax = dt * 100;
+
+  int sign_circulation = ((n / 2) % 2 == 0) ? 1 : -1;
+  int vorticesInner0 = n;
+  int vorticesInner = n;
 
   while (numSteps < totalSteps) {
     // save data
@@ -189,36 +199,47 @@ int main(void) {
 
           // min_dist = R_exit; // Radius of the circle
           // closest = -1;
-          for (int j = 0; j < n; j++) {
-            if (i == j)
-              continue; // do not compare with itself
+          for (int j = i + 1; j < n; j++) {
             dist = (X[prm.dim * i] - X[prm.dim * j]) *
                        (X[prm.dim * i] - X[prm.dim * j]) +
                    (X[prm.dim * i + 1] - X[prm.dim * j + 1]) *
                        (X[prm.dim * i + 1] - X[prm.dim * j + 1]);
 
             if (dist < COLLISION) {
-              removeBody(X, j, &n, &prm);
+              removeBody(&X, &isInner, j, &n, &prm);
             }
           }
           // set again randomly in the circle of radius R the body i
-          removeBody(X, i, &n, &prm);
+          removeBody(&X, &isInner, i, &n, &prm);
           i--;
-        } else if (isInner[i] &&
-                   X[prm.dim * i] * X[prm.dim * i] +
-                           X[prm.dim * i + 1] * X[prm.dim * i + 1] >
-                       R_in * R_in) {
+        } else if (isInner[i] && (X[prm.dim * i] * X[prm.dim * i] +
+                                      X[prm.dim * i + 1] * X[prm.dim * i + 1] >
+                                  R_in_aux * R_in_aux)) { // a vortex went out
           isInner[i] = false;
           // add a new body in the inner circle of the same sign of circulation
-          z = standard_normal();
-          aux = eps * z.first * SIGN(X[prm.dim * i + 2]); // circulation
-          addBody(X, &n, R_in, aux, &prm);
+          vorticesInner--;
+        } else if (!isInner[i] && (X[prm.dim * i] * X[prm.dim * i] +
+                                       X[prm.dim * i + 1] * X[prm.dim * i + 1] <
+                                   R_in_aux * R_in_aux)) { // a vortex went in
+          isInner[i] = true;
+          // add a new body in the inner circle of the same sign of circulation
+          vorticesInner++;
         }
       }
     }
+    for (int i = vorticesInner; i < vorticesInner0; i++) {
+      z = standard_normal();
+      aux = eps * z.first * sign_circulation;
+      addBody(&X, &isInner, &n, R_in, aux, &prm);
+      sign_circulation *= -1;
+      isInner[n - 1] = true;
+    }
+    vorticesInner = MAX(vorticesInner, vorticesInner0);
+
     // print progress
     if (numSteps % printSteps == 0) {
-      cout << numSteps << " " << n << " " << dt << " " << t << endl;
+      cout << numSteps << " " << n << " " << vorticesInner << " " << dt << " "
+           << t << endl;
     }
 
     numSteps++;
