@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1716214897.91197 "arrowRe.tex" "arrowRe.pdf" "arrowRe" 1716214898.9343 0
+["pdflatex"] 1716284785.14716 "arrowRe.tex" "arrowRe.pdf" "arrowRe" 1716284786.22861 0
   "../../preamble_tikz.sty" 1716213005.05659 1220 d6c8424329933cdca24f6ad41424c661 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1713199481 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1713199481 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -229,10 +229,10 @@
   "/usr/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1713199481 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "/usr/share/texmf-dist/tex/latex/xpatch/xpatch.sty" 1713199481 8314 7803f78066c4f9d008405191a4b43073 ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1713199481 41588 b43d3e860a4f94167ee1e725ff526a72 ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1713431798.57063 5312047 b07fcd2a9090df96fc745b92a3db793b ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1713431735 7112991 beba170334e063996e68e014b4e7340d ""
-  "arrowRe.aux" 1716214898.88338 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "arrowRe.tex" 1716214897.28438 549 7cb854604ba537cbedbe0fe0df04a4bd ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1716242945.95888 5312047 b07fcd2a9090df96fc745b92a3db793b ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1716242926 7112993 fb461f01bc6a2214bec472a7c3e436b5 ""
+  "arrowRe.aux" 1716284786.16495 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "arrowRe.tex" 1716284784.11194 550 246de4191b8e109deec58bfc0c0a05ef ""
   "cigarrete.png" 1716214530.54939 396386 f11bb7c850d6b542b3461ed11bcd96c4 ""
   (generated)
   "arrowRe.aux"

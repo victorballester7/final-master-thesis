@@ -206,6 +206,24 @@ cd /travail/vballester/spread_2DNS/
 sbatch jobscriptMPI_MesoPSL.slurm
 ```
 
+##### Work even more locally
+
+I created two scripts `openIDRIS.sh` and `openMesoPSL.sh` that mount the important directories of the supercomputer in your computer, in the folders `IDRIS` and `MesoPSL` respectively, located in your desktop directory. You will need though to have the `sshfs` package installed in your computer. To run the scripts, just do:
+
+```
+./openIDRIS.sh
+./openMesoPSL.sh
+```
+
+Note that you will have to change the username of your supercomputer in the scripts. Once you are done with the supercomputer, you can unmount the directories with the following commands:
+
+```
+./closeIDRIS.sh
+./closeMesoPSL.sh
+```
+
+With this you will be able to use your favourite plotter in your computer to plot the results of the supercomputer.
+
 ## Some nice results
 
 To give you a glimpse of what you can do with the codes, here are some results that I obtained during my master thesis.

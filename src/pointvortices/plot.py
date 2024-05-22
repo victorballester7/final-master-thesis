@@ -17,7 +17,7 @@ duration = 10  # in seconds
 script_path = sys.argv[0]
 script_dir = os.path.dirname(script_path)
 
-folder_path = script_dir + "../../data/pointvortices/positions"
+folder_path = script_dir + "/../../data/pointvortices/positions"
 
 L, output_pos = get_misc(folder_path + "/../misc.txt")
 L = L + 1
@@ -74,7 +74,7 @@ for frame in range(num_frames):
     # Save the animation
     filename = (
         script_dir
-        + "../../images/pointvortices/pointvortices."
+        + "/../../images/pointvortices/pointvortices."
         + str("%09d" % frame)
         + ".jpg"
     )

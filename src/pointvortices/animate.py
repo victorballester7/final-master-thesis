@@ -94,12 +94,29 @@ def animate(folder_path: str, save: bool = False):
 UNIT_TIME = 1000  # in seconds
 LABEL_TIME = "ms"
 start_time = time.time()
-folder_results = "data/pointvortices/positions"
+folder_results = "data/pointvortices"
 
 # Read data
+if len(sys.argv) < 2:
+    print("Usage: python animate.py <type>")
+    print("type: disk, dipole")
+    sys.exit(1)
+
+type = sys.argv[1]
+
+if type == "disk":
+    folder_results += "/disk"
+elif type == "dipole":
+    folder_results += "/dipole"
+else:
+    print("Unknown type, exiting...")
+    sys.exit(1)
+
+folder_results += "/positions"
+
 
 # if there is an argument, then save the animation
-if len(sys.argv) > 1:
+if len(sys.argv) > 2:
     save = True
     animate(folder_results, save)
 else:

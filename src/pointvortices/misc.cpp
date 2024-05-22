@@ -103,6 +103,39 @@ void addBody(double **X, bool **isInner, int *n, double R_in, double C,
   (*isInner)[*n - 1] = true;
 }
 
+void addVortices(double **X, int *n, int n_extra, double R_in, double eps,
+                 void *param) {
+  pair<double, double> z;
+  pointvortices_params *prm = (pointvortices_params *)param;
+  double r, aux;
+
+  double *X_tmp;
+  if ((X_tmp =
+           (double *)realloc(*X, prm->dim * (*n + n_extra) * sizeof(double)))) {
+    *X = X_tmp;
+  } else {
+    cout << "Error reallocating memory (+)" << endl;
+    exit(1);
+  }
+
+  for (int i = 0; i < n_extra; i++) {
+    if (i % 2 == 0) {
+      z = standard_normal();
+      (*X)[prm->dim * (*n + i) + 2] = eps * z.first;
+      (*X)[prm->dim * (*n + i + 1) + 2] = -eps * z.first;
+    }
+    aux = 2 * M_PI * (double)rand() / RAND_MAX;
+    r = R_in * sqrt(abs((double)rand() /
+                        RAND_MAX)); // random radius. We do not do it uniformly
+                                    // to avoid having more points per area in
+                                    // the smaller subradii. With the sqrt we
+                                    // have more points in the outer layers.
+    (*X)[prm->dim * (*n + i)] = r * cos(aux);     // x position
+    (*X)[prm->dim * (*n + i) + 1] = r * sin(aux); // y position
+  }
+  *n += n_extra;
+}
+
 // computes the square of the velocity of the fluid at the position (x,y)
 // due to the point vortices
 double uv2(int n, double *X, double x, double y, void *param) {
@@ -228,7 +261,7 @@ void NumVortices(int n, double *X, int N_R, double R_max,
     count[(int)(r / R_max * N_R)]++;
   }
   for (int i = 1; i <= N_R; i++) {
-    file_output << R_max * i / N_R << " " << count[i - 1] * 1. / n << endl;
+    file_output << R_max * i / N_R << " " << count[i - 1] << " " << n << endl;
   }
 
   file_output.close();

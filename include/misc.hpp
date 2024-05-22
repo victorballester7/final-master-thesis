@@ -16,6 +16,8 @@ void removeBody(double **X, bool **isInside, int j, int *n, void *param);
 void addBody(double **X, bool **isInside, int *n, double R_in, double C,
              void *param);
 
+void addVortices(double **X, int *n, int n_extra, double R_in, double eps,
+                 void *param);
 // computes the square of the velocity of the fluid at the position (x,y) due
 // to the point vortices
 double uv2(int n, double *X, double x, double y, void *param);

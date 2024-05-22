@@ -22,20 +22,6 @@
 % \setlength{\parindent}{0pt} % Indentation spacing (0pt = disabled).
 % \setlength{\parskip}{0pt} % Paragraph spacing (0pt = disabled).
 \usepackage{utfsym} % for astronomical symbols.
-\usepackage{multimedia} % for videos.
-\usepackage{media9} % for videos.
-
-%%%%% tikz images %%%%%%
-\usepackage{tikz, pgfplots} % for tikz images.
-\usepackage{tikz-3dplot} % to draw a visual 3d image with tikz (not with pgfplots).
-\usetikzlibrary{arrows,arrows.meta,decorations.pathmorphing,decorations.pathreplacing,decorations.shapes,decorations.markings,patterns,calc,fillbetween,intersections}
-\usepgfplotslibrary{fillbetween, polar}
-\pgfplotsset{compat=newest}
-
-% \usepgfplotslibrary{external}
-% \tikzexternalize
-%%%%%%%%%%%%%%%%%%%%%%%%
-
 \usepackage{float} % to allow using argument [H] in figure environtment 
 
 \setlength\multlinegap{0pt} % disable the margins on \begin{multline} command
@@ -66,12 +52,14 @@
 \definecolor{pointMass}{RGB}{70,70,70}
 
 %% for references (hyperref)
+\def\mycolor{blue!15!white!94!black}
+\def\mycolorhighlight{blue!60!black!80!white}
 \hypersetup{
 	colorlinks = true,
 	linkcolor = black, % color of internal links (sections, pages, etc.) 
 	filecolor = cyan, % color for URLs which open local files
 	% citecolor = green!70!black, %	color for bibliographical citations in text.     
-	citecolor = green!40!black, %	color for bibliographical citations in text.     
+	citecolor = \mycolorhighlight, %	color for bibliographical citations in text.     
 	urlcolor = cyan, % color of URL links (mail, web) 
 }
 %%%%%%%%%%%%%%%%%%%%

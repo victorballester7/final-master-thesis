@@ -18,6 +18,7 @@ cp input.prm RUNFILES/
 cp status.prm RUNFILES/
 cp Vis2Db.py RUNFILES/
 cp movie.py RUNFILES/
+cp animate.sh RUNFILES/
 
 cp RUNFILES/* $WORKDIR/spread_2DNS/
 

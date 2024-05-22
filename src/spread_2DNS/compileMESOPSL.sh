@@ -17,7 +17,10 @@ cp jobscriptMPI_MESOPSL.slurm RUNFILES/
 cp input.prm RUNFILES/
 cp status.prm RUNFILES/
 cp Vis2Db.py RUNFILES/
+cp Vis2Db_bigsize.py RUNFILES/
 cp movie.py RUNFILES/
+cp animate.sh RUNFILES/
+
 
 cp RUNFILES/* $WORKDIR/spread_2DNS/
 
