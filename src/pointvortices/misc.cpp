@@ -1,9 +1,7 @@
 #include <cmath>
-#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
-#include <string.h>
 #include <string>
 
 #include "../../include/misc.hpp"
@@ -22,6 +20,10 @@ void saveData(int n, double *X, string filename_output, void *param) {
       string(num_digits_files - to_string(plot_count).length(), '0') +
       to_string(plot_count) + ".txt";
   file_output.open(filename);
+  if (!file_output.is_open()) {
+    cout << "Error opening file " << filename << endl;
+    exit(1);
+  }
   for (int i = 0; i < n; i++) {
     int j;
     if (X[prm->dim * i] * X[prm->dim * i] +
@@ -160,6 +162,10 @@ void Energy(int n, double t, double *X, string filename_output, void *param) {
   ofstream file_output;
   static int plot_count = 0;
   file_output.open(filename_output, ios::app); // append to the file
+  if (!file_output.is_open()) {
+    cout << "Error opening file " << filename_output << endl;
+    exit(1);
+  }
 
   pointvortices_params *prm = (pointvortices_params *)param;
   double E = 0;
@@ -188,7 +194,12 @@ void EnergyProf(int n, double *X, int N_R, double *E, double R_max,
       filename_output + "." +
       string(num_digits_files - to_string(plot_count).length(), '0') +
       to_string(plot_count) + ".txt";
+
   file_output.open(filename);
+  if (!file_output.is_open()) {
+    cout << "Error opening file " << filename << endl;
+    exit(1);
+  }
 
   double r, aux;
 
@@ -220,7 +231,13 @@ void EnergyFlux(double dt, int N_R, double *E0, double *E1, double R_max,
       filename_output + "." +
       string(num_digits_files - to_string(plot_count).length(), '0') +
       to_string(plot_count) + ".txt";
+
   file_output.open(filename);
+  if (!file_output.is_open()) {
+    cout << "Error opening file " << filename << endl;
+    exit(1);
+  }
+
   double flux, r;
   double E1_total, E0_total;
   for (int i = 1; i <= N_R; i++) {
@@ -248,6 +265,10 @@ void NumVortices(int n, double *X, int N_R, double R_max,
       string(num_digits_files - to_string(plot_count).length(), '0') +
       to_string(plot_count) + ".txt";
   file_output.open(filename);
+  if (!file_output.is_open()) {
+    cout << "Error opening file " << filename << endl;
+    exit(1);
+  }
 
   pointvortices_params *prm = (pointvortices_params *)param;
 

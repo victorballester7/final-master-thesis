@@ -18,26 +18,29 @@ using namespace std;
 
 int main(void) {
   const string filename_input =
-      "config/pointvortices/input.txt"; // name of the input file to read the
-                                        // parameters
+      "config/pointvortices/dipoles/input.txt"; // name of the input file to
+                                                // read the parameters
   const string filename_output =
-      "data/pointvortices/positions/positions"; // name of the output file to
-                                                // write the positions of the
-                                                // point vortices
+      "data/pointvortices/dipoles/positions/positions"; // name of the output
+                                                        // file to write the
+                                                        // positions of the
+                                                        // point vortices
   const string filename_output_E =
-      "data/pointvortices/EnergyProf/Energy"; // name of the output file to
-                                              // write the positions of the
-                                              // point vortices
+      "data/pointvortices/dipoles/EnergyProf/Energy"; // name of the output file
+                                                      // to write the positions
+                                                      // of the point vortices
   const string filename_output_Eflux =
-      "data/pointvortices/EnergyFlux/Energy"; // name of the output file to
-                                              // write the positions of the
-                                              // point vortices
+      "data/pointvortices/dipoles/EnergyFlux/Energy"; // name of the output file
+                                                      // to write the positions
+                                                      // of the point vortices
   const string filename_output_numvortices =
-      "data/pointvortices/NumVortices/NumVortices"; // name of the output file
-                                                    // to write the number of
-                                                    // point vortices
-  const string filename_output_misc = "data/pointvortices/misc.txt";
-  const string filename_output_energyBal = "data/pointvortices/energy_bal.txt";
+      "data/pointvortices/dipoles/NumVortices/NumVortices"; // name of the
+                                                            // output file to
+                                                            // write the number
+                                                            // of point vortices
+  const string filename_output_misc = "data/pointvortices/dipoles/misc.txt";
+  const string filename_output_energyBal =
+      "data/pointvortices/dipoles/energy_bal.txt";
   const string space = "    "; // space to print the parameters
   pointvortices_params prm;    // parameters of the system
   prm.dim = 3; // dimension of the space (2 space dimensions + 1 circulation
@@ -67,6 +70,10 @@ int main(void) {
   ifstream file_input;
   ofstream file_output;
   file_input.open(filename_input);
+  if (!file_input.is_open()) {
+    cout << "Error opening file " << filename_input << endl;
+    exit(1);
+  }
   string tmp;
   if (file_input.is_open()) {
     file_input >> tmp >> totalSteps;
@@ -111,7 +118,7 @@ int main(void) {
   double dist;
 
   // set circulations
-  double dC = C / 100; // small perturbation to avoid the same circulations
+  double dC = C / 3; // small perturbation to avoid the same circulations
   double dtheta = 2 * M_PI / (10 * n);
   double theta, r;
 
@@ -143,8 +150,6 @@ int main(void) {
 
   double hmin = dt / 100;
   double hmax = dt * 100;
-
-  int n0 = n;
 
   while (numSteps < totalSteps) {
     // save data
@@ -185,8 +190,7 @@ int main(void) {
 
     // print progress
     if (numSteps % printSteps == 0) {
-      cout << numSteps << " " << n << " " << n0 << " " << dt << " " << t
-           << endl;
+      cout << numSteps << " " << n << " " << dt << " " << t << endl;
     }
 
     numSteps++;

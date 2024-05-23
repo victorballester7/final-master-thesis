@@ -5,7 +5,8 @@
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]}")"
 DIR_SCRIPT="$(dirname "$SCRIPT_PATH")"
 
-if [ $1 -eq 0 ]; then
+# check if the user entered an argument
+if [ $# -ne 1 ]; then
   echo "Usage: $0 <type>"
   echo "type: disk, dipoles"
   exit 1
@@ -35,4 +36,4 @@ cd $DIR_IMAGES
 
 # animate the images
 echo "Generating animation..."
-convert -delay 10 -loop 0 *.jpg ../../videos/pointvortices/$1/animation.mp4
+convert -delay 10 -loop 0 *.jpg ../../../videos/pointvortices/$1/animation.mp4

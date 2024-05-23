@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
-from matplotlib import pyplot as plt
-from matplotlib.animation import FuncAnimation
 import numpy as np
 import sys
 import time
-from read_data import *
+from read_data import get_num_frames, set_data, get_misc
+import os
 
 # count time
 UNIT_TIME = 1000  # in seconds
@@ -14,11 +13,28 @@ start_time = time.time()
 duration = 10  # in seconds
 
 # get script path
-script_path = sys.argv[0]
-script_dir = os.path.dirname(script_path)
+script_dir = os.path.dirname(__file__)
+script_path = os.path.abspath(script_dir)
 
-folder_path = script_dir + "/../../data/pointvortices/positions"
+folder_path = script_path + "/../../data/pointvortices"
 
+# Read data
+if len(sys.argv) < 2:
+    print("Usage: python animate.py <type>")
+    print("type: disk, dipoles")
+    sys.exit(1)
+
+mytype = sys.argv[1]
+
+if mytype == "disk":
+    program = "/disk"
+elif mytype == "dipoles":
+    program = "/dipoles"
+else:
+    print("Unknown type, exiting...")
+    sys.exit(1)
+
+folder_path += program + "/positions"
 L, output_pos = get_misc(folder_path + "/../misc.txt")
 L = L + 1
 xmin, xmax = -L, L
@@ -74,7 +90,9 @@ for frame in range(num_frames):
     # Save the animation
     filename = (
         script_dir
-        + "/../../images/pointvortices/pointvortices."
+        + "/../../images/pointvortices"
+        + program
+        + "/pointvortices."
         + str("%09d" % frame)
         + ".jpg"
     )

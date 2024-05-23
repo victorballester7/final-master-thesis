@@ -7,11 +7,14 @@ RESET='\033[0m'
 
 echo -e "${YELLOW}Preparing...${RESET}"
 
-# create necessary folders
-rm -rf data/pointvorticesDipoles
-mkdir -p data data/pointvorticesDipoles data/pointvorticesDipoles/positions data/pointvorticesDipoles/EnergyProf data/pointvorticesDipoles/EnergyFlux data/pointvorticesDipoles/NumVortices
+CODE=dipoles
+DATA_DIR=data/pointvortices/$CODE
 
-cd src/pointvorticesDipoles
+# create necessary folders
+rm -rf $DATA_DIR
+mkdir -p $DATA_DIR/positions $DATA_DIR/EnergyProf $DATA_DIR/EnergyFlux $DATA_DIR/NumVortices
+
+cd src/pointvortices/$CODE
 
 # compile the code
 echo -e "${YELLOW}Compiling...${RESET}"
@@ -24,8 +27,8 @@ echo -e "${GREEN}Compilation done!${RESET}"
 # run the code
 
 echo -e "${YELLOW}Running...${RESET}"
-cd ../..
-./bin/pointvorticesDipoles/main
+cd ../../..
+./bin/pointvortices/$CODE/main
 if [ $? -ne 0 ]; then
   echo -e "${RED}Running failed!${RESET}"
   exit 1

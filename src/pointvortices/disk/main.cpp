@@ -20,26 +20,28 @@ using namespace std;
 
 int main(void) {
   const string filename_input =
-      "config/pointvortices/input.txt"; // name of the input file to read the
-                                        // parameters
+      "config/pointvortices/disk/input.txt"; // name of the input file to read
+                                             // the parameters
   const string filename_output =
-      "data/pointvortices/positions/positions"; // name of the output file to
-                                                // write the positions of the
-                                                // point vortices
+      "data/pointvortices/disk/positions/positions"; // name of the output file
+                                                     // to write the positions
+                                                     // of the point vortices
   const string filename_output_E =
-      "data/pointvortices/EnergyProf/Energy"; // name of the output file to
-                                              // write the positions of the
-                                              // point vortices
+      "data/pointvortices/disk/EnergyProf/Energy"; // name of the output file to
+                                                   // write the positions of the
+                                                   // point vortices
   const string filename_output_Eflux =
-      "data/pointvortices/EnergyFlux/Energy"; // name of the output file to
-                                              // write the positions of the
-                                              // point vortices
+      "data/pointvortices/disk/EnergyFlux/Energy"; // name of the output file to
+                                                   // write the positions of the
+                                                   // point vortices
   const string filename_output_numvortices =
-      "data/pointvortices/NumVortices/NumVortices"; // name of the output file
-                                                    // to write the number of
-                                                    // point vortices
-  const string filename_output_misc = "data/pointvortices/misc.txt";
-  const string filename_output_energyBal = "data/pointvortices/energy_bal.txt";
+      "data/pointvortices/disk/NumVortices/NumVortices"; // name of the output
+                                                         // file to write the
+                                                         // number of point
+                                                         // vortices
+  const string filename_output_misc = "data/pointvortices/disk/misc.txt";
+  const string filename_output_energyBal =
+      "data/pointvortices/disk/energy_bal.txt";
   const string space = "    "; // space to print the parameters
   pointvortices_params prm;    // parameters of the system
   prm.dim = 3; // dimension of the space (2 space dimensions + 1 circulation
@@ -213,7 +215,9 @@ int main(void) {
       }
     }
     if (numSteps % inputSteps == 0 && numSteps > 0) {
+      // cout << "hello1" << endl;
       addVortices(&X, &n, n_extra, R_in, eps, &prm);
+      // cout << "hello2" << endl;
     }
     // print progress
     if (numSteps % printSteps == 0) {
