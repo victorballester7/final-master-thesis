@@ -37,6 +37,7 @@ else:
 folder_path += program + "/positions"
 L, output_pos = get_misc(folder_path + "/../misc.txt")
 L = L + 1
+L = 10
 xmin, xmax = -L, L
 ymin, ymax = -L, L
 

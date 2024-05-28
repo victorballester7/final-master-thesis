@@ -3,3 +3,5 @@ data/**/*.txt
 data/**/*.out
 **/.directory
 .vscode/**
+
+images/**

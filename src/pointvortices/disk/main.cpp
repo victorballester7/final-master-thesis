@@ -205,11 +205,18 @@ int main(void) {
                        (X[prm.dim * i + 1] - X[prm.dim * j + 1]);
 
             if (dist < COLLISION) {
+              // cout << "adeuuuuuuuuuuuuuu1" << endl;
               removeBody(&X, &isInner, j, &n, &prm);
+              // cout << "adeuuuuuuuuuuuuuu2" << endl;
+              j--;
             }
           }
           // set again randomly in the circle of radius R the body i
+          // cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmprova1" <<
+          // endl;
           removeBody(&X, &isInner, i, &n, &prm);
+          // cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmprova2" <<
+          // endl;
           i--;
         }
       }

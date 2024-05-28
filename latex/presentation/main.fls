@@ -432,8 +432,8 @@ INPUT /usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
 INPUT /usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
-INPUT ../preamble_bib.sty
-INPUT ../preamble_bib.sty
+INPUT ./preamble_bib.sty
+INPUT preamble_bib.sty
 INPUT /usr/share/texmf-dist/tex/latex/csquotes/csquotes.sty
 INPUT /usr/share/texmf-dist/tex/latex/csquotes/csquotes.sty
 INPUT /usr/share/texmf-dist/tex/latex/csquotes/csquotes.def
@@ -611,11 +611,6 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssxi8.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmb10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmb10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmb10.tfm
-INPUT ./images/windtunnel.jpg
-INPUT ./images/windtunnel.jpg
-INPUT ./images/windtunnel.jpg
-INPUT ./images/windtunnel.jpg
-INPUT ./images/windtunnel.jpg
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT ./images/arrowRe.pdf
 INPUT ./images/arrowRe.pdf
@@ -666,8 +661,12 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssxi10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssxi8.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssxi8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
+INPUT ./images/FlowD_fw.002.png
+INPUT ./images/FlowD_fw.002.png
+INPUT ./images/FlowD_fw.002.png
+INPUT ./images/FlowD_fw.002.png
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 OUTPUT main.nav
 OUTPUT main.toc
 OUTPUT main.snm
@@ -680,7 +679,6 @@ INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb

@@ -72,7 +72,7 @@ void removeBody(double **X, bool **isInner, int j, int *n, void *param) {
   double *X_tmp;
   bool *isInner_tmp;
   if ((X_tmp = (double *)realloc(*X, prm->dim * (*n) * sizeof(double))) &&
-      (isInner_tmp = (bool *)realloc(*isInner, *n * sizeof(bool)))) {
+      (isInner_tmp = (bool *)realloc(*isInner, (*n) * sizeof(bool)))) {
     *X = X_tmp;
     *isInner = isInner_tmp;
   } else {

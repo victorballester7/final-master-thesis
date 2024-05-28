@@ -1,15 +1,29 @@
 import numpy as np
 import os
+import fnmatch
 
-N_CORES = 40
+N_CORES = 48
 
 
-def get_num_files(folder_path):
+# def get_num_files(folder_path):
+#     num_files = len(
+#         [
+#             f
+#             for f in os.listdir(folder_path)
+#             if os.path.isfile(os.path.join(folder_path, f))
+#         ]
+#     )
+#     return num_files
+
+
+def get_num_files(folder_path, node):
+    pattern = f"*.{node}.*.txt"
     num_files = len(
         [
             f
             for f in os.listdir(folder_path)
             if os.path.isfile(os.path.join(folder_path, f))
+            and fnmatch.fnmatch(f, pattern)
         ]
     )
     return num_files
@@ -52,10 +66,22 @@ def average_data_onestage(input_file, output_file):
             f.write("\n")
 
 
+def get_num_files_multistages(folder_path):
+    # get the minimum number of slices which is the least among all the cores.
+    # So I want to count the files in a directory of the form *.node.*.txt, for node = 000, 001, 002, ..., N_CORES and take the minimum
+    num_files = []
+    for i in range(N_CORES):
+        node = str(i).zfill(3)
+        num_files.append(get_num_files(folder_path, node))
+    return min(num_files)
+
+
 def average_data_multistages(input_dir, input_file, output_file, multicols):
-    # num of ext stages
-    N = get_num_files(input_dir) // N_CORES
+    N = get_num_files_multistages(input_dir)
+    print("Number of files: ", N)
     for i in range(N):
+        if i % 10 == 0:
+            print("file ", i, " / ", N)
         ext = "." + str(i).zfill(3) + ".txt"
         data = read_data(input_file, ext)
 

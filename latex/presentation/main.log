@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.21)  22 MAY 2024 09:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.21)  24 MAY 2024 12:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2681,7 +2681,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@floatcapt=\box149
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 64.
-) (../preamble_bib.sty (/usr/share/texmf-dist/tex/latex/csquotes/csquotes.sty
+) (./preamble_bib.sty (/usr/share/texmf-dist/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2022-09-14 v5.2n context-sensitive quotations (JAW)
 \csq@reset=\count388
 \csq@gtype=\count389
@@ -3142,19 +3142,10 @@ LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <8> not available
 (Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 63.
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <6> not available
 (Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 63.
-<images/windtunnel.jpg, id=25, 1204.5pt x 1027.84pt>
-File: images/windtunnel.jpg Graphic file (type jpg)
-<use images/windtunnel.jpg>
-Package pdftex.def Info: images/windtunnel.jpg  used on input line 63.
-(pdftex.def)             Requested size: 103.25964pt x 88.11021pt.
+ [2
 
-Overfull \vbox (12.19435pt too high) detected at line 63
- []
-
-[2
-
- <./images/windtunnel.jpg>]
-<images/arrowRe.pdf, id=42, 112.57759pt x 155.5682pt>
+]
+<images/arrowRe.pdf, id=40, 112.57759pt x 155.5682pt>
 File: images/arrowRe.pdf Graphic file (type pdf)
 <use images/arrowRe.pdf>
 Package pdftex.def Info: images/arrowRe.pdf  used on input line 81.
@@ -3162,7 +3153,7 @@ Package pdftex.def Info: images/arrowRe.pdf  used on input line 81.
  [3
 
  <./images/arrowRe.pdf>]
-<images/condensation_small_fast-0.png, id=58, 1003.75pt x 1003.75pt>
+<images/condensation_small_fast-0.png, id=56, 1003.75pt x 1003.75pt>
 File: images/condensation_small_fast-0.png Graphic file (type png)
 <use images/condensation_small_fast-0.png>
 Package pdftex.def Info: images/condensation_small_fast-0.png  used on input line 97.
@@ -3170,7 +3161,7 @@ Package pdftex.def Info: images/condensation_small_fast-0.png  used on input lin
  [4
 
  <./images/condensation_small_fast-0.png>]
-<images/FlowD_fw.002.png, id=66, 325.9377pt x 319.4334pt>
+<images/FlowD_fw.002.png, id=64, 325.9377pt x 319.4334pt>
 File: images/FlowD_fw.002.png Graphic file (type png)
 <use images/FlowD_fw.002.png>
 Package pdftex.def Info: images/FlowD_fw.002.png  used on input line 109.
@@ -3184,22 +3175,11 @@ LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <5> not available
  [5
 
  <./images/FlowD_fw.002.png>]
-
-LaTeX Warning: File `images/2Dvortices.png' not found on input line 125.
-
-
-./main.tex:125: Package pdftex.def Error: File `images/2Dvortices.png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.125 \end{frame}
-                 
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[6
+File: images/FlowD_fw.002.png Graphic file (type png)
+<use images/FlowD_fw.002.png>
+Package pdftex.def Info: images/FlowD_fw.002.png  used on input line 125.
+(pdftex.def)             Requested size: 103.25964pt x 101.19719pt.
+ [6
 
 ] [7
 
@@ -3232,18 +3212,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 44254 strings out of 476076
- 853804 string characters out of 5793775
- 1939187 words of memory out of 5000000
- 65533 multiletter control sequences out of 15000+600000
+ 44215 strings out of 476076
+ 852631 string characters out of 5793775
+ 1934187 words of memory out of 5000000
+ 65495 multiletter control sequences out of 15000+600000
  582685 words of font info for 119 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 128i,16n,131p,677b,1748s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (8 pages, 3648663 bytes).
+ 128i,14n,131p,677b,1748s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (8 pages, 3395439 bytes).
 PDF statistics:
- 162 PDF objects out of 1000 (max. 8388607)
- 106 compressed objects within 2 object streams
+ 156 PDF objects out of 1000 (max. 8388607)
+ 103 compressed objects within 2 object streams
  19 named destinations out of 1000 (max. 500000)
- 77 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 72 words of extra memory for PDF output out of 10000 (max. 10000000)
 

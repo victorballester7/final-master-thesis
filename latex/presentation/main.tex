@@ -41,25 +41,25 @@
 	\end{align*}
 	where $\mathbf{u}(\mathbf{x},t)$ is the velocity field, $p(\mathbf{x},t)$ is the pressure, $\rho(\mathbf{x},t)$ is the density, $\nu$ is the kinematic viscosity, and $\mathbf{f}(\mathbf{x},t)$ is an external force.
 
-	\begin{minipage}{0.68\textwidth}
-		\vspace{-0.5cm}
-		These equations can be simplified by adimensionalizing the variables:
-		\begin{align*}
-			\partial_t \mathbf{u} + (\mathbf{u} \cdot \grad) \mathbf{u} & = -\grad p + \frac{1}{\Re}\laplacian \mathbf{u} + \mathbf{f} \\
-			\divp \mathbf{u}                                            & = 0
-		\end{align*}
-		where $\Re=\frac{UL}{\nu}$ is the Reynolds number, $U$ is a characteristic velocity and $L$ is a characteristic length.
-	\end{minipage}
-	\hfill
-	\begin{minipage}{0.3\textwidth}
-		\begin{figure}
-			\centering
-			\includegraphics[width=\textwidth]{images/windtunnel.jpg}
-			\caption{Model of an airplane in a wind tunnel}
-		\end{figure}
-	\end{minipage}
+	% \begin{minipage}{0.68\textwidth}
+	% 	\vspace{-0.5cm}
+	% 	These equations can be simplified by adimensionalizing the variables:
+	% 	\begin{align*}
+	% 		\partial_t \mathbf{u} + (\mathbf{u} \cdot \grad) \mathbf{u} & = -\grad p + \frac{1}{\Re}\laplacian \mathbf{u} + \mathbf{f} \\
+	% 		\divp \mathbf{u}                                            & = 0
+	% 	\end{align*}
+	% 	where $\Re=\frac{UL}{\nu}$ is the \textcolor{\mycolorhighlight}{Reynolds number}, $U$ is a characteristic velocity and $L$ is a characteristic length.
+	% \end{minipage}
+	% \hfill
+	% \begin{minipage}{0.3\textwidth}
+	% 	\begin{figure}
+	% 		\centering
+	% 		\includegraphics[width=\textwidth]{images/windtunnel.jpg}
+	% 		\caption{Model of an airplane in a wind tunnel}
+	% 	\end{figure}
+	% \end{minipage}
 
-	% \vspace{-1cm}
+	% % \vspace{-1cm}
 \end{frame}
 \begin{frame}{What is turbulence?}
 	There is no universally accepted definition of turbulence, but people agree on:
@@ -82,14 +82,14 @@
 \begin{frame}{2D turbulence vs 3D turbulence}
 	They are very different! In a nutshell:
 	\begin{itemize}
-		\item In 2D, the energy injected at intermediate scales transfers to large scales.
-		\item In 3D, the energy injected at large scales transfers to small scales.
+		\item In 3D, energy injected at large scales transfers to small scales.
+		\item In 2D, energy injected at intermediate scales transfers to large scales.
 	\end{itemize}
 
 	\vspace{0.3cm}
 	\begin{figure}
 		\centering
-		\href{run:videos/condensation_small_fast.mp4}{
+		\href{./videos/condensation_small_fast.mp4}{
 			\includegraphics[width=0.3\textwidth]{images/condensation_small_fast-0.png}
 		}
 		\caption{2D turbulence without forcing}
@@ -117,8 +117,8 @@
 	\vspace{0.3cm}
 	\begin{figure}
 		\centering
-		\href{run:./videos/Re64.mp4}{
-			\includegraphics[width=0.3\textwidth]{images/2Dvortices.png}
+		\href{./videos/Re64.mp4}{
+			\includegraphics[width=0.3\textwidth]{images/FlowD_fw.002.png}
 		}
 		\caption{2D turbulence}
 	\end{figure}
