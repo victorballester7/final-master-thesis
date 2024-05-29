@@ -65,15 +65,14 @@
 
 %% for references (hyperref)
 \hypersetup{
-  colorlinks = true,
-  linkcolor = red!60!black, % color of internal links (sections, pages, etc.) 
-  filecolor = cyan, % color for URLs which open local files
-  % citecolor = green!70!black, %	color for bibliographical citations in text.     
-  citecolor = green!40!black, %	color for bibliographical citations in text.     
-  urlcolor = cyan, % color of URL links (mail, web) 
+	colorlinks = true,
+	linkcolor = red!60!black, % color of internal links (sections, pages, etc.) 
+	filecolor = cyan, % color for URLs which open local files
+	% citecolor = green!70!black, %	color for bibliographical citations in text.     
+	citecolor = green!40!black, %	color for bibliographical citations in text.     
+	urlcolor = cyan, % color of URL links (mail, web) 
 }
 %%%%%%%%%%%%%%%%%%%%
-
 
 %%%%%%% Enumeration - commands %%%%%%%
 \usepackage{enumitem} % for the command [leftmargin=1.15cm] in customized-label enumerations
@@ -86,22 +85,20 @@
 \renewcommand{\labelenumiii}{\alph{enumiii})}
 \renewcommand{\theenumiii}{\theenumii.\alph{enumiii})}
 
-
-
 %%%%%%% Math-commands %%%%%%%
 %%% GENERAL 
 \newcommand{\function}[5]{
-  \if\relax\detokenize{#1}\relax % first argument empty
-    \begin{array}{c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c}
-      #2 & \longrightarrow & #3 \\
-      #4 & \longmapsto     & #5
-    \end{array}
-  \else % first argument non-empty
-    \begin{array}{r@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c}
-      #1: & #2 & \longrightarrow & #3 \\
-          & #4 & \longmapsto     & #5
-    \end{array}
-  \fi
+	\if\relax\detokenize{#1}\relax % first argument empty
+		\begin{array}{c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c}
+			#2 & \longrightarrow & #3 \\
+			#4 & \longmapsto     & #5
+		\end{array}
+	\else % first argument non-empty
+		\begin{array}{r@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c}
+			#1: & #2 & \longrightarrow & #3 \\
+			    & #4 & \longmapsto     & #5
+		\end{array}
+	\fi
 } % 1 - name of the function
 % 2 - domain
 % 3 - image
@@ -124,39 +121,39 @@
 %\newcommand{\laplacian}{\nabla^2} % laplacian
 \renewcommand{\laplacian}{\Delta} % laplacian
 \DeclareDocumentCommand\derivative{ s o m g d() }{
-  % Total derivative
-  % s: star for \flatfrac flat derivative
-  % o: optional n for nth derivative
-  % m: mandatory (x in df/dx)
-  % g: optional (f in df/dx)
-  % d: long-form d/dx(...)
-  \IfBooleanTF{#1}
-  {\let\fractype\flatfrac}
-  {\let\fractype\frac}
-  \IfNoValueTF{#4}
-  {
-    \IfNoValueTF{#5}
-    {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}}}
-    {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
-  }
-  {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}} #3}{\diffd #4\IfNoValueTF{#2}{}{^{#2}}}\IfValueT{#5}{(#5)}}
+	% Total derivative
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (x in df/dx)
+	% g: optional (f in df/dx)
+	% d: long-form d/dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}
+	{
+		\IfNoValueTF{#5}
+		{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}}}
+		{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+	}
+	{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}} #3}{\diffd #4\IfNoValueTF{#2}{}{^{#2}}}\IfValueT{#5}{(#5)}}
 } % differential operator
 \DeclareDocumentCommand\partialderivative{ s o m g d() }{
-  % Total derivative
-  % s: star for \flatfrac flat derivative
-  % o: optional n for nth derivative
-  % m: mandatory (x in df/dx)
-  % g: optional (f in df/dx)
-  % d: long-form d/dx(...)
-  \IfBooleanTF{#1}
-  {\let\fractype\flatfrac}
-  {\let\fractype\frac}
-  \IfNoValueTF{#4}{
-    \IfNoValueTF{#5}
-    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
-    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
-  }
-  {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}\IfValueT{#5}{(#5)}}
+	% Total derivative
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (x in df/dx)
+	% g: optional (f in df/dx)
+	% d: long-form d/dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}{
+		\IfNoValueTF{#5}
+		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
+		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+	}
+	{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}\IfValueT{#5}{(#5)}}
 } % partial differential operator
 \newcommand{\ii}{\mathrm{i}} % imaginary unit
 \renewcommand{\exp}[1]{\mathrm{e}^{#1}} % exponential function
@@ -169,7 +166,6 @@
 \DeclareMathOperator{\area}{area} % area of a region
 \newcommand{\crossprod}{\crossproduct} % cross product
 
-
 %%% ALGEBRA
 \newcommand{\bigzero}{\makebox(0,0){\text{\Huge0}}} % 0 big zero in a matrix
 \DeclareMathOperator{\lcm}{lcm} % least common multiple
@@ -181,15 +177,15 @@
 \DeclareMathOperator{\sign}{sgn} % sign of a permutation
 \DeclareMathOperator{\ord}{ord} % order of an element in a group
 \newcommand{\quot}[2]{
-  \mathchoice
-  {% \displaystyle 
-    \text{\raise1ex\hbox{$#1$}\!\Big/\!\lower1ex\hbox{$#2$}}}
-  {% \textstyle
-    #1/#2}
-  {% \scriptstyle
-    #1/#2}
-  {% \scriptscriptstyle  
-    #1/#2}
+	\mathchoice
+	{% \displaystyle 
+		\text{\raise1ex\hbox{$#1$}\!\Big/\!\lower1ex\hbox{$#2$}}}
+	{% \textstyle
+		#1/#2}
+	{% \scriptstyle
+		#1/#2}
+	{% \scriptscriptstyle  
+		#1/#2}
 }% quotient group. Usage A/B--->\quot{A}{B}.
 \newcommand{\NN}{\ensuremath{\mathbb{N}}} % set of natural numbers
 \newcommand{\ZZ}{\ensuremath{\mathbb{Z}}} % set of integers
@@ -197,7 +193,6 @@
 \newcommand{\RR}{\ensuremath{\mathbb{R}}} % set of real numbers
 \newcommand{\CC}{\ensuremath{\mathbb{C}}} % set of complex numbers
 \newcommand{\KK}{\ensuremath{\mathbb{K}}} % a general field
-
 
 %%% TOPOLOGY
 \DeclareMathOperator{\Int}{Int} % interior set
@@ -209,7 +204,6 @@
 \newcommand{\conn}{\mathrel{\#}} % connected sum. \mathrel gives the space of a relation (like +,-,...) while \mathbin gives the space of a binary operator (like =).
 \renewcommand{\S}{S} % S of the S ^ n (n-th dimensional sphere)
 
-
 %%% PROBABILITY
 \newcommand{\Prob}{\ensuremath{\mathbb{P}}} % probability
 \newcommand{\Exp}{\mathbb{E}} % expected value
@@ -217,7 +211,6 @@
 \newcommand{\cov}{\mathrm{Cov}} % covariance
 \newcommand{\iid}{i.i.d.\ } % independent and identically distributed
 \newcommand{\indi}[1]{\vf{1}_{#1}}
-
 
 %%% STATISTICS
 \DeclareMathOperator{\bias}{bias} % Bias
@@ -227,7 +220,6 @@
 \DeclareMathOperator*{\argmax}{arg\,max} % argument where the maximum is attained
 \DeclareMathOperator*{\argmin}{arg\,min} % argument where the minimum is attained
 
-
 %%%% COMPLEX ANALYSIS
 % \DeclareMathOperator{\arg}{arg} % argument. By default is arg(z).
 \DeclareMathOperator{\Arg}{Arg} % principal argument
@@ -236,7 +228,6 @@
 % \DeclareMathOperator{\Res}{Res} % residue of a function at a point. It is already defined as "Res".
 \newcommand{\homoleg}[1]{\mathbin{\underset{#1}{\approx}}} % homology. \mathrel gives the space of a relation (like +,-,...) while \mathbin gives the space of a binary operator (like =). 
 \newcommand{\DD}{\ensuremath{\mathbb{D}}} % unit disk
-
 
 %%% DIFFERENTIAL GEOMETRY
 \newcommand{\T}[1]{{\vf{T}_{\vf{#1}}}} % tangent vector
@@ -250,7 +241,6 @@
 \newcommand{\homotop}{\mathbin{\sim}} % homotopy. \mathrel gives the space of a relation (like +,-,...) while \mathbin gives the space of a binary operator (like =). 
 \newcommand{\HH}{\ensuremath{\mathbb{H}}} % half upper plane
 
-
 %%% REAL AND FUNCTIONAL ANALYSIS
 \newcommand{\almoste}[1]{\overset{\text{a.e.}}{#1}} % almost everywhere
 \newcommand{\dotp}[2]{{\left\langle#1,#2\right\rangle}} % inner product
@@ -258,7 +248,6 @@
 
 %%% PARTIAL DIFFERENTIAL EQUATIONS
 \newcommand{\matdv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} % binormal vector
-
 
 %%% LINEAR MODELS
 \DeclareMathOperator{\MST}{MST} % Total Mean Square
@@ -288,14 +277,15 @@
 \renewcommand{\pv}{\mathrm{p.v.}} % Cauchy principal value
 
 %%% vectors and matrices
-\newcommand{\vf}[1]{\boldsymbol{\mathrm{#1}}} % math style for vectors and matrices and vector-values functions (previously it was \*vb{#1} but this does not apply to greek letters)
+% \newcommand{\vf}[1]{\boldsymbol{\mathrm{#1}}} % math style for vectors and matrices and vector-values functions (previously it was \*vb{#1} but this does not apply to greek letters)
+% smoother version of the previous command
+\newcommand{\vf}[1]{\boldsymbol{#1}} % math style for vectors and matrices and vector-values functions (previously it was \*vb{#1} but this does not apply to greek letters)
 \newcommand{\transpose}[1]{{#1}^{\mathrm{T}}} % math style for vectors and matrices
 \DeclareMathOperator{\adjugate}{adj} % adjugate matrix
 \DeclareMathOperator{\cofactor}{cof} % cofactor matrix
 \DeclareMathOperator{\diag}{diag} % diagonal matrix
 \newcommand{\GL}{\mathrm{GL}} % set of invertible matrices
 \renewcommand{\norm}[1]{\left\|#1\right\|} % norm of a vector
-
 
 %%% PHYSICS
 \newcommand{\const}{\text{const.}}
@@ -308,12 +298,12 @@
 
 %%%%% for long-vector arrows %%%%%
 \newcommand{\vect}[1]{%
-  \vbox{\m@th \ialign {##\crcr\vectfill\crcr\noalign{\kern-\p@ \nointerlineskip}$\hfil\displaystyle{#1}\hfil$\crcr}}
+	\vbox{\m@th \ialign {##\crcr\vectfill\crcr\noalign{\kern-\p@ \nointerlineskip}$\hfil\displaystyle{#1}\hfil$\crcr}}
 }
 \def\vectfill{%
-  $\m@th\smash-\mkern-7mu%
-    \cleaders\hbox{$\mkern-2mu\smash-\mkern-2mu$}\hfill
-    \mkern-7mu\raisebox{-3.66pt}[\p@][\p@]{$\mathord\mathchar"017E$}$
+	$\m@th\smash-\mkern-7mu%
+		\cleaders\hbox{$\mkern-2mu\smash-\mkern-2mu$}\hfill
+		\mkern-7mu\raisebox{-3.66pt}[\p@][\p@]{$\mathord\mathchar"017E$}$
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -327,7 +317,7 @@
 {.}         % HEADPUNCT
 {5pt plus 1pt minus 1pt} % HEADSPACE
 {\thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
-  \thmnote{{ \bfseries\color{black}(#3)\index{#3}}}}          % CUSTOM-HEAD-SPEC
+	\thmnote{{ \bfseries\color{black}(#3)\index{#3}}}}          % CUSTOM-HEAD-SPEC
 
 \theoremstyle{math_theorems}
 \newtheorem{theorem}{Theorem}

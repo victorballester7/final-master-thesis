@@ -16,5 +16,65 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{alexakis}{article}{}
+      \name{author}{1}{}{%
+        {{hash=6574e5e25b4f0984b84beeb70d10d25e}{%
+           family={Alexakis},
+           familyi={A\bibinitperiod},
+           given={Alexandros},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{6574e5e25b4f0984b84beeb70d10d25e}
+      \strng{fullhash}{6574e5e25b4f0984b84beeb70d10d25e}
+      \strng{bibnamehash}{6574e5e25b4f0984b84beeb70d10d25e}
+      \strng{authorbibnamehash}{6574e5e25b4f0984b84beeb70d10d25e}
+      \strng{authornamehash}{6574e5e25b4f0984b84beeb70d10d25e}
+      \strng{authorfullhash}{6574e5e25b4f0984b84beeb70d10d25e}
+      \field{labelalpha}{Ale23}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Fluid Mechanics}
+      \field{title}{How far does turbulence spread?}
+      \field{volume}{977}
+      \field{year}{2023}
+      \field{pages}{R1}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1017/jfm.2023.951
+      \endverb
+    \endentry
+    \entry{Batchelor2000}{book}{}
+      \name{author}{1}{}{%
+        {{hash=c9981a4cb1fa67e9638e3e167ac5cb2b}{%
+           family={Batchelor},
+           familyi={B\bibinitperiod},
+           given={G.\bibnamedelimi K.},
+           giveni={G\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{c9981a4cb1fa67e9638e3e167ac5cb2b}
+      \strng{fullhash}{c9981a4cb1fa67e9638e3e167ac5cb2b}
+      \strng{bibnamehash}{c9981a4cb1fa67e9638e3e167ac5cb2b}
+      \strng{authorbibnamehash}{c9981a4cb1fa67e9638e3e167ac5cb2b}
+      \strng{authornamehash}{c9981a4cb1fa67e9638e3e167ac5cb2b}
+      \strng{authorfullhash}{c9981a4cb1fa67e9638e3e167ac5cb2b}
+      \field{labelalpha}{Bat00}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Cambridge Mathematical Library}
+      \field{title}{An Introduction to Fluid Dynamics}
+      \field{year}{2000}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

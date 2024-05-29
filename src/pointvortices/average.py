@@ -43,9 +43,19 @@ def read_data(input_dir, file_name, ext):
     return data
 
 
-def average_data_onestage(input_dir, output_file, file_name):
+def average_data_onestage(input_dir, output_file, file_name, rate=False):
     ext = ".txt"
     data = read_data(input_dir, file_name, ext)
+
+    if rate:
+        new_data = np.zeros((data.shape[0], data.shape[1], 2))
+        # for each data file, divide the 2nd column by the 3rd column, while keeping the 1st column
+        for i in range(data.shape[0]):
+            data[i, :, 1] = data[i, :, 1] / data[i, :, 2]
+            # remove the 3rd column
+            new_data[i] = data[i, :, [0, 1]].T
+        data = new_data
+
     data_avg = np.mean(data, axis=0)
 
     with open(output_file, "w") as f:
@@ -90,7 +100,7 @@ def average_data(root):
     output_file = root + output_file
 
     print("Merging data from NumVortices...")
-    average_data_onestage(input_dir, output_file, file_name)
+    average_data_onestage(input_dir, output_file, file_name, True)
 
 
 if __name__ == "__main__":

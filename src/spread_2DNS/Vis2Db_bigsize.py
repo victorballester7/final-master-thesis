@@ -56,7 +56,7 @@ print(reso, "=", cut, "*", ny + 1, "+", num_procs - cut, "*", ny)
 
 zmax, zmin = 0, 0
 
-for file in range(outnum_nd):
+for file in range(outnum_nd + 1 - first_file):
     data1 = []
     data2 = np.zeros((reso, reso))
     for islice in range(cut):
@@ -109,7 +109,7 @@ for file in range(outnum_nd):
     # add colorbar
     cbar = plt.colorbar(myplot)
     filename = output_dir + "FlowD_" + STR + str("%03d" % (file + first_file)) + ".png"
-    plt.savefig(filename)
+    plt.savefig(filename, dpi=300)
     plt.close()
 
     print("file=", file)

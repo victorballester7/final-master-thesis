@@ -48,7 +48,7 @@ script_dir = os.path.dirname(__file__)
 
 data = np.zeros((outnum_nd, reso, reso))
 
-for file in range(outnum_nd):
+for file in range(outnum_nd + 1 - first_file):
     data1 = []
     data2 = np.zeros((reso, reso))
     filename = os.path.join(
@@ -77,7 +77,7 @@ if homogeneous:
     zmax /= 2
     zmin /= 2
 
-for file in range(outnum_nd):
+for file in range(outnum_nd + 1 - first_file):
     print("****************************")
     print(
         "#",

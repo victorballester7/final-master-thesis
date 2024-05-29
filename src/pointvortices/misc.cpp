@@ -282,7 +282,8 @@ void NumVortices(int n, double *X, int N_R, double R_max,
     count[(int)(r / R_max * N_R)]++;
   }
   for (int i = 1; i <= N_R; i++) {
-    file_output << R_max * i / N_R << " " << count[i - 1] << " " << n << endl;
+    r = R_max * i / N_R;
+    file_output << r << " " << count[i - 1] << " " << n << endl;
   }
 
   file_output.close();

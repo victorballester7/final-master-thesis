@@ -5,5 +5,5 @@ printSteps 1000
 n 16
 alpha 0.e-1
 R_in 0.25
-R_out 4
+R_out 8
 dt 0.0001

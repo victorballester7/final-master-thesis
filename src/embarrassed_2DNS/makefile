@@ -16,6 +16,11 @@
 # Intel comp  jxb  
 COMP     = mpiifort -c
 LINK     = mpiifort
+
+# REMOVE THE FLAG FOR SIZES LESS THAN OR EQUAL TO 2048
+FLAGS    = -mcmodel=medium
+
+
 UNDER    = 0
 EXTEN    = 0
 APPEND   = _
@@ -39,8 +44,8 @@ default:
 
 
 pseudospec2D_inc.o:
-	$(COMP) $(IDIR) pseudospec2D_mod.$(F90EXT) -o $(BINDIR)/pseudospec2D_mod.o
-	$(COMP) $(IDIR) pseudospec2D_inc.$(F90EXT) -o $(BINDIR)/pseudospec2D_inc.o
+	$(COMP) $(FLAGS) $(IDIR) pseudospec2D_mod.$(F90EXT) -o $(BINDIR)/pseudospec2D_mod.o
+	$(COMP) $(FLAGS) $(IDIR) pseudospec2D_inc.$(F90EXT) -o $(BINDIR)/pseudospec2D_inc.o
 
 pseudospec2D_adv.o: 
 	$(COMP) $(IDIR) pseudospec2D_mod.$(F90EXT) -o $(BINDIR)/pseudospec2D_mod.o
@@ -53,8 +58,8 @@ pseudospec25D_inc.o:
 hd2D:
 	@$(MAKE) modify
 	@$(MAKE) pseudospec2D_inc.o
-	$(COMP) $(IDIR) hd2D.emb.$(F90EXT) -o $(BINDIR)/hd2D.emb.o
-	$(LINK) $(BINDIR)/pseudospec2D_mod.o \
+	$(COMP) $(FLAGS) $(IDIR) hd2D.emb.$(F90EXT) -o $(BINDIR)/hd2D.emb.o
+	$(LINK) $(FLAGS) $(BINDIR)/pseudospec2D_mod.o \
           $(BINDIR)/pseudospec2D_inc.o $(BINDIR)/hd2D.emb.o $(LDIR) $(LFFTW) -o $(BINDIR)/hd2D
 	@$(MAKE) undo
 
