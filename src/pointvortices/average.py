@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-first_file = 40
+first_file = 100
 num_zeros_str = 5
 
 program = "/disk"
@@ -50,8 +50,10 @@ def average_data_onestage(input_dir, output_file, file_name, rate=False):
     if rate:
         new_data = np.zeros((data.shape[0], data.shape[1], 2))
         # for each data file, divide the 2nd column by the 3rd column, while keeping the 1st column
+
         for i in range(data.shape[0]):
-            data[i, :, 1] = data[i, :, 1] / data[i, :, 2]
+            dr = data[i, 1, 0] - data[i, 0, 0]
+            data[i, :, 1] = data[i, :, 1] / data[i, :, 2] / (data[i, :, 0] * dr)
             # remove the 3rd column
             new_data[i] = data[i, :, [0, 1]].T
         data = new_data
