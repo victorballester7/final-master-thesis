@@ -10,10 +10,56 @@ using namespace std;
 
 const uint num_digits_files = 5;
 
-void saveData(int n, double *X, string filename_output, void *param) {
+void readData(int *n, double **X, int status, void *param) {
+  ifstream file_input;
+  string filename_input =
+      "data/pointvortices/disk/positions/positions." +
+      string(num_digits_files - to_string(status).length(), '0') +
+      to_string(status) + ".txt";
+  pointvortices_params *prm = (pointvortices_params *)param;
+  // file is of the form
+  // x1 y1 c1
+  // x2 y2 c2
+  // ...
+  // xn yn cn
+
+  // count the number of lines in the file
+  file_input.open(filename_input);
+  if (!file_input.is_open()) {
+    cout << "Error opening file " << filename_input << endl;
+    exit(1);
+  }
+  *n = 0;
+  string line;
+  while (getline(file_input, line)) {
+    (*n)++;
+  }
+  file_input.close();
+
+  // allocate memory
+  *X = (double *)malloc(prm->dim * (*n) * sizeof(double));
+  if (!*X) {
+    cout << "Error allocating memory" << endl;
+    exit(1);
+  }
+
+  // read the data
+  file_input.open(filename_input);
+  if (!file_input.is_open()) {
+    cout << "Error opening file " << filename_input << endl;
+    exit(1);
+  }
+  for (int i = 0; i < *n; i++) {
+    file_input >> (*X)[prm->dim * i] >> (*X)[prm->dim * i + 1] >>
+        (*X)[prm->dim * i + 2];
+  }
+  file_input.close();
+}
+
+void saveData(int n, double *X, string filename_output, string filename_status,
+              double t, void *param, uint plot_count) {
   ofstream file_output;
   pointvortices_params *prm = (pointvortices_params *)param;
-  static uint plot_count = 0;
   // add the plot count to the filename always with 4 digits
   string filename =
       filename_output + "." +
@@ -25,19 +71,34 @@ void saveData(int n, double *X, string filename_output, void *param) {
     exit(1);
   }
   for (int i = 0; i < n; i++) {
-    int j;
-    if (X[prm->dim * i] * X[prm->dim * i] +
-            X[prm->dim * i + 1] * X[prm->dim * i + 1] <
-        0.25 * 0.25) {
-      j = 11111;
-    } else {
-      j = 22222;
-    }
     file_output << X[prm->dim * i] << " " << X[prm->dim * i + 1] << " "
-                << (X[prm->dim * i + 2] > 0) << " " << j << endl;
+                << X[prm->dim * i + 2] << endl;
   }
   file_output.close();
-  plot_count++;
+
+  // save the status
+  file_output.open(filename_status);
+  if (!file_output.is_open()) {
+    cout << "Error opening file " << filename_status << endl;
+    exit(1);
+  }
+  file_output << plot_count << endl;
+  file_output << t << endl;
+  file_output.close();
+}
+
+void EnergyTimes(int count_energy, double t, string filename_output) {
+  ofstream file_output;
+  file_output.open(filename_output, ios::app); // append to the file
+  if (!file_output.is_open()) {
+    cout << "Error opening file " << filename_output << endl;
+    exit(1);
+  }
+  string status =
+      string(num_digits_files - to_string(count_energy).length(), '0') +
+      to_string(count_energy);
+  file_output << status << " " << t << endl;
+  file_output.close();
 }
 
 pair<double, double> standard_normal() {
@@ -59,7 +120,7 @@ void resetBody(double *X, int i, double R, void *param) {
   X[prm->dim * i + 1] = r * sin(aux);
 }
 
-void removeBody(double **X, bool **isInner, int j, int *n, void *param) {
+void removeBody(double **X, int j, int *n, void *param) {
   pointvortices_params *prm = (pointvortices_params *)param;
   // remove the j-th body
   // we do this by moving the last body to the j-th position
@@ -67,14 +128,10 @@ void removeBody(double **X, bool **isInner, int j, int *n, void *param) {
   for (int k = 0; k < prm->dim; k++) {
     (*X)[prm->dim * j + k] = (*X)[prm->dim * (*n - 1) + k];
   }
-  (*isInner)[j] = (*isInner)[*n - 1];
   (*n)--;
-  double *X_tmp;
-  bool *isInner_tmp;
-  if ((X_tmp = (double *)realloc(*X, prm->dim * (*n) * sizeof(double))) &&
-      (isInner_tmp = (bool *)realloc(*isInner, (*n) * sizeof(bool)))) {
+  double *X_tmp = (double *)realloc(*X, prm->dim * (*n) * sizeof(double));
+  if (X_tmp) {
     *X = X_tmp;
-    *isInner = isInner_tmp;
   } else {
     cout << "Error reallocating memory (-)" << endl;
     exit(1);
@@ -86,12 +143,11 @@ void addBody(double **X, bool **isInner, int *n, double R_in, double C,
   pointvortices_params *prm = (pointvortices_params *)param;
   double r, aux;
   aux = 2 * M_PI * (double)rand() / RAND_MAX;
-  double *X_tmp;
-  bool *isInner_tmp;
-  r = sqrt(abs((double)rand() / RAND_MAX)) * R_in;
   (*n)++;
-  if ((X_tmp = (double *)realloc(*X, prm->dim * (*n) * sizeof(double))) &&
-      (isInner_tmp = (bool *)realloc(*isInner, *n * sizeof(bool)))) {
+  double *X_tmp = (double *)realloc(*X, prm->dim * (*n) * sizeof(double));
+  bool *isInner_tmp = (bool *)realloc(*isInner, *n * sizeof(bool));
+  r = sqrt(abs((double)rand() / RAND_MAX)) * R_in;
+  if (X_tmp && isInner_tmp) {
     *X = X_tmp;
     *isInner = isInner_tmp;
   } else {
@@ -111,9 +167,9 @@ void addVortices(double **X, int *n, int n_extra, double R_in, double eps,
   pointvortices_params *prm = (pointvortices_params *)param;
   double r, aux;
 
-  double *X_tmp;
-  if ((X_tmp =
-           (double *)realloc(*X, prm->dim * (*n + n_extra) * sizeof(double)))) {
+  double *X_tmp =
+      (double *)realloc(*X, prm->dim * (*n + n_extra) * sizeof(double));
+  if (X_tmp) {
     *X = X_tmp;
   } else {
     cout << "Error reallocating memory (+)" << endl;
@@ -121,7 +177,7 @@ void addVortices(double **X, int *n, int n_extra, double R_in, double eps,
   }
 
   for (int i = 0; i < n_extra; i++) {
-    if (i % 2 == 0) {
+    if (i % 2 == 0) { // n_extra is even
       z = standard_normal();
       (*X)[prm->dim * (*n + i) + 2] = eps * z.first;
       (*X)[prm->dim * (*n + i + 1) + 2] = -eps * z.first;
@@ -158,9 +214,9 @@ double uv2(int n, double *X, double x, double y, void *param) {
   return u * u + v * v;
 }
 
-void Energy(int n, double t, double *X, string filename_output, void *param) {
+void Energy(int n, double t, double *X, string filename_output, void *param,
+            uint plot_count) {
   ofstream file_output;
-  static int plot_count = 0;
   file_output.open(filename_output, ios::app); // append to the file
   if (!file_output.is_open()) {
     cout << "Error opening file " << filename_output << endl;
@@ -182,23 +238,24 @@ void Energy(int n, double t, double *X, string filename_output, void *param) {
 
   file_output << t << " " << E << endl;
   file_output.close();
-  plot_count++;
 }
 
 // compute the energy of the system in the ring of radius r
-void EnergyProf(int n, double *X, int N_R, double *E, double R_max,
-                string filename_output, void *param) {
+void EnergyProf(int n, double *X, int N_R, double *E, double dr,
+                string filename_output, void *param, uint plot_count,
+                bool save_data) {
   ofstream file_output;
-  static int plot_count = 0;
   string filename =
       filename_output + "." +
       string(num_digits_files - to_string(plot_count).length(), '0') +
       to_string(plot_count) + ".txt";
 
-  file_output.open(filename);
-  if (!file_output.is_open()) {
-    cout << "Error opening file " << filename << endl;
-    exit(1);
+  if (save_data) {
+    file_output.open(filename);
+    if (!file_output.is_open()) {
+      cout << "Error opening file " << filename << endl;
+      exit(1);
+    }
   }
 
   double r, aux;
@@ -208,25 +265,26 @@ void EnergyProf(int n, double *X, int N_R, double *E, double R_max,
   // for each radius we compute the avergae energy of the system in the ring
   // of radius r E = 1/N_theta sum_{j=1}^{N_theta} (u_j^2 + v_j^2) / 2
   for (int i = 1; i <= N_R; i++) {
-    r = R_max * i / N_R;
+    r = dr * i;
     E[i - 1] = 0;
     for (int j = 0; j < N_theta; j++) {
       aux = 2 * M_PI * j / N_theta;
       E[i - 1] += uv2(n, X, r * cos(aux), r * sin(aux), param);
     }
     E[i - 1] /= (2 * N_theta);
-    file_output << r << " " << E[i - 1] << endl;
+    if (save_data)
+      file_output << r << " " << E[i - 1] << endl;
   }
 
-  file_output.close();
-  plot_count++;
+  if (save_data) {
+    file_output.close();
+  }
 }
 
 // compute the energy flux of the system in disks of radius r
-void EnergyFlux(double dt, int N_R, double *E0, double *E1, double R_max,
-                string filename_output) {
+void EnergyFlux(double dt, int N_R, double *E0, double *E1, double dr,
+                string filename_output, uint plot_count) {
   ofstream file_output;
-  static int plot_count = 0;
   string filename =
       filename_output + "." +
       string(num_digits_files - to_string(plot_count).length(), '0') +
@@ -241,7 +299,7 @@ void EnergyFlux(double dt, int N_R, double *E0, double *E1, double R_max,
   double flux, r;
   double E1_total, E0_total;
   for (int i = 1; i <= N_R; i++) {
-    r = R_max * i / N_R;
+    r = dr * i;
     E1_total = 0;
     E0_total = 0;
     // compute the total energy inside the circle of radius r
@@ -253,13 +311,11 @@ void EnergyFlux(double dt, int N_R, double *E0, double *E1, double R_max,
     file_output << r << " " << flux << endl;
   }
   file_output.close();
-  plot_count++;
 }
 
-void NumVortices(int n, double *X, int N_R, double R_max,
-                 string filename_output, void *param) {
+void NumVortices(int n, double *X, int N_R, double dr, string filename_output,
+                 void *param, uint plot_count) {
   ofstream file_output;
-  static int plot_count = 0;
   string filename =
       filename_output + "." +
       string(num_digits_files - to_string(plot_count).length(), '0') +
@@ -276,17 +332,19 @@ void NumVortices(int n, double *X, int N_R, double R_max,
   for (int i = 0; i < N_R; i++)
     count[i] = 0;
   double r;
+  int aux;
   for (int i = 0; i < n; i++) {
     r = sqrt(X[prm->dim * i] * X[prm->dim * i] +
              X[prm->dim * i + 1] * X[prm->dim * i + 1]);
-    count[(int)(r / R_max * N_R)]++;
+    aux = (int)(r / dr);
+    if (aux < N_R)
+      count[aux]++;
   }
   for (int i = 1; i <= N_R; i++) {
-    r = R_max * i / N_R;
+    r = dr * i;
     file_output << r << " " << count[i - 1] << " " << n << endl;
   }
 
   file_output.close();
-  plot_count++;
   delete[] count;
 }

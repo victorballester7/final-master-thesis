@@ -1,6 +1,6 @@
 0.25                 % cfl      1
 500000               % step     2
-500001                 % tstep    3
+5001                 % tstep    3
 500                 % sstep    4
 100                  % cstep    5
 1.00d0              % f0       6

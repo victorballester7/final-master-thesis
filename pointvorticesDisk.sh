@@ -10,9 +10,21 @@ echo -e "${YELLOW}Preparing...${RESET}"
 CODE=disk
 DATA_DIR=data/pointvortices/$CODE
 
-# create necessary folders
-rm -rf $DATA_DIR
-mkdir -p $DATA_DIR/positions $DATA_DIR/EnergyProf $DATA_DIR/EnergyFlux $DATA_DIR/NumVortices
+
+echo "Do you want to reset the status file? (Y/n)"
+read -n 1 answer
+if [ "$answer" == "Y" ] || [ "$answer" == "y" ] || [ "$answer" == "" ]; then
+  # create necessary folders
+  mkdir -p $DATA_DIR/positions $DATA_DIR/EnergyProf $DATA_DIR/EnergyFlux $DATA_DIR/NumVortices
+
+  # remove old data
+  rm $DATA_DIR/positions/* $DATA_DIR/EnergyProf/* $DATA_DIR/EnergyFlux/* $DATA_DIR/NumVortices/*
+  rm $DATA_DIR/misc.txt $DATA_DIR/energy_bal.txt $DATA_DIR/energy_times.txt $DATA_DIR/status.txt
+
+  # write initial values to status file
+  echo "0" > $DATA_DIR/status.txt
+  echo "0" >> $DATA_DIR/status.txt
+fi
 
 cd src/pointvortices/$CODE
 

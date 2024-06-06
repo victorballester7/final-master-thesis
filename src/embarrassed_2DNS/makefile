@@ -19,7 +19,7 @@ LINK     = mpiifort
 
 # REMOVE THE FLAG FOR SIZES LESS THAN OR EQUAL TO 2048
 FLAGS    = -mcmodel=medium
-
+# FLAGS     = 
 
 UNDER    = 0
 EXTEN    = 0

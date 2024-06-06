@@ -36,4 +36,5 @@ cd $DIR_IMAGES
 
 # animate the images
 echo "Generating animation..."
-convert -delay 10 -loop 0 *.jpg ../../../videos/pointvortices/$1/animation.mp4
+ffmpeg -framerate 10 -i pointvortices.%05d.jpg -c:v libx264 -r 30 ../../../videos/pointvortices/$1/animation.mp4 -y
+# magick -delay 10 -loop 0 *.jpg ../../../videos/pointvortices/$1/animation.mp4

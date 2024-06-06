@@ -1,18 +1,16 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-\section{Dynamics of the problem}\label{sec:eqs}
-As it is said in the intruduction, the primary problem considered in this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
-
+\section{Dynamics of the problem}
+As said in the intruduction, the primary problem considered in this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
 \begin{align}
-	\partial_t \vf{u} + (\vf{u} \cdot \nabla) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + \vf{f} \\
-	\divp{\vf{u}}                                    & = 0
+	\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + \vf{f} \\
+	\divp{\vf{u}}                                   & = 0
 \end{align}
-
-where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $\vf{f}$ is the random forcing term. The forcing term is chosen to be gaussian for the streamfunction formulation, which is detailed below.
+where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $\vf{f}$ is a random forcing term. The forcing term is chosen to be gaussian for the streamfunction formulation, which is detailed below.
 
 \subsection{Streamfunction formulation}
-In~\cite{Batchelor2000}, called \emph{streamfunction} and denoted by $\psi$. Thus
+In~\cite{Batchelor2000}, a new variable is introduced in order to simplify the integration of the 2D incompressible Navier-Stokes equations. This quantity, called \emph{streamfunction} and denoted by $\psi$, is defined as:
 
 The forcing term is assumed to be Gaussian, in particular of the form:
 

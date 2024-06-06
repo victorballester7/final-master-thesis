@@ -21,4 +21,4 @@ cd $DIR_IMAGES
 # animate the images
 echo "Generating animation..."
 mkdir -p ../videos/
-convert -delay 10 -loop 0 *.jpg ../videos/animation.mp4
+magick -delay 10 -loop 0 *.jpg ../videos/animation.mp4

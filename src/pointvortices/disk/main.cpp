@@ -9,8 +9,9 @@
 
 #define TOL 1e-6                 // tolerance for the RK78 method
 #define COLLISION (0.05 * R_out) // tolerance for the collision detection
-#define MAX_VORTICES 2000        // maximum number of vortices
+#define MAX_VORTICES 20000       // maximum number of vortices
 #define RK78 1
+#define stationary_simulation 1
 
 #define SIGN(x) ((x) > 0 ? 1 : -1)
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
@@ -26,6 +27,12 @@ int main(void) {
       "data/pointvortices/disk/positions/positions"; // name of the output file
                                                      // to write the positions
                                                      // of the point vortices
+  const string filename_energy_times =
+      "data/pointvortices/disk/energy_times.txt";
+  const string filename_status =
+      "data/pointvortices/disk/status.txt"; // name of the output file to read
+                                            // and write the status of the
+                                            // simulation
   const string filename_output_E =
       "data/pointvortices/disk/EnergyProf/Energy"; // name of the output file to
                                                    // write the positions of the
@@ -57,16 +64,13 @@ int main(void) {
   uint outSteps;    // number of steps to write the positions of the bodies
   uint energySteps; // number of steps to write the energy profile
   uint printSteps;  // number of steps to print the progress
-  uint inputSteps = 50; // frequency of the input steps
+  uint inputSteps;  // frequency of the input steps
+  uint count_out = 0;
+  uint count_energy = 0;
 
-  int N_R = 50;  // number of points to discretize the radial direction
+  int N_R;       // number of points to discretize the radial direction
   double *E;     // energy profile
   double *E_aux; // energy profile at time t
-  bool *isInner; // boolean array to check if the body is inside the inner
-                 // cercle circle
-
-  E = (double *)malloc(N_R * sizeof(double));
-  E_aux = (double *)malloc(N_R * sizeof(double));
 
   time_t t0 = time(0);
 
@@ -77,6 +81,7 @@ int main(void) {
   string tmp;
   if (file_input.is_open()) {
     file_input >> tmp >> totalSteps;
+    file_input >> tmp >> inputSteps;
     file_input >> tmp >> outSteps;
     file_input >> tmp >> energySteps;
     file_input >> tmp >> printSteps;
@@ -84,9 +89,13 @@ int main(void) {
     file_input >> tmp >> prm.alpha;
     file_input >> tmp >> R_in;
     file_input >> tmp >> R_out;
+    file_input >> tmp >> N_R;
     file_input >> tmp >> dt;
   }
   file_input.close();
+
+  E = (double *)malloc(N_R * sizeof(double));
+  E_aux = (double *)malloc(N_R * sizeof(double));
 
   file_output.open(filename_output_misc);
   if (file_output.is_open()) {
@@ -102,8 +111,6 @@ int main(void) {
   cout << "Exit radius:        " << space << R_out << endl;
   cout << "Drag coefficient:   " << space << prm.alpha << endl;
 
-  isInner = (bool *)malloc(n * sizeof(bool));
-
   int N = prm.dim * n; // dimension of the field
   prm.EPS = 1e-3;      // softening parameter
   // -------------------------------------------
@@ -113,7 +120,6 @@ int main(void) {
 
   // allocate memory
   double *X; // vector of positions (x1,y1,C1,x2,y2,C2,...,xn,yn,Cn)
-  X = (double *)malloc(N * sizeof(double));
 
   double dist;
 
@@ -124,46 +130,75 @@ int main(void) {
   srand(time(NULL));
   double aux, r;
 
-  // set initial conditions (random in the circle of radius R)
-  for (int i = 0; i < n; i++) {
-    if (i % 2 == 0) {
-      z = standard_normal();
-      X[prm.dim * i + 2] = eps * z.first;
-      X[prm.dim * (i + 1) + 2] = -eps * z.first;
-    }
-    aux = 2 * M_PI * (double)rand() / RAND_MAX;
-    r = R_in * sqrt(abs((double)rand() /
-                        RAND_MAX)); // random radius. We do not do it uniformly
-                                    // to avoid having more points per area in
-                                    // the smaller subradii. With the sqrt we
-                                    // have more points in the outer layers.
-    X[prm.dim * i] = r * cos(aux);  // x position
-    X[prm.dim * i + 1] = r * sin(aux); // y position
-    isInner[i] = true;
+  // read status
+  int status;
+  file_input.open(filename_status);
+  if (file_input.is_open()) {
+    file_input >> status;
+    file_input >> t;
   }
+  file_input.close();
 
+  if (status == 0) {
+    X = (double *)malloc(N * sizeof(double));
+    // set initial conditions (random in the circle of radius R)
+    for (int i = 0; i < n; i++) {
+      if (i % 2 == 0) {
+        z = standard_normal();
+        X[prm.dim * i + 2] = eps * z.first;
+        X[prm.dim * (i + 1) + 2] = -eps * z.first;
+      }
+      aux = 2 * M_PI * (double)rand() / RAND_MAX;
+      r = R_in *
+          sqrt(abs((double)rand() /
+                   RAND_MAX));       // random radius. We do not do it uniformly
+                                     // to avoid having more points per area in
+                                     // the smaller subradii. With the sqrt we
+                                     // have more points in the outer layers.
+      X[prm.dim * i] = r * cos(aux); // x position
+      X[prm.dim * i + 1] = r * sin(aux); // y position
+    }
+  } else {
+    string filename_intput = filename_output + to_string(status);
+    readData(&n, &X, status, &prm);
+    numSteps = 2;
+    count_out = status + 1;
+    count_energy = status * outSteps / energySteps + 1;
+    N = prm.dim * n;
+  }
   double hmin = dt / 100;
   double hmax = dt * 100;
 
   int n0 = n;
   int n_extra = 2; // should be even
+  double dr;
+#ifdef stationary_simulation
+  dr = R_out / N_R;
+#else
+  dr = 0.08;
+#endif
 
   while (numSteps < totalSteps) {
     // save data
     if (numSteps % outSteps == 0) {
-      saveData(n, X, filename_output, &prm);
+      saveData(n, X, filename_output, filename_status, t, &prm, count_out);
+      count_out++;
     }
 
     // plot energy profile
     if (numSteps % energySteps == 0) {
-      EnergyProf(n, X, N_R, E, R_out, filename_output_E, &prm);
-      Energy(n, t, X, filename_output_energyBal, &prm);
-      NumVortices(n, X, N_R, R_out, filename_output_numvortices, &prm);
+      EnergyProf(n, X, N_R, E, dr, filename_output_E, &prm, count_energy, true);
+      Energy(n, t, X, filename_output_energyBal, &prm, count_energy);
+      NumVortices(n, X, N_R, dr, filename_output_numvortices, &prm,
+                  count_energy);
+      EnergyTimes(count_energy, t, filename_energy_times);
     }
 
     if ((numSteps - 1) % energySteps == 0) {
-      EnergyProf(n, X, N_R, E_aux, R_out, filename_output_E, &prm);
-      EnergyFlux(dt, N_R, E, E_aux, R_out, filename_output_Eflux);
+      EnergyProf(n, X, N_R, E_aux, dr, filename_output_E, &prm, count_energy,
+                 false);
+      EnergyFlux(dt, N_R, E, E_aux, dr, filename_output_Eflux, count_energy);
+      count_energy++;
     }
 
     // simulate
@@ -173,7 +208,6 @@ int main(void) {
       free(X);
       free(E);
       free(E_aux);
-      free(isInner);
       return 1;
     }
 #else
@@ -182,12 +216,12 @@ int main(void) {
       free(X);
       free(E);
       free(E_aux);
-      free(isInner);
       return 1;
     }
 #endif
 
-    // check if a body has exited the domain
+// check if a body has exited the domain
+#ifdef stationary_simulation
     if (numSteps % energySteps != 0) {
       for (int i = 0; i < n; i++) {
         if (X[prm.dim * i] * X[prm.dim * i] +
@@ -206,7 +240,7 @@ int main(void) {
 
             if (dist < COLLISION) {
               // cout << "adeuuuuuuuuuuuuuu1" << endl;
-              removeBody(&X, &isInner, j, &n, &prm);
+              removeBody(&X, j, &n, &prm);
               // cout << "adeuuuuuuuuuuuuuu2" << endl;
               j--;
             }
@@ -214,17 +248,16 @@ int main(void) {
           // set again randomly in the circle of radius R the body i
           // cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmprova1" <<
           // endl;
-          removeBody(&X, &isInner, i, &n, &prm);
+          removeBody(&X, i, &n, &prm);
           // cout << "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmprova2" <<
           // endl;
           i--;
         }
       }
     }
+#endif
     if (numSteps % inputSteps == 0 && numSteps > 0) {
-      // cout << "hello1" << endl;
       addVortices(&X, &n, n_extra, R_in, eps, &prm);
-      // cout << "hello2" << endl;
     }
     // print progress
     if (numSteps % printSteps == 0) {
@@ -247,7 +280,6 @@ int main(void) {
   free(X);
   free(E);
   free(E_aux);
-  free(isInner);
 
   return 0;
 }

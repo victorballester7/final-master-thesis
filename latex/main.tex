@@ -1,62 +1,26 @@
-\documentclass[twoside]{article}
+\documentclass{article}
 
 \usepackage{preamble_style}
 \usepackage{preamble}
 \usepackage{preamble_bib}
 
-\renewcommand\title{Numerical propagation of trajectories of Earth-orbiting spacecraft}
+
+\renewcommand\title{2D Turbulence spreading}
 \renewcommand\author{Víctor Ballester}
-\renewcommand\date{June 26, 2023}
-\newcommand\supervisor{Josep Maria Mondelo}
-\newcommand\faculty{Facultat de Ciències}
-\newcommand\department{Departament de Matemàtiques}
-\newcommand\degree{Bachelor's Degree in Mathematics}
+\renewcommand\date{June 30, 2024}
+\newcommand\supervisorA{Alexandros Alexakis}
+\newcommand\supervisorB{Emmanuel Dormy}
+\newcommand\textA{\small Professor in the Department of Physics at École Normale Supérieure. Webpage: \url{https://www.phys.ens.fr/~alexakis/}}
+\newcommand\textB{\small Professor in the Department of Mathematics at École Normale Supérieure. Webpage: \url{https://www.math.ens.fr/~dormy/}}
+\newcommand\faculty{ENS, Université PSL}
+\newcommand\department{Laboratoire de Physique de l'École Normale Supérieure}
+\newcommand\degree{M2 Applied and Theoretical Mathematics}
 
 \begin{document}
-% \pagenumbering{roman}
-% \selectlanguage{USenglish}
-% \begin{titlepage}
-% 	\begin{center}
-% 		\vspace*{1in}
-% 		\begin{figure}[H]
-% 			\begin{center}
-% 				\includegraphics[width=6cm]{Images/uab.pdf}
-% 			\end{center}
-% 		\end{figure}
-% 		\vspace*{1.5cm}
-% 		\textsc{\Large Bachelor Thesis}\\[0.75cm]
-% 		\rule{150mm}{0.1mm}\\[0.4cm]
-% 		{\huge \bfseries \title\par}
-% 		\vspace{0.4cm} % Thesis title
-% 		\rule{150mm}{0.1mm} \\[1.5cm] % Horizontal line
-% 		\begin{minipage}[ht]{0.4\textwidth}
-% 			\begin{flushleft} \large
-% 				\emph{Author:}\\[0.2cm]
-% 				\author % Author name - remove the \href bracket to remove the link
-% 			\end{flushleft}
-% 		\end{minipage}
-% 		\begin{minipage}[ht]{0.4\textwidth}
-% 			\begin{flushright} \large
-% 				\emph{Supervisor:} \\[0.2cm]
-% 				\supervisor % Supervisor name - remove the \href bracket to remove the link  
-% 			\end{flushright}
-% 		\end{minipage}\\[3cm]
-% 		\vfill
-% 		{\large
-% 			\degree\\[0.2cm]
-% 			\department\\[0.2cm]
-% 			\faculty\\[0.5cm]
-% 		}
-% 		% \vfill
-% 		\rule{80mm}{0.1mm}\\[0.5cm]
-% 		{\large \date}\\[0.2cm]
-% 		\vfill
-% 	\end{center}
-% 	\newpage
-% \end{titlepage}
-\subfile{sections/abstract}
-\thispagestyle{empty}
-
+\subfile{sections/title}
+\newpage
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
 {
 	\hypersetup{linkcolor=black}
 	\tableofcontents
@@ -68,17 +32,8 @@
 \subfile{sections/equations}
 \subfile{sections/results}
 \subfile{sections/acknowledgements}
-\cite{alexakis}
 
 \phantomsection
 \addcontentsline{toc}{section}{References}
 \printbibliography
-% Add a new empty sheet at the end of the document
-\newpage
-\thispagestyle{empty}
-\mbox{}
-% Add another new empty sheet at the end of the document
-\newpage
-\thispagestyle{empty}
-\mbox{}
 \end{document}

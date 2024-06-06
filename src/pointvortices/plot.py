@@ -1,9 +1,12 @@
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
 import time
 from read_data import get_num_frames, set_data, get_misc
 import os
+
+matplotlib.use("Agg")  # for not having memory leak
 
 # count time
 UNIT_TIME = 1000  # in seconds
@@ -94,12 +97,15 @@ for frame in range(num_frames):
         + "/../../images/pointvortices"
         + program
         + "/pointvortices."
-        + str("%09d" % frame)
+        + str("%05d" % frame)
         + ".jpg"
     )
 
-    plt.savefig(filename)
-    plt.close()
+    # save the figure
+    fig.savefig(filename, dpi=300)
+
+    # clean memory
+    plt.close("all")
 
     if frame % 10 == 0:
         print("Frame", frame, "/", num_frames)

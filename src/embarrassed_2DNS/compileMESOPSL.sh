@@ -18,6 +18,7 @@ cp input.prm RUNFILES/
 cp status.prm RUNFILES/
 cp Vis2Db.py RUNFILES/
 cp average.py RUNFILES/
+cp averageEprof.py RUNFILES/
 
 cp RUNFILES/* $WORKDIR/embarrassed_2DNS
 

@@ -59,9 +59,12 @@ def read_spectra_times(file_name):
     return data_times_str, data_times
 
 
-def getAveragedRadius(input_dir, output_file, file_name):
+def getAveragedRadius(input_dir, output_file, file_name, average=False):
     ext = ".txt"
-    times_str, times = read_spectra_times(input_dir + "../spectra_times.txt")
+    if average:
+        times_str, times = read_spectra_times(input_dir + "../../spectra_times.txt")
+    else:
+        times_str, times = read_spectra_times(input_dir + "../spectra_times.txt")
     data = read_data(input_dir, file_name, times_str, ext)
 
     # Do it only for the Energy (second column)
@@ -70,10 +73,11 @@ def getAveragedRadius(input_dir, output_file, file_name):
     radius = np.arange(0, data.shape[1]) + 1
 
     meanRadius = np.zeros((data.shape[0], 2))
-    meanRadius[:, 0] = times
+    meanRadius[:, 0] = times[: len(meanRadius)]
 
     # multiply each row by the radius (do it vectorized)
-    meanRadius[:, 1] = np.sum(data * radius, axis=1) / np.sum(data, axis=1)
+    f = radius**2
+    meanRadius[:, 1] = np.sum(data * f, axis=1) / np.sum(data, axis=1)
 
     with open(output_file, "w") as f:
         for row in meanRadius:
@@ -83,29 +87,35 @@ def getAveragedRadius(input_dir, output_file, file_name):
 
 
 def average_data(root):
+    # check if there is a folder called average in data
+    extra = ""
+    average = False
+    if os.path.exists(root + "/data/average"):
+        extra = "average/"
+        average = True
     # EnergyProf
 
-    input_dir = "/data/EnergyProf/"
+    input_dir = "/data/" + extra + "EnergyProf/"
     file_name = "Energy."
-    output_file = "/data/EnergyMeanRadius.txt"
+    output_file = "/data/" + extra + "EnergyMeanRadius.txt"
 
     input_dir = root + input_dir
     output_file = root + output_file
 
     print("Merging data from EnergyProf...")
-    getAveragedRadius(input_dir, output_file, file_name)
+    getAveragedRadius(input_dir, output_file, file_name, average)
 
     # EnstrophyProf
 
-    input_dir = "/data/EnstrophyProf/"
+    input_dir = "/data/" + extra + "EnstrophyProf/"
     file_name = "Enstrophy."
-    output_file = "/data/EnstrophyMeanRadius.txt"
+    output_file = "/data/" + extra + "EnstrophyMeanRadius.txt"
 
     input_dir = root + input_dir
     output_file = root + output_file
 
     print("Merging data from EnstrophyProf...")
-    getAveragedRadius(input_dir, output_file, file_name)
+    getAveragedRadius(input_dir, output_file, file_name, average)
 
 
 if __name__ == "__main__":

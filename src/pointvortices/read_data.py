@@ -27,11 +27,12 @@ def read_data_pos(file_path):
         values = line.split()
         x.append(float(values[0]))
         y.append(float(values[1]))
-        circulation.append(bool(int(values[2])))
+        circulation.append(float(values[2]))
 
     x = np.array(x)
     x = np.array(x)
     circulation = np.array(circulation)
+    circulation = np.where(circulation > 0, True, False)
 
     return x, y, circulation
 
