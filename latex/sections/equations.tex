@@ -2,16 +2,67 @@
 
 \begin{document}
 \section{Dynamics of the problem}
-As said in the intruduction, the primary problem considered in this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
+As mentioned in the introduction, the primary focus of this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
 \begin{align}
-	\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + \vf{f} \\
-	\divp{\vf{u}}                                   & = 0
+	\label{eq:navier-stokes}\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + \vf{f} \\
+	\label{eq:incompressibility}\divp{\vf{u}}                               & = 0
 \end{align}
-where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $\vf{f}$ is a random forcing term. The forcing term is chosen to be gaussian for the streamfunction formulation, which is detailed below.
+where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $\vf{f}$ is a random forcing term. The second equation is called	\emph{incompressibility condition} and it translates the fact that the fluid cannot be compressed.
+The forcing term is chosen to be gaussian for the streamfunction formulation, which is detailed below.
 
 \subsection{Streamfunction formulation}
-In~\cite{Batchelor2000}, a new variable is introduced in order to simplify the integration of the 2D incompressible Navier-Stokes equations. This quantity, called \emph{streamfunction} and denoted by $\psi$, is defined as:
+In~\cite{Batchelor2000}, a new variable is introduced in order to simplify the integration of the 2D incompressible Navier-Stokes equations. This quantity, called \emph{streamfunction} and denoted by $\psi$, is defined as the flow rate across a given line. More accurately, if $\mathcal{C}$ is a curve joining two points $O$ (fixed) and $P=(x,y)$, the streamfunction as a function of the coordinates of the point $P$ is then
+\begin{equation}
+	\psi(x,y) -\psi_0 = \int_{\mathcal{C}} \vf{u}^\perp \cdot \dd{\vf{s}}= \int_{O}^{P} -v \dd{x} + u \dd{y}
+\end{equation}
+where $\vf{u} = (u,v)$ is the velocity field, $\dd{\vf{s}}=(\dd{x},\dd{y})$ is the tangent vector to the curve, and $\psi_0$ is a reference value. In differential form, it can be written as
+\begin{equation}
+	\dd{\psi} = -v \dd{x} + u \dd{y} = \pdv{\psi}{x} \dd{x} + \pdv{\psi}{y} \dd{y}
+\end{equation}
+where the last equality follows from the exact differential property. Thus, one obtain the following useful relations:
+\begin{equation}
+	u = \pdv{\psi}{y} \quad \text{and} \quad v = -\pdv{\psi}{x}
+\end{equation}
+Note the arbitrary choice of $\vf{u}^\perp$ in the definition of the streamfunction. In the present work, the choice is made to be $\vf{u}^\perp = (-v,u)$, in order to keep the same sign convention as in similar works (\cite{2dturbulence,alexakisLONG}). The formulation with the alternative streamfunction $\psi':=-\psi$ is sometimes used in other fields of fluid dynamics, mostly in meteorology and oceanography.
 
-The forcing term is assumed to be Gaussian, in particular of the form:
+Note that using this definition, the incompressible condition $\divp \vf{u}=0$ is automatically satisfied. Finally, introducing the scalar vorticity $\omega := \rotp \vf{u} = \pdv{v}{x} - \pdv{u}{y}=-\laplacian \psi$, one can rewrite the Navier-stokes equations in terms of the vorticity:
+\begin{align}
+	\partial_t \omega + (\vf{u} \cdot \grad) \omega & = \nu \laplacian \omega + f_\omega \\
+	\divp{\vf{\omega}}                              & = 0
+\end{align}
+where the rotational has been taken to both sides of \cref{eq:navier-stokes,eq:incompressibility} and some basic vector have been used. Now, using the relation between the stream function and the vorticity one obtains:
+\begin{equation}\label{eq:streamfunction}
+	\partial_t \psi + \laplacian^{-1} (\vf{u} \cdot \grad) \laplacian \psi = \nu \laplacian \psi + f_\psi
+\end{equation}
+The reader may quickly notice that this equation seems more complicated than the first one. However, when transforming the equation to Fourier space, it becomes much more simply (see \cref{eq:streamfunction_fourier}), with the advantage of having a scalar function as the main unknown variable and removing the incompressible condition.
+
+The forcing term is assumed to be Gaussian, in particular it is taken of the form:
+\begin{equation}
+	f_\psi(x,y) = \sum_{i=1}^{10} A_i \expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,1})}^2 + {(y-y_{i,1})}^2\right]\right) - A_i\expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,2})}^2 + {(y-y_{i,2})}^2\right]\right)
+\end{equation}
+With this forcing we are introducing 10 pairs of vortices with opposite vorticity in order not to introduce a nonzero momentum to the dynamics. The quantities $A_i$ follow a uniform distribution between 0 and a prescribed maximum amplitud for the forcing term $f_0$; $k_\ell$ quantifies the size of the vortices (thought in Fourier space), and the coordinates $x_{i,k}$, $y_{i,k}$, for $k=1,2$ are random variables that position the vortices inside a small disk of radius $k_r$ centered at the origin such that the denisity of vortices is (almost) constant. To be more clear, if we express the coordinates of the vortices in polar coordinates, the angular variable is uniformly distributed between 0 and $2\pi$ and the radial variable follows a distribution $\sqrt{\mathcal{U}(0,\pi/k_r)}$ where $\mathcal{U}(a,b)$ is the uniform distribution between $a$ and $b$. Indeed, one can easily check that the probability of finding a vortex inside a disk of ring $(r-\dd{r},r)$ does not depend on $r$:
+\begin{equation}
+	\Prob(r-\dd{r} < \sqrt{\mathcal{U}(0,\pi/k_r)} \leq r) = \int_{{(r-\dd{r})}^2}^{r^2} \frac{1}{\pi/k_r} \dd{s} \simeq C r \dd{r} + \mathcal{O}(\dd{r}^2)
+\end{equation}
+Thus, since the area of the ring $\{(x,y) \in \RR^2 : r-\dd{r} < \sqrt{x^2+y^2} \leq r\}$ is proportional to $r \dd{r}$ at first order, the density of vortices is constant up to a small error of order $\dd{r}$.
+\subsection{Fourier space}
+The \emph{Fourier transform} (FT) of a function $f:\RR^2 \to \RR$ is defined as
+\begin{equation}
+	\widehat{f}(\vf{\xi}) = \int_{\RR^2} f(\vf{x}) \exp{-\ii \vf{\xi} \cdot \vf{x}} \dd{\vf{x}}
+\end{equation}
+for all $\vf\xi\in\RR^2$ and its discrete version (DFT) for a square domain with $N$ points in each direction is
+\begin{equation}
+	\widehat{f}(\vf{k}) = \sum_{\vf{n}\in\vf{N}} \vf{f}_{\vf{n}} \exp{-\ii \vf{k} \cdot \vf{f}_{\vf{n}}/N}
+\end{equation}
+where $\vf{N} = {\{0,1,\ldots,N-1\}}^2$ is the set of points in the Fourier grid, $\vf{f}_{\vf{n}}$ is the value of the function in the physical space at the point $\vf{n}$, and $\vf{k} = (k_x,k_y)$ is the wavevector.
+
+Taking the Fourier transform on both sides of \cref{eq:streamfunction} and using the well-known properties of the Fourier transform, one obtains:
+\begin{equation}\label{eq:streamfunction_fourier}
+	\partial_t \widehat{\psi} - k^{-2} \widehat{(\vf{u}\cdot \grad) \laplacian \psi}= -\nu k^2 \widehat{\psi} + \widehat{f_\psi}
+\end{equation}
+where $k:=\abs{\vf{k}}$. Note that the non-linear term in the above equation has not been simplified. This is because in the simulation that term is backward-transformed to the physical space, computed, and then transformed back to the Fourier space, as it is less expensive than computing the non-linear term in Fourier space.
+
+\subsection{Point-vortex model}
+The study has carried out another simulation, far from the Navier-Stokes equations, but aiming to obtain qualitative and quantitative similar results. This simulation is based on the point-vortex model, which is a
 
 \end{document}

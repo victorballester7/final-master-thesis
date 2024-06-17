@@ -8,5 +8,5 @@ fi
 mkdir $1
 
 # copy all the necessary files to the test directories
-files="clean.sh hd2D jobscriptMPI* status.prm images/ data/ input.prm Vis2Db.py"
+files="clean.sh hd2D jobscriptMPI* status.prm images/ data/ input.prm Vis2Db.py average.py averageEprof.py"
 cp -r $files $1

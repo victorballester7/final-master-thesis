@@ -5,3 +5,5 @@ data/**/*.out
 .vscode/**
 
 images/**
+videos/pointvortices/disk/R32/**
+videos/pointvortices/disk/R64/**

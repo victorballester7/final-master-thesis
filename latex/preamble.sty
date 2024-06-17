@@ -1,4 +1,4 @@
-\usepackage{amsthm, amsmath, mathtools, amssymb, physics, thmtools, thm-restate} % for math and physics commands and symbols.
+\usepackage{amsthm, amsmath, mathtools, amssymb, physics, thmtools, thm-restate, yhmath} % for math and physics commands and symbols.
 \usepackage[intlimits]{esint} % for more options on integrals.
 \usepackage{standalone} % for compiling individually .tex images.
 \usepackage[hypcap=false]{caption} % basically for using the command \captionof{}, which is useful in some environments, others than \begin{figure}.
@@ -158,6 +158,7 @@
 } % partial differential operator
 \newcommand{\ii}{\mathrm{i}} % imaginary unit
 \renewcommand{\exp}[1]{\mathrm{e}^{#1}} % exponential function
+\DeclareMathOperator{\expp}{exp} % exponential function with 'exp'
 \newcommand{\upint}[2]{\overline{\int_{#1}^{#2}}} % upper integral
 \newcommand{\lowint}[2]{\underline{\int_{#1}^{#2}}} % lower integral
 \DeclareMathOperator{\domain}{dom} % domain of a function

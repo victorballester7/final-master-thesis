@@ -19,6 +19,51 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{alexakisLONG}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=7907d8312c72390146675e466fec73e9}{%
+           family={Alexakis},
+           familyi={A\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=40bddeb9073af47fbb9498cee6218642}{%
+           family={Biferale},
+           familyi={B\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{dba0e107841dceb0ef56e4cf3b7af885}
+      \strng{fullhash}{dba0e107841dceb0ef56e4cf3b7af885}
+      \strng{bibnamehash}{dba0e107841dceb0ef56e4cf3b7af885}
+      \strng{authorbibnamehash}{dba0e107841dceb0ef56e4cf3b7af885}
+      \strng{authornamehash}{dba0e107841dceb0ef56e4cf3b7af885}
+      \strng{authorfullhash}{dba0e107841dceb0ef56e4cf3b7af885}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0370-1573}
+      \field{journaltitle}{Physics Reports}
+      \field{note}{Cascades and transitions in turbulent flows}
+      \field{title}{Cascades and transitions in turbulent flows}
+      \field{volume}{767-769}
+      \field{year}{2018}
+      \field{pages}{1\bibrangedash 101}
+      \range{pages}{101}
+      \verb{doi}
+      \verb 10.1016/j.physrep.2018.08.001
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0370157318301935
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0370157318301935
+      \endverb
+    \endentry
     \entry{alexakis}{article}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=6574e5e25b4f0984b84beeb70d10d25e}{%
@@ -77,6 +122,55 @@
       \field{series}{Cambridge Mathematical Library}
       \field{title}{An Introduction to Fluid Dynamics}
       \field{year}{2000}
+    \endentry
+    \entry{2dturbulence}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=426c26e013436bfe485d9e2856686738}{%
+           family={Boffetta},
+           familyi={B\bibinitperiod},
+           given={Guido},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4bfd572f8f9b341cb09d1b27fb6cafdf}{%
+           family={Ecke},
+           familyi={E\bibinitperiod},
+           given={Robert\bibnamedelima E.},
+           giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Annual Reviews}%
+      }
+      \strng{namehash}{36360763d9082e0b4dd92e7188bd8590}
+      \strng{fullhash}{36360763d9082e0b4dd92e7188bd8590}
+      \strng{bibnamehash}{36360763d9082e0b4dd92e7188bd8590}
+      \strng{authorbibnamehash}{36360763d9082e0b4dd92e7188bd8590}
+      \strng{authornamehash}{36360763d9082e0b4dd92e7188bd8590}
+      \strng{authorfullhash}{36360763d9082e0b4dd92e7188bd8590}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1545-4479}
+      \field{journaltitle}{Annual Review of Fluid Mechanics}
+      \field{number}{Volume 44, 2012}
+      \field{title}{Two-Dimensional Turbulence}
+      \field{type}{Journal Article}
+      \field{volume}{44}
+      \field{year}{2012}
+      \field{pages}{427\bibrangedash 451}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1146/annurev-fluid-120710-101240
+      \endverb
+      \verb{urlraw}
+      \verb https://www.annualreviews.org/content/journals/10.1146/annurev-fluid-120710-101240
+      \endverb
+      \verb{url}
+      \verb https://www.annualreviews.org/content/journals/10.1146/annurev-fluid-120710-101240
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

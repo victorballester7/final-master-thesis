@@ -1,4 +1,4 @@
-totalSteps 200000
+totalSteps 600000
 inputSteps 50
 outSteps 200
 energySteps 1000
@@ -6,6 +6,6 @@ printSteps 1000
 n 16
 alpha 0.e-1
 R_in 0.25
-R_out 8
-N_R 50
+R_out 64
+N_R 400
 dt 0.0001
