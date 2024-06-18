@@ -1,10 +1,13 @@
 \babel@toc {USenglish}{}\relax 
 \contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
-\contentsline {section}{\numberline {2}Dynamics of the problem}{1}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Streamfunction formulation}{1}{subsection.2.1}%
+\contentsline {section}{\numberline {2}Theoretical background}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Stream function formulation}{1}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Fourier space}{2}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Point-vortex model}{3}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Simulation}{3}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Introduction}{3}{subsection.3.1}%
-\contentsline {section}{\numberline {4}Conclusions}{3}{section.4}%
-\contentsline {section}{References}{3}{section*.1}%
+\contentsline {subsection}{\numberline {2.3}Reynolds number}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Point-vortex model}{3}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Monitored quantities}{4}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Simulation}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Numerical setup}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Results}{4}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Conclusions}{4}{section.4}%
+\contentsline {section}{References}{4}{section*.3}%

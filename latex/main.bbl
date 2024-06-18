@@ -95,6 +95,46 @@
       \verb 10.1017/jfm.2023.951
       \endverb
     \endentry
+    \entry{pointvortex}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=a7e7fdf9301073629a8f46a61798f325}{%
+           family={Aref},
+           familyi={A\bibinitperiod},
+           given={Hassan},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a7e7fdf9301073629a8f46a61798f325}
+      \strng{fullhash}{a7e7fdf9301073629a8f46a61798f325}
+      \strng{bibnamehash}{a7e7fdf9301073629a8f46a61798f325}
+      \strng{authorbibnamehash}{a7e7fdf9301073629a8f46a61798f325}
+      \strng{authornamehash}{a7e7fdf9301073629a8f46a61798f325}
+      \strng{authorfullhash}{a7e7fdf9301073629a8f46a61798f325}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0022-2488}
+      \field{journaltitle}{Journal of Mathematical Physics}
+      \field{month}{06}
+      \field{number}{6}
+      \field{title}{{Point vortex dynamics: A classical mathematics playground}}
+      \field{volume}{48}
+      \field{year}{2007}
+      \field{pages}{065401}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1063/1.2425103
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1063/1.2425103
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1063/1.2425103
+      \endverb
+    \endentry
     \entry{Batchelor2000}{book}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=c9981a4cb1fa67e9638e3e167ac5cb2b}{%
@@ -171,6 +211,106 @@
       \verb{url}
       \verb https://www.annualreviews.org/content/journals/10.1146/annurev-fluid-120710-101240
       \endverb
+    \endentry
+    \entry{pointvortexmath}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=3f259f977d70325e4a8a0038cc2e65df}{%
+           family={Ceci},
+           familyi={C\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cb9fcd7607771a3dfd5ff044c2d65078}{%
+           family={Seis},
+           familyi={S\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2cb641327fe5fe67efb33fc1cea1527d}
+      \strng{fullhash}{2cb641327fe5fe67efb33fc1cea1527d}
+      \strng{bibnamehash}{2cb641327fe5fe67efb33fc1cea1527d}
+      \strng{authorbibnamehash}{2cb641327fe5fe67efb33fc1cea1527d}
+      \strng{authornamehash}{2cb641327fe5fe67efb33fc1cea1527d}
+      \strng{authorfullhash}{2cb641327fe5fe67efb33fc1cea1527d}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences}
+      \field{number}{2226}
+      \field{title}{On the dynamics of point vortices for the two-dimensional Euler equation with {$L^p$} vorticity}
+      \field{volume}{380}
+      \field{year}{2022}
+      \field{pages}{20210046}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1098/rsta.2021.0046
+      \endverb
+      \verb{urlraw}
+      \verb https://royalsocietypublishing.org/doi/abs/10.1098/rsta.2021.0046
+      \endverb
+      \verb{url}
+      \verb https://royalsocietypublishing.org/doi/abs/10.1098/rsta.2021.0046
+      \endverb
+    \endentry
+    \entry{Griffiths}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=a00328547222c4a2a201442ee59dccfd}{%
+           family={Griffiths},
+           familyi={G\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{a00328547222c4a2a201442ee59dccfd}
+      \strng{fullhash}{a00328547222c4a2a201442ee59dccfd}
+      \strng{bibnamehash}{a00328547222c4a2a201442ee59dccfd}
+      \strng{authorbibnamehash}{a00328547222c4a2a201442ee59dccfd}
+      \strng{authornamehash}{a00328547222c4a2a201442ee59dccfd}
+      \strng{authorfullhash}{a00328547222c4a2a201442ee59dccfd}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{5}
+      \field{title}{Introduction to Electrodynamics}
+      \field{year}{2023}
+    \endentry
+    \entry{Saffman}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1933ce73e79b52d195704f8f3ffd3cdb}{%
+           family={Saffman},
+           familyi={S\bibinitperiod},
+           given={P.\bibnamedelimi G.},
+           giveni={P\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{1933ce73e79b52d195704f8f3ffd3cdb}
+      \strng{fullhash}{1933ce73e79b52d195704f8f3ffd3cdb}
+      \strng{bibnamehash}{1933ce73e79b52d195704f8f3ffd3cdb}
+      \strng{authorbibnamehash}{1933ce73e79b52d195704f8f3ffd3cdb}
+      \strng{authornamehash}{1933ce73e79b52d195704f8f3ffd3cdb}
+      \strng{authorfullhash}{1933ce73e79b52d195704f8f3ffd3cdb}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Cambridge Monographs on Mechanics}
+      \field{title}{Vortex Dynamics}
+      \field{year}{1993}
     \endentry
   \enddatalist
 \endrefsection

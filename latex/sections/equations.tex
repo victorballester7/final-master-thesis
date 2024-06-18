@@ -1,17 +1,17 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-\section{Dynamics of the problem}
+\section{Theoretical background}
 As mentioned in the introduction, the primary focus of this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
 \begin{align}
 	\label{eq:navier-stokes}\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + \vf{f} \\
 	\label{eq:incompressibility}\divp{\vf{u}}                               & = 0
 \end{align}
 where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $\vf{f}$ is a random forcing term. The second equation is called	\emph{incompressibility condition} and it translates the fact that the fluid cannot be compressed.
-The forcing term is chosen to be gaussian for the streamfunction formulation, which is detailed below.
+The forcing term is chosen to be Gaussian for the stream function formulation, which is detailed below.
 
-\subsection{Streamfunction formulation}
-In~\cite{Batchelor2000}, a new variable is introduced in order to simplify the integration of the 2D incompressible Navier-Stokes equations. This quantity, called \emph{streamfunction} and denoted by $\psi$, is defined as the flow rate across a given line. More accurately, if $\mathcal{C}$ is a curve joining two points $O$ (fixed) and $P=(x,y)$, the streamfunction as a function of the coordinates of the point $P$ is then
+\subsection{Stream function formulation}
+In~\cite{Batchelor2000}, a new variable is introduced in order to simplify the integration of the 2D incompressible Navier-Stokes equations. This quantity, called \emph{stream function} and denoted by $\psi$, is defined as the flow rate across a given line. More accurately, if $\mathcal{C}$ is a curve joining two points $O$ (fixed) and $P=(x,y)$, the stream function streams function a function f the coordinates of the point $P$ is then
 \begin{equation}
 	\psi(x,y) -\psi_0 = \int_{\mathcal{C}} \vf{u}^\perp \cdot \dd{\vf{s}}= \int_{O}^{P} -v \dd{x} + u \dd{y}
 \end{equation}
@@ -23,14 +23,16 @@ where the last equality follows from the exact differential property. Thus, one 
 \begin{equation}
 	u = \pdv{\psi}{y} \quad \text{and} \quad v = -\pdv{\psi}{x}
 \end{equation}
-Note the arbitrary choice of $\vf{u}^\perp$ in the definition of the streamfunction. In the present work, the choice is made to be $\vf{u}^\perp = (-v,u)$, in order to keep the same sign convention as in similar works (\cite{2dturbulence,alexakisLONG}). The formulation with the alternative streamfunction $\psi':=-\psi$ is sometimes used in other fields of fluid dynamics, mostly in meteorology and oceanography.
+Note the arbitrary choice of $\vf{u}^\perp$ in the definition of the stream function. In the present work, the choice is made to be $\vf{u}^\perp = (-v,u)$, in order to keep the same sign convention as in similar works (\cite{2dturbulence,alexakisLONG}). The formulation with the alternative stream function $\psi':=-\psi$ is sometimes used in other fields of fluid dynamics, mostly in meteorology and oceanography.
 
 Note that using this definition, the incompressible condition $\divp \vf{u}=0$ is automatically satisfied. Finally, introducing the scalar vorticity $\omega := \rotp \vf{u} = \pdv{v}{x} - \pdv{u}{y}=-\laplacian \psi$, one can rewrite the Navier-stokes equations in terms of the vorticity:
 \begin{align}
 	\partial_t \omega + (\vf{u} \cdot \grad) \omega & = \nu \laplacian \omega + f_\omega \\
 	\divp{\vf{\omega}}                              & = 0
 \end{align}
-where the rotational has been taken to both sides of \cref{eq:navier-stokes,eq:incompressibility} and some basic vector have been used. Now, using the relation between the stream function and the vorticity one obtains:
+where the rotational has been taken to both sides of \cref{eq:navier-stokes,eq:incompressibility} and some basic vector have been used. The main objects of interest in the vorticity formulation are the \emph{vortices}, which according to \cite{Saffman} are the local regions on the plane with non vanishing vorticity and surrounded with an irrotational flow.
+
+Now, using the relation between the stream function and the vorticity one obtains:
 \begin{equation}\label{eq:streamfunction}
 	\partial_t \psi + \laplacian^{-1} (\vf{u} \cdot \grad) \laplacian \psi = \nu \laplacian \psi + f_\psi
 \end{equation}
@@ -40,7 +42,7 @@ The forcing term is assumed to be Gaussian, in particular it is taken of the for
 \begin{equation}
 	f_\psi(x,y) = \sum_{i=1}^{10} A_i \expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,1})}^2 + {(y-y_{i,1})}^2\right]\right) - A_i\expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,2})}^2 + {(y-y_{i,2})}^2\right]\right)
 \end{equation}
-With this forcing we are introducing 10 pairs of vortices with opposite vorticity in order not to introduce a nonzero momentum to the dynamics. The quantities $A_i$ follow a uniform distribution between 0 and a prescribed maximum amplitud for the forcing term $f_0$; $k_\ell$ quantifies the size of the vortices (thought in Fourier space), and the coordinates $x_{i,k}$, $y_{i,k}$, for $k=1,2$ are random variables that position the vortices inside a small disk of radius $k_r$ centered at the origin such that the denisity of vortices is (almost) constant. To be more clear, if we express the coordinates of the vortices in polar coordinates, the angular variable is uniformly distributed between 0 and $2\pi$ and the radial variable follows a distribution $\sqrt{\mathcal{U}(0,\pi/k_r)}$ where $\mathcal{U}(a,b)$ is the uniform distribution between $a$ and $b$. Indeed, one can easily check that the probability of finding a vortex inside a disk of ring $(r-\dd{r},r)$ does not depend on $r$:
+With this forcing we are introducing 10 pairs of vortices with opposite vorticity in order not to introduce a nonzero momentum to the dynamics. The quantities $A_i$ follow a uniform distribution between 0 and a prescribed maximum amplitude for the forcing term $f_0$; $k_\ell$ quantifies the size of the vortices (thought in Fourier space), and the coordinates $x_{i,k}$, $y_{i,k}$, for $k=1,2$ are random variables that position the vortices inside a small disk of radius $k_r$ centered at the origin such that the density of vortices is (almost) constant. To be more clear, if we express the coordinates of the vortices in polar coordinates, the angular variable is uniformly distributed between 0 and $2\pi$ and the radial variable follows a distribution $\sqrt{\mathcal{U}(0,\pi/k_r)}$ where $\mathcal{U}(a,b)$ is the uniform distribution between $a$ and $b$. Indeed, one can easily check that the probability of finding a vortex inside a disk of ring $(r-\dd{r},r)$ does not depend on $r$:
 \begin{equation}
 	\Prob(r-\dd{r} < \sqrt{\mathcal{U}(0,\pi/k_r)} \leq r) = \int_{{(r-\dd{r})}^2}^{r^2} \frac{1}{\pi/k_r} \dd{s} \simeq C r \dd{r} + \mathcal{O}(\dd{r}^2)
 \end{equation}
@@ -54,7 +56,7 @@ for all $\vf\xi\in\RR^2$ and its discrete version (DFT) for a square domain with
 \begin{equation}
 	\widehat{f}(\vf{k}) = \sum_{\vf{n}\in\vf{N}} \vf{f}_{\vf{n}} \exp{-\ii \vf{k} \cdot \vf{f}_{\vf{n}}/N}
 \end{equation}
-where $\vf{N} = {\{0,1,\ldots,N-1\}}^2$ is the set of points in the Fourier grid, $\vf{f}_{\vf{n}}$ is the value of the function in the physical space at the point $\vf{n}$, and $\vf{k} = (k_x,k_y)$ is the wavevector.
+where $\vf{N} = {\{0,1,\ldots,N-1\}}^2$ is the set of points in the Fourier grid, $\vf{f}_{\vf{n}}$ is the value of the function in the physical space at the point $\vf{n}$, and $\vf{k} = (k_x,k_y)$ is the wave vector.
 
 Taking the Fourier transform on both sides of \cref{eq:streamfunction} and using the well-known properties of the Fourier transform, one obtains:
 \begin{equation}\label{eq:streamfunction_fourier}
@@ -62,7 +64,46 @@ Taking the Fourier transform on both sides of \cref{eq:streamfunction} and using
 \end{equation}
 where $k:=\abs{\vf{k}}$. Note that the non-linear term in the above equation has not been simplified. This is because in the simulation that term is backward-transformed to the physical space, computed, and then transformed back to the Fourier space, as it is less expensive than computing the non-linear term in Fourier space.
 
+\subsection{Reynolds number}
+The Reynolds number is a dimensionless quantity that characterizes the ratio of inertial forces to viscous forces in a fluid. It is usually defined as $\Re:= UL/\nu$, where $U$ is a characteristic velocity of the flow, $L$ is a characteristic length-scale and $\nu$ is the kinematic viscosity. In the present work,
+
 \subsection{Point-vortex model}
-The study has carried out another simulation, far from the Navier-Stokes equations, but aiming to obtain qualitative and quantitative similar results. This simulation is based on the point-vortex model, which is a
+The study has accomplished another simulation, far from the Navier-Stokes equations, but aiming to obtain qualitatively and quantitatively similar results. This simulation is based on the point-vortex model, which is a simplified version of the dynamics of a set of vortices.
+
+More precisely, in the point-vortex model that follows, the viscous term is neglected. Thus this problems aims to mimic in some way the dynamics of the Navier-Stokes equations as $\nu \to 0$ (or equivalently $\Re\to\infty$, see POSAR REF REYNOLDS). Moreover, the vortices are considered as point-like objects, that is to say, being the vorticity singular at the position of the vortices. Because of that, the vortices are characterized by their circulation
+\begin{equation}
+	\Gamma = \lim_{\diam(\mathcal{C})\to 0} \int_{\mathcal{C}} \vf{u} \cdot \dd{\vf{s}}
+\end{equation}
+where $\mathcal{C}$ is a curve surrounding the vortex. In those conditions and in absence of external forces, the vorticity field $\omega$ is only advected and its evolution in time is described by the following transport equation:
+\begin{equation}
+	\partial_t \omega + (\vf{u} \cdot \grad) \omega = 0
+\end{equation}
+together with the incompressible condition $\divp \vf{u}=0$ (\cite{pointvortexmath}). Here $\vf{u}$ is the velocity field generated by the vortices. An interesting interpretation of the vortices involves the Dirac's delta distribution. Specifically, the vorticity field generated by a point vortex located at $\vf{y}$ can be represented as a distribution of the form:
+\begin{equation}\label{eq:vorticity_delta}
+	\omega(\vf{x}, t) = \Gamma \delta(\vf{x}-\vf{y})
+\end{equation}
+where $\Gamma$ is the circulation of the vortex (\cite{Saffman}). The dynamics of $N$ point vortices in the $\RR^2$ plane are described in the following theorem:
+\\
+\begin{theorem}
+	Consider $N$ vortices at positions $\vf{z}_1,\ldots,\vf{z}_N\in \RR^2$ and with circulations $\Gamma_1,\ldots,\Gamma_N$. Then, their evolution in time is described by the following system of ordinary differential equations:
+	\begin{align}
+		\dot{x}_i & = -\sum_{j\neq i} \frac{\Gamma_j}{2\pi} \frac{y_i-y_j}{{(x_i-x_j)}^2+{(y_i-y_j)}^2} \\
+		\dot{y}_i & = \sum_{j\neq i} \frac{\Gamma_j}{2\pi} \frac{x_i-x_j}{{(x_i-x_j)}^2+{(y_i-y_j)}^2}
+	\end{align}
+	for $i=1,\ldots,N$, where $\vf{z}_i=(x_i,y_i)$ (\cite{pointvortex}).
+\end{theorem}
+\begin{proof}
+	Since there is no viscosity in the equations, each vortex is advected with the velocity field generated by all the other vortices. Now, given $\vf{f}\in \mathcal{C}^1(\RR^2,\RR^2)$ and $\vf{g}:=\rotp f$, by Biot-Savart law one can invert the curl operator using the Biot-Savart kernel (see~\cite{Griffiths}):
+	\begin{equation}
+		\vf{f}(\vf{x}) = (\vf{K} * \vf{g})(\vf{x}) = \int_{\RR^2} \vf{K}(\vf{x}-\vf{y}) \vf{g}(\vf{y}) \dd{\vf{y}}
+	\end{equation}
+	where $\displaystyle\vf{K}(x) = \frac{1}{2\pi} \frac{(-x_2,x_1)}{{\abs{\vf{x}}^2}}$ is the Biot-Savart kernel. In our case, the $\vf{g}$ is the vorticity field which is a sum of $\delta$'s. Thus, taking into consideration \cref{eq:vorticity_delta}, the velocity field generated by a vortex at $\vf{z}_j$ with circulation $\Gamma_j$ is:
+	\begin{equation}
+		\vf{u}_j(\vf{x}) = \vf{K}(\vf{x}-\vf{z}_j) \Gamma_j
+	\end{equation}
+	We conclude using the superposition principle.
+\end{proof}
+
+\subsection{Monitored quantities}
 
 \end{document}
