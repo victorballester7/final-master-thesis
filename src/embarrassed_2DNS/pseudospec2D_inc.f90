@@ -603,10 +603,8 @@ SUBROUTINE forcing(iflow,f0,kup,kdn,seed,myseed,fk)
                fk(i,j) = fk(i,j) +amp*c2(i,j)
             END DO
          END DO
-         phase1 = 2*pi*randu(myseed)
-         radius = sqrt(abs(randu(myseed)))*pi/kdn ! we don't want the forcing to be uniform in r, but more concentrated at the outer of the disk.
-         tmp1= radius*sin(phase1)
-         tmp2= radius*cos(phase1)
+         tmp1 = -tmp1
+         tmp2 = -tmp2
          CALL shift(c1,c2,tmp1,tmp2)
          DO i = 1,n/2+1
             DO j = 1,n

@@ -2367,10 +2367,11 @@
     <bcf:citekey order="3" intorder="1">2dturbulence</bcf:citekey>
     <bcf:citekey order="3" intorder="2">alexakisLONG</bcf:citekey>
     <bcf:citekey order="4" intorder="1">Saffman</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">pointvortexmath</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">Saffman</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">pointvortex</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">Griffiths</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">Frisch</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">pointvortexmath</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">Saffman</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">pointvortex</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">Griffiths</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

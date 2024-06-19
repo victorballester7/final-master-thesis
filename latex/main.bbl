@@ -256,6 +256,33 @@
       \verb https://royalsocietypublishing.org/doi/abs/10.1098/rsta.2021.0046
       \endverb
     \endentry
+    \entry{Frisch}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=af5752086aca103e7fa36d654ba6d4a8}{%
+           family={Frisch},
+           familyi={F\bibinitperiod},
+           given={Uriel},
+           giveni={U\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{af5752086aca103e7fa36d654ba6d4a8}
+      \strng{fullhash}{af5752086aca103e7fa36d654ba6d4a8}
+      \strng{bibnamehash}{af5752086aca103e7fa36d654ba6d4a8}
+      \strng{authorbibnamehash}{af5752086aca103e7fa36d654ba6d4a8}
+      \strng{authornamehash}{af5752086aca103e7fa36d654ba6d4a8}
+      \strng{authorfullhash}{af5752086aca103e7fa36d654ba6d4a8}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Turbulence: The Legacy of A. N. Kolmogorov}
+      \field{year}{1995}
+    \endentry
     \entry{Griffiths}{book}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=a00328547222c4a2a201442ee59dccfd}{%

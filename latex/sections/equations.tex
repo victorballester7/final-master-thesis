@@ -2,7 +2,7 @@
 
 \begin{document}
 \section{Theoretical background}
-As mentioned in the introduction, the primary focus of this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
+The primary focus of this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
 \begin{align}
 	\label{eq:navier-stokes}\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + \vf{f} \\
 	\label{eq:incompressibility}\divp{\vf{u}}                               & = 0
@@ -40,9 +40,9 @@ The reader may quickly notice that this equation seems more complicated than the
 
 The forcing term is assumed to be Gaussian, in particular it is taken of the form:
 \begin{equation}
-	f_\psi(x,y) = \sum_{i=1}^{10} A_i \expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,1})}^2 + {(y-y_{i,1})}^2\right]\right) - A_i\expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,2})}^2 + {(y-y_{i,2})}^2\right]\right)
+	f_\psi(x,y) = f_0\sum_{i=1}^{10} A_i \expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,1})}^2 + {(y-y_{i,1})}^2\right]\right) - A_i\expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,2})}^2 + {(y-y_{i,2})}^2\right]\right)
 \end{equation}
-With this forcing we are introducing 10 pairs of vortices with opposite vorticity in order not to introduce a nonzero momentum to the dynamics. The quantities $A_i$ follow a uniform distribution between 0 and a prescribed maximum amplitude for the forcing term $f_0$; $k_\ell$ quantifies the size of the vortices (thought in Fourier space), and the coordinates $x_{i,k}$, $y_{i,k}$, for $k=1,2$ are random variables that position the vortices inside a small disk of radius $k_r$ centered at the origin such that the density of vortices is (almost) constant. To be more clear, if we express the coordinates of the vortices in polar coordinates, the angular variable is uniformly distributed between 0 and $2\pi$ and the radial variable follows a distribution $\sqrt{\mathcal{U}(0,\pi/k_r)}$ where $\mathcal{U}(a,b)$ is the uniform distribution between $a$ and $b$. Indeed, one can easily check that the probability of finding a vortex inside a disk of ring $(r-\dd{r},r)$ does not depend on $r$:
+With this forcing we are introducing 10 pairs of vortices with opposite vorticity in order not to introduce a nonzero momentum to the system. The quantities $A_i$ follow a uniform distribution between 0 and 1; $f_0$ is a prescribed maximum amplitude for the forcing term; $k_\ell$ quantifies the size of the vortices (thought in Fourier space) so that the vortices injected have size $\sim 1/k_\ell$, and the coordinates $x_{i,k}$, $y_{i,k}$, for $k=1,2$ are random variables that position the vortices inside a small disk of radius $k_r$ centered at the origin such that the density of vortices is (almost) constant. To be more clear, if we express the coordinates of the vortices in polar coordinates, the angular variable is uniformly distributed between 0 and $2\pi$ and the radial variable follows a distribution $\sqrt{\mathcal{U}(0,\pi/k_r)}$ where $\mathcal{U}(a,b)$ is the uniform distribution between $a$ and $b$. Indeed, one can easily check that the probability of finding a vortex inside a disk of ring $(r-\dd{r},r)$ does not depend on $r$:
 \begin{equation}
 	\Prob(r-\dd{r} < \sqrt{\mathcal{U}(0,\pi/k_r)} \leq r) = \int_{{(r-\dd{r})}^2}^{r^2} \frac{1}{\pi/k_r} \dd{s} \simeq C r \dd{r} + \mathcal{O}(\dd{r}^2)
 \end{equation}
@@ -60,12 +60,16 @@ where $\vf{N} = {\{0,1,\ldots,N-1\}}^2$ is the set of points in the Fourier grid
 
 Taking the Fourier transform on both sides of \cref{eq:streamfunction} and using the well-known properties of the Fourier transform, one obtains:
 \begin{equation}\label{eq:streamfunction_fourier}
-	\partial_t \widehat{\psi} - k^{-2} \widehat{(\vf{u}\cdot \grad) \laplacian \psi}= -\nu k^2 \widehat{\psi} + \widehat{f_\psi}
+	\dv{}{t}\widehat{\psi} - k^{-2} \widehat{(\vf{u}\cdot \grad) \laplacian \psi}= -\nu k^2 \widehat{\psi} + \widehat{f_\psi}
 \end{equation}
 where $k:=\abs{\vf{k}}$. Note that the non-linear term in the above equation has not been simplified. This is because in the simulation that term is backward-transformed to the physical space, computed, and then transformed back to the Fourier space, as it is less expensive than computing the non-linear term in Fourier space.
 
 \subsection{Reynolds number}
-The Reynolds number is a dimensionless quantity that characterizes the ratio of inertial forces to viscous forces in a fluid. It is usually defined as $\Re:= UL/\nu$, where $U$ is a characteristic velocity of the flow, $L$ is a characteristic length-scale and $\nu$ is the kinematic viscosity. In the present work,
+The Reynolds number is a dimensionless quantity that characterizes the ratio of inertial forces to viscous forces in a fluid. It is usually defined as $\Re:= U L/\nu$, where $U$ is a characteristic velocity of the flow, $L$ is the characteristic length scale associated to it and $\nu$ is the kinematic viscosity. In the cases where there is no control on the injection velocity, but on the rate of energy injection $\epsilon$, this equation is not useful anymore. To derive an alternative equation, the scaling theory of Kolmogorov is used (\cite{Frisch}). Let $\epsilon_\ell \sim u_\ell^2 / \tau_\ell$ be the rate of change of energy at the scale $\ell$, where $u_\ell$ is the velocity at that scale and $\tau_\ell$ is the characteristic time at that scale. Using that $\tau_\ell\sim \ell/u_\ell$, one obtains $\epsilon_\ell \sim u_\ell^3/\ell$. Assuming that the energy transferred from the scale $\ell$ to smaller scales is the same as the energy received by the scale $\ell$ from larger scales (that is, the flux of energy across scales is constant), one obtains that the value $\epsilon$ does not depend on $L$ and moreover $\epsilon \sim U^3/L$, i.e.\ $U \sim {(\epsilon L)}^{1/3}$. Thus, we get a new formula for the Reynolds number:
+\begin{equation}
+	\Re=\frac{\epsilon^{1/3} L^{4/3}}{\nu}
+\end{equation}
+In the present work, the length scale $L$ is determined by the size of the vortices injected in the disk, which in this case is $L=1/k_\ell$.
 
 \subsection{Point-vortex model}
 The study has accomplished another simulation, far from the Navier-Stokes equations, but aiming to obtain qualitatively and quantitatively similar results. This simulation is based on the point-vortex model, which is a simplified version of the dynamics of a set of vortices.
@@ -97,7 +101,7 @@ where $\Gamma$ is the circulation of the vortex (\cite{Saffman}). The dynamics o
 	\begin{equation}
 		\vf{f}(\vf{x}) = (\vf{K} * \vf{g})(\vf{x}) = \int_{\RR^2} \vf{K}(\vf{x}-\vf{y}) \vf{g}(\vf{y}) \dd{\vf{y}}
 	\end{equation}
-	where $\displaystyle\vf{K}(x) = \frac{1}{2\pi} \frac{(-x_2,x_1)}{{\abs{\vf{x}}^2}}$ is the Biot-Savart kernel. In our case, the $\vf{g}$ is the vorticity field which is a sum of $\delta$'s. Thus, taking into consideration \cref{eq:vorticity_delta}, the velocity field generated by a vortex at $\vf{z}_j$ with circulation $\Gamma_j$ is:
+	where $\displaystyle\vf{K}(x) = \frac{1}{2\pi} \frac{(-x_2,x_1)}{{\abs{\vf{x}}^2}}$ is the Biot-Savart kernel and $\vf{x}=(x_1,x_2)$. In our case, $\vf{g}$ is the vorticity field which is a sum of $\delta$'s. Thus, taking into consideration \cref{eq:vorticity_delta}, the velocity field generated by a vortex at $\vf{z}_j$ with circulation $\Gamma_j$ is:
 	\begin{equation}
 		\vf{u}_j(\vf{x}) = \vf{K}(\vf{x}-\vf{z}_j) \Gamma_j
 	\end{equation}
