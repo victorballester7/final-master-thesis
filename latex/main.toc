@@ -10,4 +10,4 @@
 \contentsline {subsection}{\numberline {3.1}Numerical setup}{5}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Results}{6}{subsection.3.2}%
 \contentsline {section}{\numberline {4}Conclusions}{6}{section.4}%
-\contentsline {section}{References}{6}{section*.3}%
+\contentsline {section}{References}{7}{section*.3}%

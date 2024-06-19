@@ -29,6 +29,9 @@ def get_dim(dim_dir):
     return int(dim[0])
 
 
+# use latex
+plt.rc("text", usetex=True)
+
 input_dir = "data/simple_2DNS/output/"
 output_dir = "images/simple_2DNS/"
 STR = "fw."
@@ -91,8 +94,16 @@ for file in range(outnum_nd + 1 - first_file):
         myplot = ax.imshow(data2, cmap=color, vmin=zmin, vmax=zmax, origin="lower")
     else:
         myplot = ax.imshow(data2, cmap=color, origin="lower")
+    # change scale axis 0 -> -pi, 2024 -> pi
+    ax.set_xticks([0, 512, 1024, 1536, 2048])
+    ax.set_xticklabels(["$-\pi$", "$-\pi/2$", "$0$", "$\pi/2$", "$\pi$"])
+    ax.set_yticks([0, 512, 1024, 1536, 2048])
+    ax.set_yticklabels(["$-\pi$", "$-\pi/2$", "$0$", "$\pi/2$", "$\pi$"])
+
     # add colorbar
-    cbar = plt.colorbar(myplot)
+    # cbar = plt.colorbar(myplot)
+    # tight margins
+    plt.tight_layout()
     filename = os.path.join(
         script_dir,
         "../../"
@@ -100,7 +111,7 @@ for file in range(outnum_nd + 1 - first_file):
         + "FlowD_"
         + STR
         + str("%03d" % (file + first_file))
-        + ".png",
+        + ".pdf",
     )
     plt.savefig(filename)
     plt.close()

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  19 JUN 2024 17:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  19 JUN 2024 20:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -261,109 +261,163 @@ Package: nextpage 2009/09/03 v1.1a additional page commands
 \afterepigraphskip=\skip63
 \epigraphwidth=\skip64
 \epigraphrule=\skip65
+) (/usr/share/texmf-dist/tex/latex/psnfss/pifont.sty
+Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
+LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
+ (/usr/share/texmf-dist/tex/latex/psnfss/upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
+ (/usr/share/texmf-dist/tex/latex/psnfss/upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+)) (/usr/share/texmf-dist/tex/latex/diagbox/diagbox.sty
+Package: diagbox 2020/02/09 v2.3 Making table heads with diagonal lines
+ (/usr/share/texmf-dist/tex/latex/pict2e/pict2e.sty
+Package: pict2e 2020/09/30 v0.4b Improved picture commands (HjG,RN,JT)
+ (/usr/share/texmf-dist/tex/latex/pict2e/pict2e.cfg
+File: pict2e.cfg 2016/02/05 v0.1u pict2e configuration for teTeX/TeXLive
+)
+Package pict2e Info: Driver file: pdftex.def on input line 112.
+ (/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+)
+Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 114.
+ (/usr/share/texmf-dist/tex/latex/pict2e/p2e-pdftex.def
+File: p2e-pdftex.def 2016/02/05 v0.1u Driver-dependant file (RN,HjG,JT)
+) (/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+\pIIe@GRAPH=\toks24
+\@arclen=\dimen158
+\@arcrad=\dimen159
+\pIIe@tempdima=\dimen160
+\pIIe@tempdimb=\dimen161
+\pIIe@tempdimc=\dimen162
+\pIIe@tempdimd=\dimen163
+\pIIe@tempdime=\dimen164
+\pIIe@tempdimf=\dimen165
+) (/usr/share/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count279
+\calc@Bcount=\count280
+\calc@Adimen=\dimen166
+\calc@Bdimen=\dimen167
+\calc@Askip=\skip66
+\calc@Bskip=\skip67
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count281
+\calc@Cskip=\skip68
+) (/usr/share/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen168
+\ar@mcellbox=\box52
+\extrarowheight=\dimen169
+\NC@list=\toks25
+\extratabsurround=\skip69
+\backup@length=\skip70
+\ar@cellbox=\box53
+)
+\diagbox@boxa=\box54
+\diagbox@boxb=\box55
+\diagbox@boxm=\box56
+\diagbox@wd=\dimen170
+\diagbox@ht=\dimen171
+\diagbox@insepl=\dimen172
+\diagbox@insepr=\dimen173
+\diagbox@outsepl=\dimen174
+\diagbox@outsepr=\dimen175
 )) (./preamble.sty (/usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks24
-\thm@bodyfont=\toks25
-\thm@headfont=\toks26
-\thm@notefont=\toks27
-\thm@headpunct=\toks28
-\thm@preskip=\skip66
-\thm@postskip=\skip67
-\thm@headsep=\skip68
-\dth@everypar=\toks29
+\thm@style=\toks26
+\thm@bodyfont=\toks27
+\thm@headfont=\toks28
+\thm@notefont=\toks29
+\thm@headpunct=\toks30
+\thm@preskip=\skip71
+\thm@postskip=\skip72
+\thm@headsep=\skip73
+\dth@everypar=\toks31
 ) (/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2023/05/13 v2.17o AMS math features
-\@mathmargin=\skip69
+\@mathmargin=\skip74
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
  (/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks30
-\ex@=\dimen158
+\@emptytoks=\toks32
+\ex@=\dimen176
 )) (/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen159
+\pmbraise@=\dimen177
 ) (/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count279
+\inf@bad=\count282
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count280
-\leftroot@=\count281
+\uproot@=\count283
+\leftroot@=\count284
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count282
-\DOTSCASE@=\count283
+\classnum@=\count285
+\DOTSCASE@=\count286
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box52
-\strutbox@=\box53
+\Mathstrutbox@=\box57
+\strutbox@=\box58
 LaTeX Info: Redefining \big on input line 722.
 LaTeX Info: Redefining \Big on input line 723.
 LaTeX Info: Redefining \bigg on input line 724.
 LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen160
+\big@size=\dimen178
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count284
+\macc@depth=\count287
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count285
+\c@MaxMatrixCols=\count288
 \dotsspace@=\muskip17
-\c@parentequation=\count286
-\dspbrk@lvl=\count287
-\tag@help=\toks31
-\row@=\count288
-\column@=\count289
-\maxfields@=\count290
-\andhelp@=\toks32
-\eqnshift@=\dimen161
-\alignsep@=\dimen162
-\tagshift@=\dimen163
-\tagwidth@=\dimen164
-\totwidth@=\dimen165
-\lineht@=\dimen166
-\@envbody=\toks33
-\multlinegap=\skip70
-\multlinetaggap=\skip71
-\mathdisplay@stack=\toks34
+\c@parentequation=\count289
+\dspbrk@lvl=\count290
+\tag@help=\toks33
+\row@=\count291
+\column@=\count292
+\maxfields@=\count293
+\andhelp@=\toks34
+\eqnshift@=\dimen179
+\alignsep@=\dimen180
+\tagshift@=\dimen181
+\tagwidth@=\dimen182
+\totwidth@=\dimen183
+\lineht@=\dimen184
+\@envbody=\toks35
+\multlinegap=\skip75
+\multlinetaggap=\skip76
+\mathdisplay@stack=\toks36
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 ) (/usr/share/texmf-dist/tex/latex/mathtools/mathtools.sty
 Package: mathtools 2024/03/11 v1.30 mathematical typesetting tools
- (/usr/share/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count291
-\calc@Bcount=\count292
-\calc@Adimen=\dimen167
-\calc@Bdimen=\dimen168
-\calc@Askip=\skip72
-\calc@Bskip=\skip73
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count293
-\calc@Cskip=\skip74
-) (/usr/share/texmf-dist/tex/latex/mathtools/mhsetup.sty
+ (/usr/share/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
 \g_MT_multlinerow_int=\count294
-\l_MT_multwidth_dim=\dimen169
-\origjot=\skip75
-\l_MT_shortvdotswithinadjustabove_dim=\dimen170
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen171
-\l_MT_above_intertext_sep=\dimen172
-\l_MT_below_intertext_sep=\dimen173
-\l_MT_above_shortintertext_sep=\dimen174
-\l_MT_below_shortintertext_sep=\dimen175
-\xmathstrut@box=\box54
-\xmathstrut@dim=\dimen176
+\l_MT_multwidth_dim=\dimen185
+\origjot=\skip77
+\l_MT_shortvdotswithinadjustabove_dim=\dimen186
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen187
+\l_MT_above_intertext_sep=\dimen188
+\l_MT_below_intertext_sep=\dimen189
+\l_MT_above_shortintertext_sep=\dimen190
+\l_MT_below_shortintertext_sep=\dimen191
+\xmathstrut@box=\box59
+\xmathstrut@dim=\dimen192
 ) (/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
  (/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
@@ -380,18 +434,18 @@ Package: expl3 2024-02-20 L3 programming layer (loader)
  (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
-\l__pdf_internal_box=\box55
+\l__pdf_internal_box=\box60
 ))
 Package: xparse 2024-02-18 L3 Experimental document command parser
 )) (/usr/share/texmf-dist/tex/latex/thmtools/thmtools.sty
 Package: thmtools 2023/05/04 v0.76
-\thmt@toks=\toks35
+\thmt@toks=\toks37
 \c@thmt@dummyctr=\count296
  (/usr/share/texmf-dist/tex/latex/thmtools/thm-patch.sty
 Package: thm-patch 2023/05/04 v0.76
  (/usr/share/texmf-dist/tex/latex/thmtools/parseargs.sty
 Package: parseargs 2023/05/04 v0.76
-\@parsespec=\toks36
+\@parsespec=\toks38
 )) (/usr/share/texmf-dist/tex/latex/thmtools/thm-kv.sty
 Package: thm-kv 2023/05/04 v0.76
 Package thm-kv Info: Theorem names will be uppercased on input line 42.
@@ -406,7 +460,7 @@ Package: thm-listof 2023/05/04 v0.76
 Package: thm-restate 2023/05/04 v0.76
 ) (/usr/share/texmf-dist/tex/latex/thmtools/thm-amsthm.sty
 Package: thm-amsthm 2023/05/04 v0.76
-\thmt@style@headstyle=\toks37
+\thmt@style@headstyle=\toks39
 )) (/usr/share/texmf-dist/tex/latex/yhmath/yhmath.sty
 Package: yhmath 2020/03/17 v1.6
 \symyhlargesymbols=\mathgroup6
@@ -468,65 +522,61 @@ Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-
 Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
  (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+ (/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
- (/usr/share/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
- (/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
-))
-\Gin@req@height=\dimen177
-\Gin@req@width=\dimen178
+)
+\Gin@req@height=\dimen193
+\Gin@req@width=\dimen194
 ) (/usr/share/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
-\collectedbox=\box56
+\collectedbox=\box61
 )
-\tc@llx=\dimen179
-\tc@lly=\dimen180
-\tc@urx=\dimen181
-\tc@ury=\dimen182
+\tc@llx=\dimen195
+\tc@lly=\dimen196
+\tc@urx=\dimen197
+\tc@ury=\dimen198
 Package trimclip Info: Using driver 'tc-pdftex.def'.
  (/usr/share/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen183
-\adjbox@Height=\dimen184
-\adjbox@Depth=\dimen185
-\adjbox@Totalheight=\dimen186
-\adjbox@pwidth=\dimen187
-\adjbox@pheight=\dimen188
-\adjbox@pdepth=\dimen189
-\adjbox@ptotalheight=\dimen190
+\adjbox@Width=\dimen199
+\adjbox@Height=\dimen256
+\adjbox@Depth=\dimen257
+\adjbox@Totalheight=\dimen258
+\adjbox@pwidth=\dimen259
+\adjbox@pheight=\dimen260
+\adjbox@pdepth=\dimen261
+\adjbox@ptotalheight=\dimen262
  (/usr/share/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
 \c@checkoddpage=\count298
 ) (/usr/share/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box57
+\@vwid@box=\box62
 \sift@deathcycles=\count299
-\@vwid@loff=\dimen191
-\@vwid@roff=\dimen192
+\@vwid@loff=\dimen263
+\@vwid@roff=\dimen264
 ))
-\gincltex@box=\box58
+\gincltex@box=\box63
 ) (/usr/share/texmf-dist/tex/latex/filemod/filemod-expmin.sty
 Package: filemod-expmin 2011/09/19 v1.2 Get and compare file modification times (expandable; minimal)
 )) (/usr/share/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
  (/usr/share/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen193
-\captionmargin=\dimen194
-\caption@leftmargin=\dimen195
-\caption@rightmargin=\dimen196
-\caption@width=\dimen197
-\caption@indent=\dimen198
-\caption@parindent=\dimen199
-\caption@hangindent=\dimen256
+\caption@tempdima=\dimen265
+\captionmargin=\dimen266
+\caption@leftmargin=\dimen267
+\caption@rightmargin=\dimen268
+\caption@width=\dimen269
+\caption@indent=\dimen270
+\caption@parindent=\dimen271
+\caption@hangindent=\dimen272
 Package caption Info: Standard document class detected.
 )
 \c@caption@flags=\count300
@@ -541,32 +591,27 @@ Package caption Info: New subtype `subtable' on input line 238.
 ) (/usr/share/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \c@tracingmulticols=\count304
-\mult@box=\box59
-\multicol@leftmargin=\dimen257
+\mult@box=\box64
+\multicol@leftmargin=\dimen273
 \c@unbalance=\count305
 \c@collectmore=\count306
 \doublecol@number=\count307
 \multicoltolerance=\count308
 \multicolpretolerance=\count309
-\full@width=\dimen258
-\page@free=\dimen259
-\premulticols=\dimen260
-\postmulticols=\dimen261
-\multicolsep=\skip76
-\multicolbaselineskip=\skip77
-\partial@page=\box60
-\last@line=\box61
-\mc@boxedresult=\box62
-\maxbalancingoverflow=\dimen262
-\mult@rightbox=\box63
-\mult@grightbox=\box64
-\mult@firstbox=\box65
-\mult@gfirstbox=\box66
-\@tempa=\box67
-\@tempa=\box68
-\@tempa=\box69
-\@tempa=\box70
-\@tempa=\box71
+\full@width=\dimen274
+\page@free=\dimen275
+\premulticols=\dimen276
+\postmulticols=\dimen277
+\multicolsep=\skip78
+\multicolbaselineskip=\skip79
+\partial@page=\box65
+\last@line=\box66
+\mc@boxedresult=\box67
+\maxbalancingoverflow=\dimen278
+\mult@rightbox=\box68
+\mult@grightbox=\box69
+\mult@firstbox=\box70
+\mult@gfirstbox=\box71
 \@tempa=\box72
 \@tempa=\box73
 \@tempa=\box74
@@ -598,19 +643,24 @@ Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \@tempa=\box100
 \@tempa=\box101
 \@tempa=\box102
+\@tempa=\box103
+\@tempa=\box104
+\@tempa=\box105
+\@tempa=\box106
+\@tempa=\box107
 \c@minrows=\count310
 \c@columnbadness=\count311
 \c@finalcolumnbadness=\count312
-\last@try=\dimen263
-\multicolovershoot=\dimen264
-\multicolundershoot=\dimen265
-\mult@nat@firstbox=\box103
-\colbreak@box=\box104
+\last@try=\dimen279
+\multicolovershoot=\dimen280
+\multicolundershoot=\dimen281
+\mult@nat@firstbox=\box108
+\colbreak@box=\box109
 \mc@col@check@num=\count313
 ) (/usr/share/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2024/02/07 v24.2 The Babel package
 \babel@savecnt=\count314
-\U@D=\dimen266
+\U@D=\dimen282
 \l@unhyphenated=\language5
  (/usr/share/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
@@ -642,46 +692,37 @@ Package: chemgreek 2020/01/16 v1.1a interface for upright Greek letters for use 
 \g__chemgreek_tmpa_int=\count317
 )
 \l__mhchem_ce_distanceFromLastComma_int=\count318
-\__mhchem_arrow_extPgfLength_skip=\skip78
-\mhchem@minispace@tmp=\skip79
-\mhchem@minibackspace@tmp=\skip80
-\mhchem@bondwidth=\skip81
-\mhchem@bondheight=\skip82
-\mhchem@smallbondwidth@tmpA=\skip83
-\mhchem@smallbondwidth@tmpB=\skip84
-\mhchem@smallbondwidth=\skip85
-\mhchem@bondtmp@minussidebearingleft=\skip86
-\mhchem@bondtmp@minussidebearingright=\skip87
+\__mhchem_arrow_extPgfLength_skip=\skip80
+\mhchem@minispace@tmp=\skip81
+\mhchem@minibackspace@tmp=\skip82
+\mhchem@bondwidth=\skip83
+\mhchem@bondheight=\skip84
+\mhchem@smallbondwidth@tmpA=\skip85
+\mhchem@smallbondwidth@tmpB=\skip86
+\mhchem@smallbondwidth=\skip87
+\mhchem@bondtmp@minussidebearingleft=\skip88
+\mhchem@bondtmp@minussidebearingright=\skip89
 \l__mhchem_option_version_int=\count319
-\mhchem@option@minusmathsidebearingleft=\dimen267
-\mhchem@option@minusmathsidebearingright=\dimen268
-\mhchem@option@minustextsidebearingleft=\dimen269
-\mhchem@option@minustextsidebearingright=\dimen270
+\mhchem@option@minusmathsidebearingleft=\dimen283
+\mhchem@option@minusmathsidebearingright=\dimen284
+\mhchem@option@minustextsidebearingleft=\dimen285
+\mhchem@option@minustextsidebearingright=\dimen286
 ) (/usr/share/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip88
+\multirow@colwidth=\skip90
 \multirow@cntb=\count320
-\multirow@dima=\skip89
-\bigstrutjot=\dimen271
-) (/usr/share/texmf-dist/tex/latex/tools/array.sty
-Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
-\col@sep=\dimen272
-\ar@mcellbox=\box105
-\extrarowheight=\dimen273
-\NC@list=\toks38
-\extratabsurround=\skip90
-\backup@length=\skip91
-\ar@cellbox=\box106
+\multirow@dima=\skip91
+\bigstrutjot=\dimen287
 ) (/usr/share/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen274
+\rotheadsize=\dimen288
 \c@nlinenum=\count321
-\TeXr@lab=\toks39
+\TeXr@lab=\toks40
 ) (/usr/share/texmf-dist/tex/latex/footmisc/footmisc.sty
 Package: footmisc 2023/07/05 v6.0f a miscellany of footnote facilities
-\FN@temptoken=\toks40
-\footnotemargin=\dimen275
-\@outputbox@depth=\dimen276
+\FN@temptoken=\toks41
+\footnotemargin=\dimen289
+\@outputbox@depth=\dimen290
 Package footmisc Info: Declaring symbol style bringhurst on input line 696.
 Package footmisc Info: Declaring symbol style chicago on input line 704.
 Package footmisc Info: Declaring symbol style wiley on input line 713.
@@ -730,11 +771,11 @@ File: x11nam.def 2023/11/15 v3.01 Predefined colors according to Unix/X11 (UK)
 ) (/usr/share/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 Package: tcolorbox 2024/01/10 version 6.2.0 text color boxes
  (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks41
-\pgfutil@tempdima=\dimen277
-\pgfutil@tempdimb=\dimen278
+\pgfutil@everybye=\toks42
+\pgfutil@tempdima=\dimen291
+\pgfutil@tempdimb=\dimen292
 ) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box107
+\pgfutil@abb=\box110
 ) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/usr/share/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
 ))
@@ -742,30 +783,30 @@ Package: pgf 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/share/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks42
-\pgfkeys@temptoks=\toks43
+\pgfkeys@pathtoks=\toks43
+\pgfkeys@temptoks=\toks44
  (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks44
+\pgfkeys@tmptoks=\toks45
 ))
-\pgf@x=\dimen279
-\pgf@y=\dimen280
-\pgf@xa=\dimen281
-\pgf@ya=\dimen282
-\pgf@xb=\dimen283
-\pgf@yb=\dimen284
-\pgf@xc=\dimen285
-\pgf@yc=\dimen286
-\pgf@xd=\dimen287
-\pgf@yd=\dimen288
+\pgf@x=\dimen293
+\pgf@y=\dimen294
+\pgf@xa=\dimen295
+\pgf@ya=\dimen296
+\pgf@xb=\dimen297
+\pgf@yb=\dimen298
+\pgf@xc=\dimen299
+\pgf@yc=\dimen300
+\pgf@xd=\dimen301
+\pgf@yd=\dimen302
 \w@pgf@writea=\write3
 \r@pgf@reada=\read3
 \c@pgf@counta=\count322
 \c@pgf@countb=\count323
 \c@pgf@countc=\count324
 \c@pgf@countd=\count325
-\t@pgf@toka=\toks45
-\t@pgf@tokb=\toks46
-\t@pgf@tokc=\toks47
+\t@pgf@toka=\toks46
+\t@pgf@tokb=\toks47
+\t@pgf@tokc=\toks48
 \pgf@sys@id@count=\count326
  (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
@@ -784,53 +825,53 @@ File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen289
+\pgfmath@dimen=\dimen303
 \pgfmath@count=\count329
-\pgfmath@box=\box108
-\pgfmath@toks=\toks48
-\pgfmath@stack@operand=\toks49
-\pgfmath@stack@operation=\toks50
+\pgfmath@box=\box111
+\pgfmath@toks=\toks49
+\pgfmath@stack@operand=\toks50
+\pgfmath@stack@operation=\toks51
 ) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
 (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count330
 )) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen290
-\pgf@picmaxx=\dimen291
-\pgf@picminy=\dimen292
-\pgf@picmaxy=\dimen293
-\pgf@pathminx=\dimen294
-\pgf@pathmaxx=\dimen295
-\pgf@pathminy=\dimen296
-\pgf@pathmaxy=\dimen297
-\pgf@xx=\dimen298
-\pgf@xy=\dimen299
-\pgf@yx=\dimen300
-\pgf@yy=\dimen301
-\pgf@zx=\dimen302
-\pgf@zy=\dimen303
+\pgf@picminx=\dimen304
+\pgf@picmaxx=\dimen305
+\pgf@picminy=\dimen306
+\pgf@picmaxy=\dimen307
+\pgf@pathminx=\dimen308
+\pgf@pathmaxx=\dimen309
+\pgf@pathminy=\dimen310
+\pgf@pathmaxy=\dimen311
+\pgf@xx=\dimen312
+\pgf@xy=\dimen313
+\pgf@yx=\dimen314
+\pgf@yy=\dimen315
+\pgf@zx=\dimen316
+\pgf@zy=\dimen317
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen304
-\pgf@path@lasty=\dimen305
+\pgf@path@lastx=\dimen318
+\pgf@path@lasty=\dimen319
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen306
-\pgf@shorten@start@additional=\dimen307
+\pgf@shorten@end@additional=\dimen320
+\pgf@shorten@start@additional=\dimen321
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfpic=\box109
-\pgf@hbox=\box110
-\pgf@layerbox@main=\box111
+\pgfpic=\box112
+\pgf@hbox=\box113
+\pgf@layerbox@main=\box114
 \pgf@picture@serial@count=\count331
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen308
+\pgflinewidth=\dimen322
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen309
-\pgf@pt@y=\dimen310
-\pgf@pt@temp=\dimen311
+\pgf@pt@x=\dimen323
+\pgf@pt@y=\dimen324
+\pgf@pt@temp=\dimen325
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
@@ -839,17 +880,17 @@ File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen312
+\pgfarrowsep=\dimen326
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen313
+\pgf@max=\dimen327
 \pgf@sys@shading@range@num=\count332
 \pgf@shadingcount=\count333
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfexternal@startupbox=\box112
+\pgfexternal@startupbox=\box115
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
@@ -860,42 +901,42 @@ File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodeparttextbox=\box113
+\pgfnodeparttextbox=\box116
 ) (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen314
-\pgf@nodesepend=\dimen315
+\pgf@nodesepstart=\dimen328
+\pgf@nodesepend=\dimen329
 )
 (/usr/share/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks51
-\verbatim@line=\toks52
+\every@verbatim=\toks52
+\verbatim@line=\toks53
 \verbatim@in@stream=\read4
 ) (/usr/share/texmf-dist/tex/latex/environ/environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
  (/usr/share/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\tcb@titlebox=\box114
-\tcb@upperbox=\box115
-\tcb@lowerbox=\box116
-\tcb@phantombox=\box117
+\tcb@titlebox=\box117
+\tcb@upperbox=\box118
+\tcb@lowerbox=\box119
+\tcb@phantombox=\box120
 \c@tcbbreakpart=\count334
 \c@tcblayer=\count335
 \c@tcolorbox@number=\count336
-\l__tcobox_tmpa_box=\box118
-\l__tcobox_tmpa_dim=\dimen316
-\tcb@temp=\box119
-\tcb@temp=\box120
-\tcb@temp=\box121
+\l__tcobox_tmpa_box=\box121
+\l__tcobox_tmpa_dim=\dimen330
 \tcb@temp=\box122
+\tcb@temp=\box123
+\tcb@temp=\box124
+\tcb@temp=\box125
 ) (/usr/share/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2024/02/20 v1.0g Color table columns (DPC)
-\everycr=\toks53
+\everycr=\toks54
 \minrowclearance=\skip92
 \rownum=\count337
 ) (/usr/share/texmf-dist/tex/latex/tools/longtable.sty
@@ -905,46 +946,46 @@ Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
 \LTpre=\skip95
 \LTpost=\skip96
 \LTchunksize=\count338
-\LTcapwidth=\dimen317
-\LT@head=\box123
-\LT@firsthead=\box124
-\LT@foot=\box125
-\LT@lastfoot=\box126
-\LT@gbox=\box127
+\LTcapwidth=\dimen331
+\LT@head=\box126
+\LT@firsthead=\box127
+\LT@foot=\box128
+\LT@lastfoot=\box129
+\LT@gbox=\box130
 \LT@cols=\count339
 \LT@rows=\count340
 \c@LT@tables=\count341
 \c@LT@chunks=\count342
-\LT@p@ftn=\toks54
+\LT@p@ftn=\toks55
 ) (/usr/share/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 ) (/usr/share/texmf-dist/tex/latex/utfsym/utfsym.sty
 Package: utfsym 2022/04/17 Use TikZ to support icons from Unicode blocks
  (/usr/share/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen318
-\pgffor@skip=\dimen319
-\pgffor@stack=\toks55
-\pgffor@toks=\toks56
+\pgffor@iter=\dimen332
+\pgffor@skip=\dimen333
+\pgffor@stack=\toks56
+\pgffor@toks=\toks57
 )) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@plot@mark@count=\count343
-\pgfplotmarksize=\dimen320
+\pgfplotmarksize=\dimen334
 )
-\tikz@lastx=\dimen321
-\tikz@lasty=\dimen322
-\tikz@lastxsaved=\dimen323
-\tikz@lastysaved=\dimen324
-\tikz@lastmovetox=\dimen325
-\tikz@lastmovetoy=\dimen326
-\tikzleveldistance=\dimen327
-\tikzsiblingdistance=\dimen328
-\tikz@figbox=\box128
-\tikz@figbox@bg=\box129
-\tikz@tempbox=\box130
-\tikz@tempbox@bg=\box131
+\tikz@lastx=\dimen335
+\tikz@lasty=\dimen336
+\tikz@lastxsaved=\dimen337
+\tikz@lastysaved=\dimen338
+\tikz@lastmovetox=\dimen339
+\tikz@lastmovetoy=\dimen340
+\tikzleveldistance=\dimen341
+\tikzsiblingdistance=\dimen342
+\tikz@figbox=\box131
+\tikz@figbox@bg=\box132
+\tikz@tempbox=\box133
+\tikz@tempbox@bg=\box134
 \tikztreelevel=\count344
 \tikznumberofchildren=\count345
 \tikznumberofcurrentchild=\count346
@@ -2689,50 +2730,50 @@ File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
    defining Unicode char U+27BF (decimal 10175)
 ) (/usr/share/texmf-dist/tex/latex/tools/afterpage.sty
 Package: afterpage 2023/07/04 v1.08 After-Page Package (DPC)
-\AP@output=\toks57
-\AP@partial=\box132
-\AP@footins=\box133
+\AP@output=\toks58
+\AP@partial=\box135
+\AP@footins=\box136
 ) (/usr/share/texmf-dist/tex/latex/pgfplots/pgfplots.sty (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
 Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
  (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
-\t@pgfplots@toka=\toks58
-\t@pgfplots@tokb=\toks59
-\t@pgfplots@tokc=\toks60
-\pgfplots@tmpa=\dimen329
+\t@pgfplots@toka=\toks59
+\t@pgfplots@tokb=\toks60
+\t@pgfplots@tokc=\toks61
+\pgfplots@tmpa=\dimen343
 \c@pgfplots@coordindex=\count352
 \c@pgfplots@scanlineindex=\count353
  (/usr/share/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_loader.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex)
 Package pgfplots: loading complementary utilities for your pgf version...
-\t@pgf@toka=\toks61
-\t@pgf@tokb=\toks62
-\t@pgf@tokc=\toks63
+\t@pgf@toka=\toks62
+\t@pgf@tokb=\toks63
+\t@pgf@tokc=\toks64
 (/usr/share/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_pgfutil-common-lists.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructureext.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.code.tex
 \c@pgfplotsarray@tmp=\count354
 ) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.code.tex
 \c@pgfplotstable@counta=\count355
-\t@pgfplotstable@a=\toks64
+\t@pgfplotstable@a=\toks65
 ) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfshading.code.tex
 \c@pgfplotslibrarysurf@no=\count356
  (/usr/share/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
 (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen330
-\pgfdecoratedremainingdistance=\dimen331
-\pgfdecoratedinputsegmentcompleteddistance=\dimen332
-\pgfdecoratedinputsegmentremainingdistance=\dimen333
-\pgf@decorate@distancetomove=\dimen334
+\pgfdecoratedcompleteddistance=\dimen344
+\pgfdecoratedremainingdistance=\dimen345
+\pgfdecoratedinputsegmentcompleteddistance=\dimen346
+\pgfdecoratedinputsegmentremainingdistance=\dimen347
+\pgf@decorate@distancetomove=\dimen348
 \pgf@decorate@repeatstate=\count357
-\pgfdecorationsegmentamplitude=\dimen335
-\pgfdecorationsegmentlength=\dimen336
+\pgfdecorationsegmentamplitude=\dimen349
+\pgfdecorationsegmentlength=\dimen350
 )
-\tikz@lib@dec@box=\box134
+\tikz@lib@dec@box=\box137
 ) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathmorphing.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathreplacing.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathreplacing.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.contourlua.code.tex)
 \pgfplots@numplots=\count358
-\pgfplots@xmin@reg=\dimen337
-\pgfplots@xmax@reg=\dimen338
-\pgfplots@ymin@reg=\dimen339
-\pgfplots@ymax@reg=\dimen340
-\pgfplots@zmin@reg=\dimen341
-\pgfplots@zmax@reg=\dimen342
+\pgfplots@xmin@reg=\dimen351
+\pgfplots@xmax@reg=\dimen352
+\pgfplots@ymin@reg=\dimen353
+\pgfplots@ymax@reg=\dimen354
+\pgfplots@zmin@reg=\dimen355
+\pgfplots@zmax@reg=\dimen356
 ) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotmarks.code.tex
 File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
@@ -2747,13 +2788,13 @@ File: tikzlibrary3d.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen343
+\arrowsize=\dimen357
 ))) (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
 File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowinset=\dimen344
-\pgfarrowlength=\dimen345
-\pgfarrowwidth=\dimen346
-\pgfarrowlinewidth=\dimen347
+\pgfarrowinset=\dimen358
+\pgfarrowlength=\dimen359
+\pgfarrowwidth=\dimen360
+\pgfarrowlinewidth=\dimen361
 ) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.shapes.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.shapes.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.markings.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.markings.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
 File: tikzlibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
@@ -2764,18 +2805,18 @@ File: pgflibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfcontrib/tikzlibrarydecorations.softclip.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/pgfcontrib/pgflibraryfillbetween.code.tex))) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.fillbetween.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.decorations.softclip.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.polar.code.tex) (/usr/share/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count360
-\float@exts=\toks65
-\float@box=\box135
-\@float@everytoks=\toks66
-\@floatcapt=\box136
+\float@exts=\toks66
+\float@box=\box138
+\@float@everytoks=\toks67
+\@floatcapt=\box139
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 75.
  (/usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip97
-\enit@outerparindent=\dimen348
-\enit@toks=\toks67
-\enit@inbox=\box137
+\enit@outerparindent=\dimen362
+\enit@toks=\toks68
+\enit@inbox=\box140
 \enit@count@id=\count361
 \enitdp@description=\count362
 )
@@ -2789,7 +2830,7 @@ Package: csquotes 2022-09-14 v5.2n context-sensitive quotations (JAW)
 \csq@qlevel=\count368
 \csq@maxlvl=\count369
 \csq@tshold=\count370
-\csq@ltx@everypar=\toks68
+\csq@ltx@everypar=\toks69
  (/usr/share/texmf-dist/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2022-09-14 v5.2n csquotes generic definitions (JAW)
 )
@@ -3099,16 +3140,16 @@ Package hyperref Info: Link coloring ON on input line 19.
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count497
-\scratchdimen=\dimen349
-\scratchbox=\box138
+\scratchdimen=\dimen363
+\scratchbox=\box141
 \nofMPsegments=\count498
 \nofMParguments=\count499
-\everyMPshowfont=\toks69
+\everyMPshowfont=\toks70
 \MPscratchCnt=\count500
-\MPscratchDim=\dimen350
+\MPscratchDim=\dimen364
 \MPnumerator=\count501
 \makeMPintoPDFobject=\count502
-\everyMPtoPDFconversion=\toks70
+\everyMPtoPDFconversion=\toks71
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -3240,41 +3281,569 @@ l.29 \begin{align}
                    [1{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [2{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 100.
  [3] [4]) (./sections/results.tex
+<images/forcing32_8.pdf, id=184, 462.52798pt x 346.89601pt>
+File: images/forcing32_8.pdf Graphic file (type pdf)
+<use images/forcing32_8.pdf>
+Package pdftex.def Info: images/forcing32_8.pdf  used on input line 12.
+(pdftex.def)             Requested size: 204.85846pt x 153.6457pt.
 
-LaTeX Warning: Reference `fig:forcing' on page 5 undefined on input line 6.
 
-) (./sections/conclusions.tex) (./sections/acknowledgements.tex) [5] [6] (./main.aux)
+LaTeX Warning: File `images/forcing_8.pdf' not found on input line 17.
+
+
+./sections/results.tex:17: Package pdftex.def Error: File `images/forcing_8.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 ...cs[width=\textwidth]{images/forcing_8.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...                             & \tickgreen_
+                                                  {512} & \tickgreen_{512} &...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...                      & \tickgreen_{512} &
+                                                   \tickgreen_{512} & \tickg...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...          & \tickgreen_{512} & \tickgreen_
+                                                  {512} & \tickgreen_{512} &...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...   & \tickgreen_{512} & \tickgreen_{512} &
+                                                   \tickgreen_{512} & \tickg...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...een_{512} & \tickgreen_{512} & \tickgreen_
+                                                  {512} & \tickgreen\tickblu...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...2} & \tickgreen_{512} & \tickgreen_{512} &
+                                                   \tickgreen\tickblue_{512}...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ... & \tickgreen_{512} & \tickgreen\tickblue_
+                                                  {512} & \tickgreen\tickblu...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...kgreen_{512} & \tickgreen\tickblue_{512} &
+                                                   \tickgreen\tickblue_{1024...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...reen\tickblue_{512} & \tickgreen\tickblue_
+                                                  {1024} & \tickgreen\tickbl...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...kblue_{512} & \tickgreen\tickblue_{1024} &
+                                                   \tickgreen\tickblue_{1024...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...een\tickblue_{1024} & \tickgreen\tickblue_
+                                                  {1024} & \tickgreen\tickbl...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...blue_{1024} & \tickgreen\tickblue_{1024} &
+                                                   \tickgreen\tickblue_{1024...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...een\tickblue_{1024} & \tickgreen\tickblue_
+                                                  {1024} & \tickgreen\tickbl...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...blue_{1024} & \tickgreen\tickblue_{1024} &
+                                                   \tickgreen\tickblue_{2048...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...een\tickblue_{1024} & \tickgreen\tickblue_
+                                                  {2048} & \tickgreen_{2048}...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...blue_{1024} & \tickgreen\tickblue_{2048} &
+                                                   \tickgreen_{2048} & \tick...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...& \tickgreen\tickblue_{2048} & \tickgreen_
+                                                  {2048} & \tickgreen_{4096} \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...reen\tickblue_{2048} & \tickgreen_{2048} &
+                                                   \tickgreen_{4096} \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:37: Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...e_{2048} & \tickgreen_{2048} & \tickgreen_
+                                                  {4096} \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 		1
+        6                                                                   ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...           &                  & \tickblue_
+                                                  {1024}          & \tickblu...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...             & \tickblue_{1024}          &
+                                                   \tickblue_{2048}         ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...  & \tickblue_{1024}          & \tickblue_
+                                                  {2048}           & \tickgr...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...4}          & \tickblue_{2048}           &
+                                                   \tickgreen\tickblue_{2048...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...ue_{2048}           & \tickgreen\tickblue_
+                                                  {2048} & \tickgreen\tickbl...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...}           & \tickgreen\tickblue_{2048} &
+                                                   \tickgreen\tickblue_{2048...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...een\tickblue_{2048} & \tickgreen\tickblue_
+                                                  {2048} & \tickgreen\tickbl...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...blue_{2048} & \tickgreen\tickblue_{2048} &
+                                                   \tickgreen\tickblue_{2048...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...een\tickblue_{2048} & \tickgreen\tickblue_
+                                                  {2048} & \tickgreen_{4096}...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...blue_{2048} & \tickgreen\tickblue_{2048} &
+                                                   \tickgreen_{4096} & \tick...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...& \tickgreen\tickblue_{2048} & \tickgreen_
+                                                  {4096} & \tickgreen_{4096} \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...reen\tickblue_{2048} & \tickgreen_{4096} &
+                                                   \tickgreen_{4096} \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:38: Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...e_{2048} & \tickgreen_{4096} & \tickgreen_
+                                                  {4096} \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 		3
+        2                                                                   ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...           &                  & \tickblue_
+                                                  {2048}          & \tickblu...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...             & \tickblue_{2048}          &
+                                                   \tickblue_{4096}         ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...  & \tickblue_{2048}          & \tickblue_
+                                                  {4096}           & \tickgr...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...8}          & \tickblue_{4096}           &
+                                                   \tickgreen\tickblue_{4096...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...ue_{4096}           & \tickgreen\tickblue_
+                                                  {4096} & \tickgreen\tickbl...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...}           & \tickgreen\tickblue_{4096} &
+                                                   \tickgreen\tickblue_{4096...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...een\tickblue_{4096} & \tickgreen\tickblue_
+                                                  {4096} & \tickgreen\tickbl...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...blue_{4096} & \tickgreen\tickblue_{4096} &
+                                                   \tickgreen\tickblue_{4096...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...een\tickblue_{4096} & \tickgreen\tickblue_
+                                                  {4096} & \tickgreen_{8192}...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...blue_{4096} & \tickgreen\tickblue_{4096} &
+                                                   \tickgreen_{8192} & \tick...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...& \tickgreen\tickblue_{4096} & \tickgreen_
+                                                  {8192} & \tickgreen_{8192} \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...reen\tickblue_{4096} & \tickgreen_{8192} &
+                                                   \tickgreen_{8192} \\
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:39: Missing $ inserted.
+<inserted text> 
+                $
+l.39 ...e_{4096} & \tickgreen_{8192} & \tickgreen_
+                                                  {8192} \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:40: Missing $ inserted.
+<inserted text> 
+                $
+l.40 		6
+        4                                                                   ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:40: Missing $ inserted.
+<inserted text> 
+                $
+l.40 ...&                            & \tickgreen_
+                                                  {8192}          & \tickgre...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:40: Missing $ inserted.
+<inserted text> 
+                $
+l.40 ...            & \tickgreen_{8192}          &
+                                                   \tickgreen_{8192}        ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:40: Missing $ inserted.
+<inserted text> 
+                $
+l.40 ...& \tickgreen_{8192}          & \tickgreen_
+                                                  {8192}          & \tickgre...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:40: Missing $ inserted.
+<inserted text> 
+                $
+l.40 ...2}          & \tickgreen_{8192}          &
+                                                   \tickgreen_{8192}        ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./sections/results.tex:40: Missing $ inserted.
+<inserted text> 
+                $
+l.40 ...& \tickgreen_{8192}          & \tickgreen_
+                                                  {8192}          &         ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./sections/results.tex:40: Missing $ inserted.
+<inserted text> 
+                $
+l.40 ...2}          & \tickgreen_{8192}          &
+                                                                     &      ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[5]) (./sections/conclusions.tex) (./sections/acknowledgements.tex) [6 <./images/forcing32_8.pdf>] [7] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 58837 strings out of 476076
- 1279550 string characters out of 5793775
- 2218706 words of memory out of 5000000
- 79882 multiletter control sequences out of 15000+600000
- 635537 words of font info for 118 fonts, out of 8000000 for 9000
+ 59263 strings out of 476076
+ 1286890 string characters out of 5793775
+ 2230349 words of memory out of 5000000
+ 80262 multiletter control sequences out of 15000+600000
+ 639170 words of font info for 121 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 140i,14n,135p,1326b,1858s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 130i,19n,131p,1326b,1858s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist, replaced by a fixed one
 
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texmf-dist/fonts/type1/public/yhmath/yhcmex.pfb>
-Output written on main.pdf (7 pages, 866196 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb></usr/share/texmf-dist/fonts/type1/public/yhmath/yhcmex.pfb>
+Output written on main.pdf (8 pages, 1006969 bytes).
 PDF statistics:
- 413 PDF objects out of 1000 (max. 8388607)
- 328 compressed objects within 4 object streams
- 73 named destinations out of 1000 (max. 500000)
- 119 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 466 PDF objects out of 1000 (max. 8388607)
+ 367 compressed objects within 4 object streams
+ 78 named destinations out of 1000 (max. 500000)
+ 124 words of extra memory for PDF output out of 10000 (max. 10000000)
 
