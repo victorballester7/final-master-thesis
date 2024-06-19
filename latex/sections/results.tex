@@ -3,5 +3,7 @@
 \begin{document}
 \section{Simulation}
 \subsection{Numerical setup}\label{sec:numerical}
+The 2D incompressible Navier Stokes equations are forced in a periodic domain of size $2\pi \times 2\pi$ with a forcing term that is located in a disk of radius $\pi/k_r$ centered at the origin. The range of values for the parameter $k_r$ is taken to be $\{8, 16, 32, 64\}$ and in all the cases the size of the vortices, which is controlled by $k_\ell$, is set to $k_\ell = 4 k_r$. The $k_r$ being one of those values, represents how smaller is the perturbation region (in diameter) compared to the domain size ($2\pi$). The other parameter $k_\ell$ accounts for the number of vortices introduced in the domain, where there are no other vortices travelling in the domain. In those conditions, $(\pi k_\ell^2)/(\pi k_r^2) = 16$ vortices are introduced in the domain (see figure \ref{fig:forcing}).
+
 \subsection{Results}\label{sec:results}
 \end{document}

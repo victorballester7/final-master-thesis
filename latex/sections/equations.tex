@@ -119,6 +119,12 @@ In order to closer the gap between the point-vortex model and the Navier-Stokes 
 \begin{equation}
 	\dot{\Gamma}_i = -\alpha \Gamma_i
 \end{equation}
+Another aspect worth-mentioning is the numerical addition of a softening parameter $\varepsilon$ to the equation in the form:
+\begin{align}
+	\dot{x}_i & = -\sum_{j\neq i} \frac{\Gamma_j}{2\pi} \frac{y_i-y_j}{{(x_i-x_j)}^2+{(y_i-y_j)}^2+\varepsilon^2} \\
+	\dot{y}_i & = \sum_{j\neq i} \frac{\Gamma_j}{2\pi} \frac{x_i-x_j}{{(x_i-x_j)}^2+{(y_i-y_j)}^2+\varepsilon^2}
+\end{align}
+This prevents the positions to blow up when two vortices get too close to each other, which in \cref{sec:results} is shown to be the common behavior of the system. The softening parameter is chosen to be $\varepsilon=0.001$, being this value small enough to not affect the dynamics of the system but large enough to prevent a numerical blow-up.
 
 \subsection{Monitored quantities}
 In order to keep track of the evolution of the system, several variables are monitored during the simulation.
@@ -135,8 +141,8 @@ where the second equality follows from the relation $\omega = -\laplacian \psi$.
 
 As the title suggests, the main purpose of this work is to study how turbulence is spread across the system. Thus, quantities relating the energy (and enstrophy) contained in rings as a function of the radius are also monitored. We denote these variables as $E_k$ and $\Omega_k$ respectively, and they are given by the following expressions:
 \begin{align}
-	E_k      & = \sum_{k-1<\abs{\vf{k}}\leq k} \norm{\widehat{\vf{u}}(\vf{k})}^2      \\
-	\Omega_k & = \sum_{k-1<\abs{\vf{k}}\leq k} \norm{\widehat{\vf{\omega}}(\vf{k})}^2
+	E_k      & = \sum_{k-1<\norm{\vf{k}}\leq k} \norm{\widehat{\vf{u}}(\vf{k})}^2      \\
+	\Omega_k & = \sum_{k-1<\norm{\vf{k}}\leq k} \norm{\widehat{\vf{\omega}}(\vf{k})}^2
 \end{align}
 where $k\in\{1,\ldots,K\}$. The quantities $E_k$ and $\Omega_k$ are then plotted as a function of $k$ in order to study the energy and enstrophy distribution across the system (see \cref{sec:results}).
 
@@ -145,5 +151,19 @@ Related to those two latter variables is the mean energy radius and mean enstrop
 	\mathcal{R}_E      & = \frac{\sum_{k=1}^{K} k^2 E_k}{\sum_{k=1}^{K} E_k}           \\
 	\mathcal{R}_\Omega & = \frac{\sum_{k=1}^{K} k^2 \Omega_k}{\sum_{k=1}^{K} \Omega_k}
 \end{align}
+Note that since the domain is square, the sums $\sum_{k=1}^{K} E_k$ and $\sum_{k=1}^{K} \Omega_k$ are slightly less than the total energy $E$ and enstrophy $\Omega$ respectively.
+
+Regarding the point-vortex model, the system is integrable and the following function $H$
+\begin{equation}
+	H = \sum_{i=1}^{N} H_i,\qquad H_i = -\frac{1}{4\pi} \sum_{j\neq i} \Gamma_j \log{\norm{\vf{z}_i-\vf{z}_j}^2}
+\end{equation}
+is a first integral of the system. Moreover the system is Hamiltonian, that is, it can written as:
+\begin{align}
+	\dot{x}_i & = \pdv{H}{y_i}  \\
+	\dot{y}_i & = -\pdv{H}{x_i}
+\end{align}
+At first sight, the reader may notice that function $H$ is singular when two vortices get too close to each other. Although one could try to create a function $f(H)$ that is regular in the whole domain and has a shape according the physical intuition while keeping the properties of a first integral, in this work we opted for another approach to mimic the energy and enstrophy profiles for the Navier-Stokes equation.
+
+The idea explored here relies on counting the number of point vortices in rings and compare the density distribution with the respective functions $E_k$ and $\Omega_k$, once transformed back to the physical space.
 
 \end{document}

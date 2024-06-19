@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1718724389.52527 "main.bcf" "main.bbl" "main" 1718796242.7236 0
-  "main.bcf" 1718796242.5036 108407 452ea7f4b44c6fe204ddd465cd45bcf9 "pdflatex"
-  "references.bib" 1718724038.37566 3408 7c0fd855ac298ace24a274c9eb9165b6 ""
+["biber main"] 1718808607.62591 "main.bcf" "main.bbl" "main" 1718812366.87974 0
+  "main.bcf" 1718812366.68247 108407 452ea7f4b44c6fe204ddd465cd45bcf9 "pdflatex"
+  "references.bib" 1718808606.33862 3077 dde1ba1aaff8a2b5a7185f934926dca3 ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1718796240.15226 "main.tex" "main.pdf" "main" 1718796242.72386 0
+["pdflatex"] 1718812364.47418 "main.tex" "main.pdf" "main" 1718812366.87998 0
   "/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1716849630 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1716849630 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1716849630 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -101,7 +101,6 @@
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.pfb" 1716849630 113227 1010e11451afc2822c95dae77c390042 ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmtt8.pfb" 1716849630 115291 2ae7034c644e971beb573b1e6606f863 ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmtt9.pfb" 1716849630 108480 ee1de99df36ee0a16b36023b9c9d8a58 ""
-  "/usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb" 1716849630 27430 0e29b053ae98d5f87d872ee72a12d5f5 ""
   "/usr/share/texmf-dist/fonts/type1/public/yhmath/yhcmex.pfb" 1716849630 29149 12e9917f211cd378368e00ecedab5827 ""
   "/usr/share/texmf-dist/fonts/vf/public/yhmath/yhcmex10.vf" 1716849630 2112 d9f61c10dc1066e46e90384e3419c5ee ""
   "/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1716849630 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -402,20 +401,20 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1716880772 7112997 1c3c002e95502b33653ef05b5a65231b ""
   "images/dauphine-psl.pdf" 1718642741.14963 20690 8cf9e259bacbcbebbb31c03a4ce91c86 ""
   "images/ens.png" 1718642741.14963 474121 1a0988ba05b66b54570824454e24471b ""
-  "main.aux" 1718796242.4986 8144 4f92a818000b56a28f5938720aed6f22 "pdflatex"
-  "main.bbl" 1718724390.00945 13166 8806e4af7f916635e2ff5703f031f859 "biber main"
-  "main.run.xml" 1718796242.5036 2376 a85dd5d0603e38d7e9d21ea1d857d1fd "pdflatex"
-  "main.tex" 1718642741.12563 1256 d30d4ad2eaa1451e9923b7d7f082a846 ""
-  "main.toc" 1718796242.5036 940 a92d496af57e509b6bd449b3d9880bda "pdflatex"
+  "main.aux" 1718812366.67747 8268 5244c7ade33f66b292d61b1d059d3ddd "pdflatex"
+  "main.bbl" 1718808608.14962 12300 16ecc304ca6895620b485b3f28832119 "biber main"
+  "main.run.xml" 1718812366.68347 2376 a85dd5d0603e38d7e9d21ea1d857d1fd "pdflatex"
+  "main.tex" 1718809047.81035 1262 f1ff8bca88507ea6f52d711fdb9d3fb4 ""
+  "main.toc" 1718812366.68347 940 0735a864b1c6fc59309bd13423eb35bc "pdflatex"
   "preamble.sty" 1718795324.34913 15979 6df9f05d4b1bf60920eefdc3112d181b ""
   "preamble_bib.sty" 1718642741.12563 2276 b0d3239304aae29be5798e1c87e5dc64 ""
   "preamble_style.sty" 1718697927.43131 904 5a8ea013664aa0ffd60483ea5e8f8bb7 ""
   "sections/abstract.tex" 1718642741.15163 59 3dca91e0b1f33da5e1de1aa363d44012 ""
   "sections/acknowledgements.tex" 1718795184.95515 1268 2271415596d7ec938971016333b016d1 ""
   "sections/conclusions.tex" 1718642741.15163 93 198490abae1603b9fa19643af09fec24 ""
-  "sections/equations.tex" 1718796234.42061 14837 759286cf74c2b235af210d46a5ce9ce4 ""
+  "sections/equations.tex" 1718811747.26319 16792 b5587177b29e769b002d02b88d173c0d ""
   "sections/intro.tex" 1718642741.15163 164 1fda4f4cbfa187ce91c666e3e0b5e87a ""
-  "sections/results.tex" 1718791204.79314 163 e568b7efeb2bd966cc9ee49a8fdbf42e ""
+  "sections/results.tex" 1718812363.74646 980 8f434a0857196d82e0e0362924fadb00 ""
   "sections/title.tex" 1718642741.15163 1291 3d421db99807632e10f7eb7bf27435dc ""
   (generated)
   "main.aux"
