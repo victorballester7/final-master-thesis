@@ -194,6 +194,52 @@
       \verb 10.1146/annurev-fluid-120710-101240
       \endverb
     \endentry
+    \entry{rungekutta}{misc}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=5a41022e7da71074a260f5f7abde09f8}{%
+           family={Brachet},
+           familyi={B\bibinitperiod},
+           given={Marc\bibnamedelima E.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ee7649e98c1c8a9bbd0662e8ab04e820}{%
+           family={Mininni},
+           familyi={M\bibinitperiod},
+           given={Pablo\bibnamedelima D.},
+           giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=42ae39e5357ad373f6940871cadb4bb7}{%
+           family={Rosenberg},
+           familyi={R\bibinitperiod},
+           given={Duane\bibnamedelima L.},
+           giveni={D\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bec0396c07c0155c44c32e493fb3b77b}{%
+           family={Pouquet},
+           familyi={P\bibinitperiod},
+           given={Annick},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6ebbc7b6e9b9335019acd83daed0e2dd}
+      \strng{fullhash}{8053532ffab7f74b6611cdf64689be6e}
+      \strng{bibnamehash}{6ebbc7b6e9b9335019acd83daed0e2dd}
+      \strng{authorbibnamehash}{6ebbc7b6e9b9335019acd83daed0e2dd}
+      \strng{authornamehash}{6ebbc7b6e9b9335019acd83daed0e2dd}
+      \strng{authorfullhash}{8053532ffab7f74b6611cdf64689be6e}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{High-order low-storage explicit Runge-Kutta schemes for equations with quadratic nonlinearities}
+      \field{year}{2008}
+      \verb{eprint}
+      \verb 0808.1883
+      \endverb
+    \endentry
     \entry{pointvortexmath}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=3f259f977d70325e4a8a0038cc2e65df}{%
@@ -286,6 +332,57 @@
       \field{edition}{5}
       \field{title}{Introduction to Electrodynamics}
       \field{year}{2023}
+    \endentry
+    \entry{mpi}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=ee7649e98c1c8a9bbd0662e8ab04e820}{%
+           family={Mininni},
+           familyi={M\bibinitperiod},
+           given={Pablo\bibnamedelima D.},
+           giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1158a288d81856617530510950aee702}{%
+           family={Rosenberg},
+           familyi={R\bibinitperiod},
+           given={Duane},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6c12f3a5df45ef3202636410ad6b6b7c}{%
+           family={Reddy},
+           familyi={R\bibinitperiod},
+           given={Raghu},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bec0396c07c0155c44c32e493fb3b77b}{%
+           family={Pouquet},
+           familyi={P\bibinitperiod},
+           given={Annick},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1d747b3e74bf113ffba6827eec124e56}
+      \strng{fullhash}{b758bde7970eed6d89d21119a3454986}
+      \strng{bibnamehash}{1d747b3e74bf113ffba6827eec124e56}
+      \strng{authorbibnamehash}{1d747b3e74bf113ffba6827eec124e56}
+      \strng{authornamehash}{1d747b3e74bf113ffba6827eec124e56}
+      \strng{authorfullhash}{b758bde7970eed6d89d21119a3454986}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0167-8191}
+      \field{journaltitle}{Parallel Computing}
+      \field{number}{6}
+      \field{title}{A hybrid {MPI–OpenMP} scheme for scalable parallel pseudospectral computations for fluid turbulence}
+      \field{volume}{37}
+      \field{year}{2011}
+      \field{pages}{316\bibrangedash 326}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.parco.2011.05.004
+      \endverb
     \endentry
     \entry{Saffman}{book}{}
       \name{author}{1}{}{%

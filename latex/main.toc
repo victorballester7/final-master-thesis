@@ -4,10 +4,10 @@
 \contentsline {subsection}{\numberline {2.1}Stream function formulation}{1}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Fourier space}{2}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Reynolds number}{3}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Point-vortex model}{3}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Monitored quantities}{4}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Simulation}{5}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Numerical setup}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Results}{6}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Conclusions}{6}{section.4}%
-\contentsline {section}{References}{7}{section*.3}%
+\contentsline {subsection}{\numberline {2.4}Point-vortex model}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Monitored quantities}{5}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Simulation}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Numerical setup}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Results}{7}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Conclusions}{7}{section.4}%
+\contentsline {section}{References}{8}{section*.3}%

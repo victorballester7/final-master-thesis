@@ -299,7 +299,7 @@ PROGRAM HD2D
       !   tmp1=1.0d0
       !ELSE
       ! we do not put the forcing amplitude because it is already in fk
-      tmp1=1.0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
+      tmp1=f0/sqrt(0.5*enerk*dt) ! we normalize the energy injection rate, not the forcing amplitude
       !ENDIF
       DO j = 1,n
          DO i = 1,n/2+1

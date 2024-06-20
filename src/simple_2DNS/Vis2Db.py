@@ -36,8 +36,10 @@ input_dir = "data/simple_2DNS/output/"
 output_dir = "images/simple_2DNS/"
 STR = "fw."
 outnum_nd = get_num_files(input_dir, STR)  # we have ww, ps, fw and fp
-homogeneous = False  # True if we want the same colors for all images
+homogeneous = True  # True if we want the same colors for all images
 first_file = 1
+
+FONTSIZE = 16
 
 dim_dir = "data/simple_2DNS/dim.txt"
 reso = get_dim(dim_dir)
@@ -76,9 +78,9 @@ for file in range(outnum_nd + 1 - first_file):
 if homogeneous:
     zmax = np.max(data)
     zmin = np.min(data)
-
+    zmax = max(abs(zmax), abs(zmin))
     zmax /= 2
-    zmin /= 2
+    zmin = -zmax
 
 for file in range(outnum_nd + 1 - first_file):
     print("****************************")
@@ -99,6 +101,10 @@ for file in range(outnum_nd + 1 - first_file):
     ax.set_xticklabels(["$-\pi$", "$-\pi/2$", "$0$", "$\pi/2$", "$\pi$"])
     ax.set_yticks([0, 512, 1024, 1536, 2048])
     ax.set_yticklabels(["$-\pi$", "$-\pi/2$", "$0$", "$\pi/2$", "$\pi$"])
+
+    # increase font size
+    plt.xticks(fontsize=FONTSIZE)
+    plt.yticks(fontsize=FONTSIZE)
 
     # add colorbar
     # cbar = plt.colorbar(myplot)

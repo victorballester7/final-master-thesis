@@ -150,6 +150,22 @@ def average_data():
     print("Merging data from EnstrophyProf...")
     average_data_multistages(input_dir, input_file, output_file, True)
 
+    # ----------------------------------------
+    # vectrans_xxx.node.ext.txt
+
+    input_dir = "./data/vectrans"
+    input_file = "./data/vectrans/vectrans_euu."
+    output_file = "./data/average/vectrans/vectrans_euu"
+
+    print("Merging data from vectrans_euu...")
+    average_data_multistages(input_dir, input_file, output_file, False)
+
+    input_file = "./data/vectrans/vectrans_vrt."
+    output_file = "./data/average/vectrans/vectrans_vrt"
+
+    print("Merging data from vectrans_vrt...")
+    average_data_multistages(input_dir, input_file, output_file, False)
+
 
 if __name__ == "__main__":
     # check if there is a folder called average in data
@@ -161,5 +177,6 @@ if __name__ == "__main__":
         os.makedirs("./data/average/EnergyProf")
     if not os.path.exists("./data/average/EnstrophyProf"):
         os.makedirs("./data/average/EnstrophyProf")
-
+    if not os.path.exists("./data/average/vectrans"):
+        os.makedirs("./data/average/vectrans")
     average_data()
