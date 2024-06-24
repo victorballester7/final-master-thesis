@@ -112,7 +112,6 @@
       \field{labeltitlesource}{title}
       \field{issn}{0022-2488}
       \field{journaltitle}{Journal of Mathematical Physics}
-      \field{month}{06}
       \field{number}{6}
       \field{title}{{Point vortex dynamics: A classical mathematics playground}}
       \field{volume}{48}
@@ -375,7 +374,7 @@
       \field{issn}{0167-8191}
       \field{journaltitle}{Parallel Computing}
       \field{number}{6}
-      \field{title}{A hybrid {MPI–OpenMP} scheme for scalable parallel pseudospectral computations for fluid turbulence}
+      \field{title}{A hybrid {MPI-OpenMP} scheme for scalable parallel pseudospectral computations for fluid turbulence}
       \field{volume}{37}
       \field{year}{2011}
       \field{pages}{316\bibrangedash 326}

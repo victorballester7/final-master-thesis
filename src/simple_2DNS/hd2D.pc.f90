@@ -171,6 +171,8 @@ PROGRAM HD2D
    ! formula for the Reynolds number associated with the kinematic viscosity
    nu = (f0**2 * 4 * kdn**2/pi)**(1.0/3.0) * kup**(-4.0/3.0) / Re_nu
 
+   seed = seed + 1
+
    print*, "dim    =",n      !  0
    print*, "cfl    =",cfl    !  1
    print*, "step   =",step   !  2

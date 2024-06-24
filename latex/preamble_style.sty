@@ -3,7 +3,6 @@
 \usepackage{fancyhdr} % for customizing page-style (mainly headings).
 % \usepackage{fontspec}
 \usepackage{titlesec} % for changing style of chapters, section... (with title format).
-\usepackage{sectsty} % for changing style of chapters, section... 
 \usepackage{bookmark} % solve some warnings such as writing a section just below a part (i.e. without a chapter between them).
 \usepackage[es-ES]{datetime2} % for writing the current date when compiling.
 \usepackage{subfiles} % for creating subfiles .tex and compiling them separately to main.tex.
@@ -12,5 +11,14 @@
 \usepackage{pifont} % for dingbats (i.e. symbols).
 \usepackage{diagbox} % for dividing a cell in a table with a diagonal line.
 
-\sectionfont{\large}
-\subsectionfont{\normalfont\itshape\centering}
+\titleformat{\section}[block]
+{\normalfont\large\bfseries}
+{\thesection}
+{1em}
+{}
+
+\titleformat{\subsection}[block]
+{\normalfont\large\itshape\centering}
+{\thesubsection.}
+{1em}
+{}

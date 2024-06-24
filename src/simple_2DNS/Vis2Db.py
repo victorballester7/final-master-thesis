@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import pylab
+from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
+from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 
 def readslice(inputfilename, nx, ny):
@@ -106,10 +108,44 @@ for file in range(outnum_nd + 1 - first_file):
     plt.xticks(fontsize=FONTSIZE)
     plt.yticks(fontsize=FONTSIZE)
 
+    ax.set_xlabel(r"$x$", fontsize=FONTSIZE)
+    ax.set_ylabel(r"$y$", fontsize=FONTSIZE)
+
+    axins = zoomed_inset_axes(ax, 10, loc=1)  # zoom = 6
+
+    # sub region of the original image
+    ll = 25
+    x1, x2, y1, y2 = -ll, ll, -ll, ll
+    x1 += 1024
+    x2 += 1024
+    y1 += 1024
+    y2 += 1024
+
+    data_small = data2[y1:y2, x1:x2]
+
+    axins.imshow(
+        data2,
+        cmap=color,
+        vmin=zmin,
+        vmax=zmax,
+        origin="lower",
+    )
+    axins.set_xlim(x1, x2)
+    axins.set_ylim(y1, y2)
+
+    # now set lim
+
+    # hide ticks
+    plt.xticks(visible=False)
+    plt.yticks(visible=False)
+
+    # draw a bbox of the region of the inset axes in the parent axes and
+    # connecting lines between the bbox and the inset axes area
+    mark_inset(ax, axins, loc1=2, loc2=4, fc="none", ec="0.5")
+
     # add colorbar
     # cbar = plt.colorbar(myplot)
     # tight margins
-    plt.tight_layout()
     filename = os.path.join(
         script_dir,
         "../../"
@@ -119,6 +155,6 @@ for file in range(outnum_nd + 1 - first_file):
         + str("%03d" % (file + first_file))
         + ".pdf",
     )
-    plt.savefig(filename)
+    plt.savefig(filename, bbox_inches="tight")
     plt.close()
 print("****************************")

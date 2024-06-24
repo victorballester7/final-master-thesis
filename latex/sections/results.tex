@@ -1,22 +1,22 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-\section{Simulation}
+\section{Simulation}\label{sec:results0}
 \subsection{Numerical setup}\label{sec:numerical}
 The 2D incompressible Navier Stokes equations are forced in a periodic domain of size $2\pi \times 2\pi$ with a forcing term that is located in a disk of radius $\pi/k_r$ centered at the origin.  The range of values for the parameter $k_r$ is taken to be $\{8, 16, 32, 64\}$ and in all the cases the size of the vortices, which is controlled by $k_\ell$, is set to $k_\ell = 4 k_r$. The parameter $k_r$ being one of those values in the previous set represents how smaller is the perturbation region (in diameter) compared to the domain size ($2\pi$). The other parameter $k_\ell$ accounts for the size of the vortices, as $1/k_\ell$ represents a typical length scale of the vortices.~\cref{fig:forcing} shows a graphical representation of the forcing term for two different values of $k_r$.
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{0.49\textwidth}
+	\begin{subfigure}{0.44\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/forcing32_8.pdf}
 		\caption{$k_r = 8$}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/forcing32_64.pdf}
 		\caption{$k_r = 64$}
 	\end{subfigure}
-	\caption{Forcing term for different values of $k_r$. Red colors and blue colors mean different direction of rotation for each vortex. The reader may notice that indeed the diameter of the forcing region is about 8 times smaller than the total size of the domain. In the second plot, this property is less noticeable, but it is still true, this case 64 times smaller.In the second plot, the colors have been enhanced to make the plot more clear.}\label{fig:forcing}
+	\caption{Vorticity forcing term for different values of $k_r$. Red colors and blue colors mean different direction of rotation for each vortex. The reader may notice that indeed the diameter of the forcing region is about 8 times smaller than the total size of the domain. In the second plot, this property is less noticeable, but it is still true, this case 64 times smaller.}\label{fig:forcing}
 \end{figure}
 
 The Reynolds number is the other parameter that plays an important role in the whole simulation. This project has simulated fluid flows for Reynolds numbers within the set $\{0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, 128\}$, each of those requiring different resolution as we increase the Reynolds number in order to capture the smallest scales where energy gets dissipated by viscosity.
@@ -26,19 +26,19 @@ A pseudo-spectral method is used to solve the Navier Stokes equations, based on 
 	\item Copy $\vf{\widehat\psi}_n$ into $\vf{\widehat\psi}_*$.
 	\item For $i = s, \ldots, 1$, $s$ being the number of stages of the Runge-Kutta method, update $\vf{\widehat\psi}_*$ as follows:
 	      \begin{equation}
-		      \vf{\widehat\psi}_* \leftarrow \vf\psi_n + \Delta t \frac{\vf{F}(\vf{\widehat\psi}_*)}{i}
+		      \vf{\widehat\psi}_* \leftarrow \vf{\widehat\psi}_n + \Delta t \frac{\vf{F}(\vf{\widehat\psi}_*)}{i}
 	      \end{equation}
 	      where $\vf{F}$ represents the field that defines the differential equation for ${\widehat\psi}$.
 	\item Set $\vf{\widehat\psi}_{n+1} := \vf{\widehat\psi}_*$.
 \end{enumerate}
-In the second step, the evaluation of FF is done in an explicit-exact manner. This means that the nonlinear term is treated explicitly in time, while the linear terms are solved exactly using their exponential solution. For more information about the scheme, the reader is encouraged to read the article from~\cite{rungekutta} or check the source codes in the link provided below.
+In the second step, the evaluation of $\vf{F}$ is done in an explicit-exact manner. This means that the nonlinear term is treated explicitly in time, while the linear terms are solved exactly using their exponential solution. For more information about the scheme, the reader is encouraged to read the article from~\cite{rungekutta} or check the source codes in the link provided below. In this work, $s=4$ is used for all simulations. While this produces a formal order of accuracy of 2, the errors are generally smaller compared to those of a standard second-order Runge-Kutta method.
 
-The codes are run in two supercomputer centers, IDRIS\footnote{For more information about the resources they provide, check their website (accessed 19/06/2024): \url{http://www.idris.fr/}.} and MESOPSL\footnote{For more information about the resources they provide, check their website (accessed 19/06/2024): \url{https://wwwmesopsl-new.obspm.fr/}.}, using 40 to 80 cores, depending on the simulation. Two different kinds of simulations are performed: fully parallel simulations and embarrassingly parallel simulations. In the parallel simulations, the Fourier domain is divided among all the processors, allowing them to work simultaneously on different parts of the problem. In the embarrassingly parallel simulations, each simulation runs independently on a single core. Multiple simulations are executed concurrently, one on each available core, and the results are averaged afterwards to obtain more accurate conclusions. This project uses MPI compilers to do the parallelism. Details about the parallelization of the code will not be delved into, but the main idea will be explained.
+The codes are run in two supercomputer centers, IDRIS\footnote{For more information about the resources they provide, check their website: \url{http://www.idris.fr/} (accessed on June 30, 2024).} and MESOPSL\footnote{For more information about the resources they provide, check their website: \url{https://wwwmesopsl-new.obspm.fr/} (accessed on June 30, 2024).}, using 40 to 80 cores, depending on the simulation. Two different kinds of simulations are performed: fully parallel simulations and embarrassingly parallel simulations. In the parallel simulations, the Fourier domain is divided among all the processors, allowing them to work simultaneously on different parts of the problem. In the embarrassingly parallel simulations, each simulation runs independently on a single core. Multiple simulations are executed concurrently, one on each available core, and the results are averaged afterwards to obtain more accurate conclusions. This project uses MPI compilers to do the parallelism. Details about the parallelization of the code will not be delved into, but the main idea will be explained.
 
 They key piece of the parallelization of any pseudo-spectral method is the efficient computation of the multidimensional Fourier transform. As a starting point, the physical domain, of size $N\times N$, is split in one dimensions creating several subdomains of sizes $\tilde{N}\times N$, where $\tilde{N} \simeq N/N_\mathrm{cores}$ and $N_\mathrm{cores}$ is the number of cores used. Each core is responsible for computing $\tilde{N}$ 1D Fourier transforms using the standard Fast Fourier Transform (FFT) algorithm which reduces the operations from $\mathcal{O}(N^2)$ (using the naive approach) to $\mathcal{O}(N\log N)$. Since the initial data is real-valued, the complex-valued transformed data is then stored in an array $\tilde{N}\times (N/2 + 1)$, which is enough to store all the necessary information. Next, MPI communication is carried out in order to gather all the data, transpose it, and then split it again to produce slices of size $\bar{N}\times N$, where $\bar{N} \simeq (N/2 + 1)/N_\mathrm{cores}$. Each core is, as before,
 responsible for computing $\bar{N}$ 1D Fourier transforms. Finally, all the data is gathered again to produce the desired FFT resulting in a memory block of size $(N/2 + 1)\times N$ consisting of complex-valued numbers. If the reader is interested in the details, the article from~\cite{mpi} is highly recommended.
 
-For the parallel code, a variable time step is used throughout the whole simulations in order to take into account the advection stability condition. For the embarrassingly parallel code, a fixed time step is used, in order to better compare the results between the different runs from the same simulation. The time step is chosen by eye after studying the evolution of the time steps during the parallel simulations.~\cref{tab:simulations} shows the different simulations performed during the project as well as the resolution in physical space used in each case.
+For the parallel code, a variable time step is used throughout the whole simulations in order to take into account the advection stability condition. For the embarrassingly parallel code, a fixed time step is used, for the purpose of better comparing the results between the different runs from the same simulation. The time step is chosen by eye after studying the evolution of the time steps during the variable-time-step fully parallel simulations.~\cref{tab:simulations} shows the different simulations performed during the project as well as the resolution in physical space used in each case.
 \begin{table}[ht]
 	\centering
 	\def\tickgreen{\textcolor{color_green3}{\ding{51}}}
@@ -48,20 +48,40 @@ For the parallel code, a variable time step is used throughout the whole simulat
 	% set space between rows
 	\renewcommand{\arraystretch}{1.5}
 	\begin{tabular}{c|cccccccccc}
-		\diagbox[width=\dimexpr \textwidth/16+2\tabcolsep\relax, height=1cm]{$k_r$}{$\Re$} & 0.25             & 0.5              & 1                & 2                         & 4                          & 8                          & 16                         & 32                         & 64                & 128               \\\hline
-		8                                                                                  & \tickgreen_{512} & \tickgreen_{512} & \tickgreen_{512} & \tickgreen\tickblue_{512} & \tickgreen\tickblue_{1024} & \tickgreen\tickblue_{1024} & \tickgreen\tickblue_{1024} & \tickgreen\tickblue_{2048} & \tickgreen_{2048} & \tickgreen_{4096} \\
-		16                                                                                 &                  &                  &                  & \tickblue_{1024}          & \tickblue_{2048}           & \tickgreen\tickblue_{2048} & \tickgreen\tickblue_{2048} & \tickgreen\tickblue_{2048} & \tickgreen_{4096} & \tickgreen_{4096} \\
-		32                                                                                 &                  &                  &                  & \tickblue_{2048}          & \tickblue_{4096}           & \tickgreen\tickblue_{4096} & \tickgreen\tickblue_{4096} & \tickgreen\tickblue_{4096} & \tickgreen_{8192} & \tickgreen_{8192} \\
-		64                                                                                 &                  &                  &                  &                           &                            & \tickgreen_{8192}          & \tickgreen_{8192}          & \tickgreen_{8192}          &                   &                   \\
+		\diagbox[width=\dimexpr \textwidth/16+2\tabcolsep\relax, height=1cm]{$k_r$}{$\Re$} & 0.25               & 0.5                & 1                  & 2                           & 4                            & 8                            & 16                           & 32                           & 64                  & 128                 \\\hline
+		8                                                                                  & \tickgreen$_{512}$ & \tickgreen$_{512}$ & \tickgreen$_{512}$ & \tickgreen\tickblue$_{512}$ & \tickgreen\tickblue$_{1024}$ & \tickgreen\tickblue$_{1024}$ & \tickgreen\tickblue$_{1024}$ & \tickgreen\tickblue$_{2048}$ & \tickgreen$_{2048}$ & \tickgreen$_{4096}$ \\
+		16                                                                                 &                    &                    &                    & \tickblue$_{1024}$          & \tickblue$_{2048}$           & \tickgreen\tickblue$_{2048}$ & \tickgreen\tickblue$_{2048}$ & \tickgreen\tickblue$_{2048}$ & \tickgreen$_{4096}$ & \tickgreen$_{4096}$ \\
+		32                                                                                 &                    &                    &                    & \tickblue$_{2048}$          & \tickblue$_{4096}$           & \tickgreen\tickblue$_{4096}$ & \tickgreen\tickblue$_{4096}$ & \tickgreen\tickblue$_{4096}$ & \tickgreen$_{8192}$ & \tickgreen$_{8192}$ \\
+		64                                                                                 &                    &                    &                    &                             &                              & \tickgreen$_{8192}$          & \tickgreen$_{8192}$          & \tickgreen$_{8192}$          &                     &                     \\
 	\end{tabular}
-	\caption{Simulations performed during the project varying the Reynolds number and the forcing parameter $k_r$. The green check mark symbols indicate the simulations done in parallel, splitting the domain between different cores. The blue check mark symbols indicate the simulations done in embarrassingly parallel, where each simulation is done in a single but in many cores at the same time in order to produce statistics results. In each cell, the number indicates the resolution in each dimension employed, which have been proved (a posteriori) to be enough to well-resolve the system.}\label{tab:simulations}
+	\caption{Simulations carried out during the study varying the Reynolds number and the forcing parameter $k_r$. In all cases $k_\ell = 4k_r$. The green check mark symbols indicate the simulations done in parallel, splitting the domain between different cores. The blue check mark symbols indicate the simulations done in embarrassingly parallel, where each simulation is done in a single but simultaneously in many cores in order to produce statistical results. In each cell, the number indicates the resolution in each dimension employed, which have been proved (a posteriori) to be enough to well-resolve the system.}\label{tab:simulations}
 \end{table}
 
-The reader may observe that the resolution increases both as the Reynolds number and the forcing parameter $k_r$ increase. For the former, the resolution is increased in order to resolve the smaller scales that appear in the system. For the latter, the resolution is increased to resolve the smaller perturbation region.
+The reader may observe that the resolution increases as both the Reynolds number and the forcing parameter $k_r$ increase. For the former, the resolution is increased to resolve the smaller scales that appear in the system, which play an essential role in dissipating energy through viscosity. Thus, as $\Re$ increases, $\nu$ decreases, and the predicted Kolmogorov wave number, where dissipation occurs, becomes larger. For the latter, the resolution is increased as we raise the wave numbers of the forcing region, thereby shifting the energy injection to higher frequencies. It is worth-noting that the resolution in Fourier space is not the same as the one in physical space. Specifically, as mentioned before, the Fourier resolution is one third of the physical resolution in each dimension.
 
-It is worth-noting that the resolution in Fourier space is not the same as the one in physical space. Specifically, as mentioned before, the Fourier resolution is one third of the physical resolution in each dimension.
+The integration of the system of differential equations (see \cref{eq:pointvortexA_soft,eq:pointvortexB_soft}) is done using a Runge-Kutta (7)8 method for adaptative time-step by means of the Fehlberg error estimate. These adaptative Runge-Kutta methods are based on the idea of using two different approximations of the solution at each step, in this case, one of order 7 and another of order 8. Then, the difference between both approximations is used to estimate the error between one of the approximations and the real solution. If the error is below a certain threshold, the time step is increased, and if it is above, the time step is decreased. The simulations for the point vortex model are done, as opposed to the integration of the Navier-Stokes equations, in a personal computer and in a single core. In this latter simulation there is only one parameter to control, which is the radius of the perturbation region, $k_r$. As the simulation is less computationally expensive, the range of values for $k_r$ is increased to $\{8, 16, 32, 64, 128, 256\}$ compared to the Navier-Stokes simulations.
 
-All the codes and data used for the simulations are available in the following repository: \url{https://github.com/victorballester7/final-master-thesis} (accessed on June 30, 2024).
+All the codes and data used for the simulations as well as animations of the dynamics of both problems are available in the following repository: \url{https://github.com/victorballester7/final-master-thesis} (accessed on June 30, 2024).
 
 \subsection{Results}\label{sec:results}
+The results of the simulations are presented in this section. The first part of the section is dedicated to the results of the Navier-Stokes simulations, while the second part is dedicated to the results of the point vortex simulations.
+
+We start showing how the vortices spread across the domain in a visual manner.
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/domainRe32kdn64.pdf}
+		\caption{$k_r = 64$, $\Re = 32$}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/domainRe128kdn16.pdf}
+		\caption{$k_r = 16$, $\Re = 128$}
+	\end{subfigure}
+	\caption{Vorticity plots for different values of $k_r$ and $\Re$. The left-hand side figure is integrated with a resolution of $8192\times 8192$ and the right figure is integrated with a resolution of $4096\times 4096$.}\label{fig:vortices_evo}
+\end{figure}
+
+\cref{fig:vortices_evo} shows the vorticity evolution at two different time slices for the driven Navier-Stokes equation. The most notable feature is that the vortices appear more intense in the right plot compared to the left plot. This can be attributed to two main reasons. Firstly, the Reynolds number is smaller in the left plot, causing dissipation by viscosity to have a more significant impact, leading to a quicker decay of the intensity of the vortices. Secondly, the initial size of the vortices in the left plot is four times smaller than in the right plot, which restricts their growth in size as time progresses.
+
 \end{document}

@@ -1,13 +1,13 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-\section{Theoretical background}
+\section{Theoretical background}\label{sec:equations}
 The primary focus of this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
 \begin{align}
 	\label{eq:navier-stokes}\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + f_0\vf{f} \\
 	\label{eq:incompressibility}\divp{\vf{u}}                               & = 0
 \end{align}
-where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $f_0\vf{f}$ is a random forcing term. For the sake of clarity and simplicity the amplitude factor $f_0$ of the forcing have been factor out from the force itself. The second equation is called	\emph{incompressibility condition} and it translates the fact that the fluid cannot be compressed. The forcing term is chosen to be Gaussian for the vorticity formulation, which is detailed below. Throughout the project the density of the fluid is assumed to be constant and equal to 1.
+where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $f_0\vf{f}$ is a random forcing term satisfying $\divp{\vf{f}}=0$. For the sake of clarity and simplicity the amplitude factor $f_0$ of the forcing have been factor out from the force itself. The second equation is called	\emph{incompressibility condition} and it translates the fact that the fluid cannot be compressed. The forcing term is chosen to be Gaussian for the vorticity formulation, which is detailed below. Throughout the project the density of the fluid is assumed to be constant and equal to 1.
 
 \subsection{Stream function formulation}
 In~\cite{Batchelor2000}, a new variable is introduced in order to simplify the integration of the 2D incompressible Navier-Stokes equations. This quantity, called \emph{stream function} and denoted by $\psi$, is defined as the flow rate across a given line. More accurately, if $\mathcal{C}$ is a curve joining two points $O$ (fixed) and $P=(x,y)$, the stream function streams function as a function of the coordinates of the point $P$ is then
@@ -47,7 +47,7 @@ The quantities $A_i$ follow a uniform distribution between 0 and 1; $k_\ell$ qua
 \end{equation}
 Thus, since the area of the annulus $\{(x,y) \in \RR^2 : r-\dd{r} < \sqrt{x^2+y^2} \leq r\}$ is proportional to $r \dd{r}$ at first order, the density of vortices is constant up to a small error of order $\dd{r}$ across the perturbation region.
 
-With this forcing the aim is to introduce 10 pairs of vortices with opposite vorticity in a non-homogeneous way which a priori may introduce a nonzero momentum to the system. To correct that, the first Fourier coefficient is set to zero once transformed the forcing term to Fourier space. This implies that the actual force differs up to a constant factor from the one given above.
+With this forcing the aim is to introduce 10 pairs of vortices with opposite vorticity in a non-homogeneous way which a priori may introduce a nonzero momentum to the system. To correct that, the first Fourier coefficient is set to zero once transformed the forcing term to Fourier space. This implies that the actual force differs up to a constant factor from the one given above, which from now on we will assume that this factor is implicit in $f_\omega$, that is $\Exp(f_\omega) = 0$.
 
 The amplitude of the forcing is controlled by the parameter $f_0$, which is chosen in such a way to keep the injection rate of energy constant and equal to 1. Because of that it has an implicit dependence on time, as explained below.
 
@@ -75,35 +75,31 @@ The Reynolds number is a dimensionless quantity that characterizes the ratio of 
 \begin{equation}
 	\Re=\frac{\epsilon^{1/3} L^{4/3}}{\nu}
 \end{equation}
-In the present work, the length scale $L$ is determined by the size of the vortices injected in the disk, which in this case is $L=1/k_\ell$. The injection rate of energy is determined by the forcing term, as follows. The amplitude $f_0$ is time dependent and is chosen in such a way that $f_0^2$ is the rate at which energy is injected per unit of area in the domain. More precisely, the amplitude of the forcing is taken as $f_0/\sqrt{0.5 E_f \Delta t}$, $E_f$ being the total kinetic energy of $\widehat{f_\psi}$, that is:
+In the present work, the length scale $L$ is determined by the size of the vortices injected in the disk, which in this case is $L=1/k_\ell$. The injection rate of energy is determined by the forcing term, as follows. The amplitude $f_0$ is time dependent and is chosen in such a way that $f_0^2$ is the rate at which energy is injected per unit of area in the domain. More precisely, the amplitude of the forcing is taken as $f_0/\sqrt{\Delta t/2}$, where $\Delta t$ is the time step of the simulation, a priori varying with time.
+
+To check that indeed this is the case, let $\vf{f}=(f_u,f_v)$ be the forcing term for the velocity equation in the physical space. Recall that since $\Exp(f_\omega)=0$ and $f_\omega = \rotp \vf{f}$, using the inversion formula for the curl (see \cref{eq:biotsavart}) and Fubini's theorem that $\Exp(f_u) = \Exp(f_v) = 0$. Thus, at time $t=T$ and time step $\Delta t$ one has, accounting only for the forcing terms:
 \begin{equation}
-	E_f = \sum_{\vf{k}\in\vf{K}} |\widehat{f_\psi}(\vf{k})|^2 k^2
+	u(\vf{x},T+\Delta t) = u(\vf{x},T) + \Delta t \:\frac{f_0}{\sqrt{\Delta t/2}}\: f_u(\vf{x}) + \cdots
 \end{equation}
-To check that indeed this is the case, at time $t$ and time step $\Delta t$ one has:
+Squaring both sides of the equation one obtains:
+\begin{equation}\label{eq:forcing_energy2}
+	{u(\vf{x},T+\Delta t)}^2 = {u(\vf{x},T)}^2 + 2\sqrt{2\Delta t}\: f_0 f_u(\vf{x}) u(\vf{x},T) +2 \Delta t \: f_0^2 {f_u(\vf{x})}^2 + \mathcal{O}(\Delta t^{3/2})
+\end{equation}
+Taking expectation on both sides we conclude:
 \begin{equation}
-	\widehat{\psi}(\vf{k},t+\Delta t) = \widehat{\psi}(\vf{k},t) + \Delta t G(\widehat\psi) + \Delta t \frac{f_0}{\sqrt{0.5 E_f \Delta t}}\widehat{f_\psi}(\vf{k})
+	\frac{{u(\vf{x},T+\Delta t)}^2 - {u(\vf{x},T)}^2}{\Delta t} = 2f_0^2\: \Exp({f_u(\vf{x})}^2)
 \end{equation}
-Here $G$ refers to the non-linear term and the viscous term in \cref{eq:streamfunction_fourier}. Multiplying by $k$, then by the conjugate of the equation and summing over $\vf{k}$, one obtains:
-\begin{multline}
-	\sum_{\vf{k}\in\vf{K}} k^2{|\widehat{\psi}(\vf{k}, t+\Delta t)|}^2 - k^2{|\widehat{\psi}(\vf{k},t)|}^2 = \sqrt{\Delta t}\; \frac{f_0}{\sqrt{0.5 E_f}} \sum_{\vf{k}\in\vf{K}} k^2 \left[\widehat{\psi}(\vf{k},t) \overline{\widehat{f_\psi}(\vf{k})} + \overline{\widehat{\psi}(\vf{k},t)} \widehat{f_\psi}(\vf{k})\right]+\\+ \Delta t \; f_0^2\; \frac{\sum_{\vf{k}\in\vf{K}} |\widehat{f_\psi}(\vf{k})|^2 k^2}{0.5 E_f}+ \Delta t \sum_{\vf{k}\in\vf{K}} k^2 {\left[ G(\widehat{\psi}) \overline{\widehat{\psi}} + \overline{G(\widehat{\psi})} \widehat{\psi} \right]}
-	+ \mathcal{O}\left({(\Delta t)}^{3/2}\right)
-\end{multline}
-The first term of the right hand side simplifies to:
+where the second term on \cref{eq:forcing_energy2} vanishes because of the zero mean of the forcing term. Doing a similar computation for the $v$ component, summing both equations and taking the limit $\Delta t \to 0$, one obtains the rate of energy injected in the domain.
 \begin{equation}
-	\sqrt{\Delta t} \frac{f_0}{\sqrt{0.5 E_f}} \sum_{\vf{k}\in\vf{K}} \widehat{\psi}(\vf{k},t) \overline{\widehat{f_\omega}(\vf{k})} + \overline{\widehat{\psi}(\vf{k},t)} \widehat{f_\omega}(\vf{k}) = 2\sqrt{\Delta t} \frac{f_0}{\sqrt{0.5 E_f}} \sum_{\vf{k}\in\vf{K}} \widehat{\psi}(\vf{k},t)\widehat{f_\omega}(\vf{k})
+	\pdv{E}{t}=\frac{1}{2}\pdv{}{t}(u^2 + v^2) = f_0^2\: \Exp(f_u^2 + f_v^2)
 \end{equation}
-where last equality follows from Plancherel equality for the DCT. CORRRRRRRRRRRRRRRRRRRRRRRRRECT THIS PART
-... simplifies to:
+The implicit assumption that $\rho=1$ in the equation ensures that it precisely represents the rate of energy injected per unit area in the domain. In the simulations at each step we adjust the amplitude of the forcing term so that its variance is equal to 1, making the rate of energy injection become $f_0^2$. Since the interest is, not on the injection rate of energy per unit of area, but on the injection rate of energy per unit of area in the forcing region, the following formula for $\epsilon$ is used:
 \begin{equation}
-	\sum_{\vf{k}\in\vf{K}} k^2{|\widehat{\psi}(\vf{k}, t+\Delta t)|}^2 - k^2{|\widehat{\psi}(\vf{k},t)|}^2 = 2\Delta t\; f_0^2 + \mathcal{O}\left({(\Delta t)}^{3/2}\right)
+	\epsilon = f_0^2\: \frac{4 \pi^2}{\pi {(\pi / k_r)}^2}
 \end{equation}
-Dividing by $2\Delta t$ and taking the limit $\Delta t \to 0$, one obtains the rate of energy on the domain (per unit of area, as the density implicit in the equation) on the left hand side and $f_0^2$ on the right hand side. The interest is though in taking $\epsilon$ as the rate of energy per unit of area of the perturbation region. Thus, the desired formula is
-\begin{equation}
-	\epsilon = f_0^2\; \frac{4 \pi^2}{\pi {(\pi / k_r)}^2}
-\end{equation}
-and consequently the Reynolds number becomes:
+Consequently the Reynolds number becomes:
 \begin{equation}\label{eq:reynolds}
-	\Re = \frac{{\left( f_0^2\;\frac{4 k_r^2}{\pi} \right)}^{1/3} k_\ell^{-4/3}}{\nu}
+	\Re = \frac{{\left( f_0^2\:\frac{4 k_r^2}{\pi} \right)}^{1/3} k_\ell^{-4/3}}{\nu}
 \end{equation}
 
 \subsection{Point-vortex model}
@@ -134,25 +130,28 @@ where $\Gamma$ is the circulation of the vortex (\cite{Saffman}). The dynamics o
 \end{theorem}
 \begin{proof}
 	Since there is no viscosity in the equations, each vortex is advected with the velocity field generated by all the other vortices. Now, given $\vf{f}\in \mathcal{C}^1(\RR^2,\RR^2)$ such that $\divp \vf{f} = 0$ and $g:=\rotp f$, by Biot-Savart law one can invert the curl operator using the Biot-Savart kernel (see~\cite{Griffiths}):
-	\begin{equation}
+	\begin{equation}\label{eq:biotsavart}
 		\vf{f}(\vf{x}) = (\vf{K} * g)(\vf{x}) = \int_{\RR^2} \vf{K}(\vf{x}-\vf{y}) g(\vf{y}) \dd{\vf{y}}
 	\end{equation}
-	where $\displaystyle\vf{K}(x) = \frac{1}{2\pi} \frac{(-x_2,x_1)}{{\abs{\vf{x}}^2}}$ is the Biot-Savart kernel and $\vf{x}=(x_1,x_2)$. In our case, $\vf{g}$ is the vorticity field which is a sum of $\delta$'s. Thus, taking into consideration \cref{eq:vorticity_delta}, the velocity field generated by a vortex at $\vf{z}_j$ with circulation $\Gamma_j$ is:
+	where $\displaystyle\vf{K}(\vf{x}) = \frac{1}{2\pi} \frac{(-x_2,x_1)}{{\norm{\vf{x}}^2}}$ is the Biot-Savart kernel and $\vf{x}=(x_1,x_2)$. In our case, $\vf{g}$ is the vorticity field which is a sum of $\delta$'s. Thus, taking into consideration \cref{eq:vorticity_delta}, the velocity field generated by a vortex at $\vf{z}_j$ with circulation $\Gamma_j$ is:
 	\begin{equation}
 		\vf{u}_j(\vf{x}) = \vf{K}(\vf{x}-\vf{z}_j) \Gamma_j
 	\end{equation}
 	The proof concludes using the superposition principle.
 \end{proof}
-In order to narrow the gap between the point-vortex model and the Navier-Stokes equations while keeping the simplicity of the former, an extra equation is added to the pair of equations above. This equation concerns the evolution of the circulations of the vortices. A drag term is added in order to mimic the energy dissipation in the Navier-Stokes equations. The form of the equation is:
-\begin{equation}
-	\dot{\Gamma}_i = -\alpha \Gamma_i
-\end{equation}
+% In order to narrow the gap between the point-vortex model and the Navier-Stokes equations while keeping the simplicity of the former, an extra equation is added to the pair of equations above. This equation concerns the evolution of the circulations of the vortices. A drag term is added in order to mimic the energy dissipation in the Navier-Stokes equations. The form of the equation is:
+% \begin{equation}
+% 	\dot{\Gamma}_i = -\alpha \Gamma_i
+% \end{equation}
 Another aspect worth-mentioning is the numerical addition of a softening parameter $\varepsilon$ to \cref{eq:pointvortexA,eq:pointvortexB} in order to prevent the positions of the vortices from blowing up when two vortices get too close to each other. The equations then take the following form:
-\begin{align}
+\begin{align}\label{eq:pointvortexA_soft}
 	\dot{x}_i & = -\sum_{j\neq i} \frac{\Gamma_j}{2\pi} \frac{y_i-y_j}{{(x_i-x_j)}^2+{(y_i-y_j)}^2+\varepsilon^2} \\
+	\label{eq:pointvortexB_soft}
 	\dot{y}_i & = \sum_{j\neq i} \frac{\Gamma_j}{2\pi} \frac{x_i-x_j}{{(x_i-x_j)}^2+{(y_i-y_j)}^2+\varepsilon^2}
 \end{align}
 This adjustment avoids the singularities of the system which happen when two vortices get too close to each other, which in \cref{sec:results} is shown to be the common behavior of the system. The softening parameter is chosen to be $\varepsilon=0.001$, being this value small enough not to affect the dynamics of the system but large enough to prevent a numerical blow-up.
+
+In order to narrow the gap between the point-vortex model and the Navier-Stokes equations while keeping the simplicity of the former, a set of vortices is added regularly in time to simulate the action of a forcing term in the equations. The point vortices are added in a similar way as in the Navier-Stokes, but this time making the addition completely symmetric to cancel out any nonzero momentum that could be introduced in the system.
 
 \subsection{Monitored quantities}
 In order to keep track of the evolution of the system, several variables are monitored during the simulation.

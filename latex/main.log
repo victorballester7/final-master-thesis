@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  23 JUN 2024 00:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.28)  24 JUN 2024 23:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -71,17 +71,6 @@ Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \titlewidth=\dimen151
 \titlewidthlast=\dimen152
 \titlewidthfirst=\dimen153
-) (/usr/share/texmf-dist/tex/latex/sectsty/sectsty.sty
-Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading styles
-
-
-LaTeX Warning: Command \underbar  has changed.
-               Check if current package is valid.
-
-
-LaTeX Warning: Command \underline  has changed.
-               Check if current package is valid.
-
 ) (/usr/share/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
  (/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
@@ -190,7 +179,8 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip61
-) (/usr/share/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+)
+(/usr/share/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
 \BKM@id=\count277
 )) (/usr/share/texmf-dist/tex/latex/datetime2/datetime2.sty
@@ -207,8 +197,7 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (/usr/share/texmf-dist/tex/latex/datetime2-spanish/datetime2-spanish.ldf
 File: datetime2-spanish.ldf 2017/11/13 v1.1
-
-(/usr/share/texmf-dist/tex/generic/iftex/ifxetex.sty
+ (/usr/share/texmf-dist/tex/generic/iftex/ifxetex.sty
 Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
 ) (/usr/share/texmf-dist/tex/generic/iftex/ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
@@ -752,11 +741,8 @@ Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
  (/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-
-Package xcolor Warning: Package option `usenames' is obsolete and ignored on input line 266.
-
 Package xcolor Info: Driver file: pdftex.def on input line 274.
-(/usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+ (/usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
 Package xcolor Info: Model `RGB' extended on input line 1366.
@@ -780,7 +766,8 @@ Package: tcolorbox 2024/01/10 version 6.2.0 text color boxes
 Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
 ))
 Package: pgf 2023-01-15 v3.1.10 (3.1.10)
- (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/share/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+ (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
 \pgfkeys@pathtoks=\toks43
@@ -831,8 +818,7 @@ Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
 \pgfmath@toks=\toks49
 \pgfmath@stack@operand=\toks50
 \pgfmath@stack@operation=\toks51
-) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
-(/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count330
 )) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -854,7 +840,8 @@ File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@path@lastx=\dimen318
 \pgf@path@lasty=\dimen319
-) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
+)
+(/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@shorten@end@additional=\dimen320
 \pgf@shorten@start@additional=\dimen321
@@ -908,8 +895,7 @@ File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
 \pgf@nodesepstart=\dimen328
 \pgf@nodesepend=\dimen329
-)
-(/usr/share/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
+) (/usr/share/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
@@ -961,7 +947,8 @@ Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 ) (/usr/share/texmf-dist/tex/latex/utfsym/utfsym.sty
 Package: utfsym 2022/04/17 Use TikZ to support icons from Unicode blocks
- (/usr/share/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+ (/usr/share/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
 \pgffor@iter=\dimen332
 \pgffor@skip=\dimen333
@@ -3071,14 +3058,8 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'USenglish'.
-
-
-Package biblatex Warning: Conflicting options.
-(biblatex)                '<namepart>inits' conflicts with 'uniquename=full'.
-(biblatex)                Setting 'uniquename=init' on input line 19.
-
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 19.
-(/usr/share/texmf-dist/tex/latex/lm/ot1lmr.fd
+ (/usr/share/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (./main.aux)
 \openout1 = `main.aux'.
@@ -3277,539 +3258,32 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.26 
-      [1{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [2{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [3]
-Overfull \hbox (43.86336pt too wide) in paragraph at lines 94--97
-\OT1/lmr/m/n/10 where last equal-ity fol-lows from Plancherel equal-ity for the DCT. COR-RRRRRRRRRRRRRRRRRRRRRRRRECT
- []
-
-Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 127.
-[4] [5]) (./sections/results.tex
-<images/forcing32_8.pdf, id=192, 462.52798pt x 346.89601pt>
+l.9 \end{align}
+                [1] [2{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [3{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [4]
+Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 123.
+ [5] [6]) (./sections/results.tex
+<images/forcing32_8.pdf, id=201, 360.12898pt x 339.66899pt>
 File: images/forcing32_8.pdf Graphic file (type pdf)
 <use images/forcing32_8.pdf>
 Package pdftex.def Info: images/forcing32_8.pdf  used on input line 11.
-(pdftex.def)             Requested size: 223.07211pt x 167.30746pt.
-<images/forcing32_64.pdf, id=193, 462.52798pt x 346.89601pt>
+(pdftex.def)             Requested size: 200.30852pt x 188.92796pt.
+<images/forcing32_64.pdf, id=202, 348.84288pt x 328.38293pt>
 File: images/forcing32_64.pdf Graphic file (type pdf)
 <use images/forcing32_64.pdf>
 Package pdftex.def Info: images/forcing32_64.pdf  used on input line 16.
-(pdftex.def)             Requested size: 223.07211pt x 167.30746pt.
- [6] [7 <./images/forcing32_8.pdf> <./images/forcing32_64.pdf>]
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...                             & \tickgreen_
-                                                  {512} & \tickgreen_{512} &...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...                      & \tickgreen_{512} &
-                                                   \tickgreen_{512} & \tickg...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...          & \tickgreen_{512} & \tickgreen_
-                                                  {512} & \tickgreen_{512} &...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...   & \tickgreen_{512} & \tickgreen_{512} &
-                                                   \tickgreen_{512} & \tickg...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...een_{512} & \tickgreen_{512} & \tickgreen_
-                                                  {512} & \tickgreen\tickblu...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...2} & \tickgreen_{512} & \tickgreen_{512} &
-                                                   \tickgreen\tickblue_{512}...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ... & \tickgreen_{512} & \tickgreen\tickblue_
-                                                  {512} & \tickgreen\tickblu...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...kgreen_{512} & \tickgreen\tickblue_{512} &
-                                                   \tickgreen\tickblue_{1024...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...reen\tickblue_{512} & \tickgreen\tickblue_
-                                                  {1024} & \tickgreen\tickbl...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...kblue_{512} & \tickgreen\tickblue_{1024} &
-                                                   \tickgreen\tickblue_{1024...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...een\tickblue_{1024} & \tickgreen\tickblue_
-                                                  {1024} & \tickgreen\tickbl...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...blue_{1024} & \tickgreen\tickblue_{1024} &
-                                                   \tickgreen\tickblue_{1024...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...een\tickblue_{1024} & \tickgreen\tickblue_
-                                                  {1024} & \tickgreen\tickbl...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...blue_{1024} & \tickgreen\tickblue_{1024} &
-                                                   \tickgreen\tickblue_{2048...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...een\tickblue_{1024} & \tickgreen\tickblue_
-                                                  {2048} & \tickgreen_{2048}...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...blue_{1024} & \tickgreen\tickblue_{2048} &
-                                                   \tickgreen_{2048} & \tick...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...& \tickgreen\tickblue_{2048} & \tickgreen_
-                                                  {2048} & \tickgreen_{4096} \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...reen\tickblue_{2048} & \tickgreen_{2048} &
-                                                   \tickgreen_{4096} \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52 ...e_{2048} & \tickgreen_{2048} & \tickgreen_
-                                                  {4096} \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 		1
-        6                                                                   ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...           &                  & \tickblue_
-                                                  {1024}          & \tickblu...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...             & \tickblue_{1024}          &
-                                                   \tickblue_{2048}         ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...  & \tickblue_{1024}          & \tickblue_
-                                                  {2048}           & \tickgr...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...4}          & \tickblue_{2048}           &
-                                                   \tickgreen\tickblue_{2048...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...ue_{2048}           & \tickgreen\tickblue_
-                                                  {2048} & \tickgreen\tickbl...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...}           & \tickgreen\tickblue_{2048} &
-                                                   \tickgreen\tickblue_{2048...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...een\tickblue_{2048} & \tickgreen\tickblue_
-                                                  {2048} & \tickgreen\tickbl...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...blue_{2048} & \tickgreen\tickblue_{2048} &
-                                                   \tickgreen\tickblue_{2048...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...een\tickblue_{2048} & \tickgreen\tickblue_
-                                                  {2048} & \tickgreen_{4096}...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...blue_{2048} & \tickgreen\tickblue_{2048} &
-                                                   \tickgreen_{4096} & \tick...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...& \tickgreen\tickblue_{2048} & \tickgreen_
-                                                  {4096} & \tickgreen_{4096} \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...reen\tickblue_{2048} & \tickgreen_{4096} &
-                                                   \tickgreen_{4096} \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:53: Missing $ inserted.
-<inserted text> 
-                $
-l.53 ...e_{2048} & \tickgreen_{4096} & \tickgreen_
-                                                  {4096} \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 		3
-        2                                                                   ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...           &                  & \tickblue_
-                                                  {2048}          & \tickblu...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...             & \tickblue_{2048}          &
-                                                   \tickblue_{4096}         ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...  & \tickblue_{2048}          & \tickblue_
-                                                  {4096}           & \tickgr...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...8}          & \tickblue_{4096}           &
-                                                   \tickgreen\tickblue_{4096...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...ue_{4096}           & \tickgreen\tickblue_
-                                                  {4096} & \tickgreen\tickbl...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...}           & \tickgreen\tickblue_{4096} &
-                                                   \tickgreen\tickblue_{4096...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...een\tickblue_{4096} & \tickgreen\tickblue_
-                                                  {4096} & \tickgreen\tickbl...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...blue_{4096} & \tickgreen\tickblue_{4096} &
-                                                   \tickgreen\tickblue_{4096...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...een\tickblue_{4096} & \tickgreen\tickblue_
-                                                  {4096} & \tickgreen_{8192}...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...blue_{4096} & \tickgreen\tickblue_{4096} &
-                                                   \tickgreen_{8192} & \tick...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...& \tickgreen\tickblue_{4096} & \tickgreen_
-                                                  {8192} & \tickgreen_{8192} \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...reen\tickblue_{4096} & \tickgreen_{8192} &
-                                                   \tickgreen_{8192} \\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 ...e_{4096} & \tickgreen_{8192} & \tickgreen_
-                                                  {8192} \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:55: Missing $ inserted.
-<inserted text> 
-                $
-l.55 		6
-        4                                                                   ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:55: Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...&                            & \tickgreen_
-                                                  {8192}          & \tickgre...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:55: Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...            & \tickgreen_{8192}          &
-                                                   \tickgreen_{8192}        ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:55: Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...& \tickgreen_{8192}          & \tickgreen_
-                                                  {8192}          & \tickgre...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:55: Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...2}          & \tickgreen_{8192}          &
-                                                   \tickgreen_{8192}        ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./sections/results.tex:55: Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...& \tickgreen_{8192}          & \tickgreen_
-                                                  {8192}          &         ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./sections/results.tex:55: Missing $ inserted.
-<inserted text> 
-                $
-l.55 ...2}          & \tickgreen_{8192}          &
-                                                                     &      ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-) (./sections/conclusions.tex) (./sections/acknowledgements.tex) [8] [9] (./main.aux)
+(pdftex.def)             Requested size: 200.30852pt x 188.56317pt.
+ [7 <./images/forcing32_8.pdf> <./images/forcing32_64.pdf>] [8]
+<images/domainRe32kdn64.pdf, id=278, 360.12898pt x 339.66899pt>
+File: images/domainRe32kdn64.pdf Graphic file (type pdf)
+<use images/domainRe32kdn64.pdf>
+Package pdftex.def Info: images/domainRe32kdn64.pdf  used on input line 74.
+(pdftex.def)             Requested size: 200.30852pt x 188.92796pt.
+<images/domainRe128kdn16.pdf, id=279, 360.12898pt x 339.66899pt>
+File: images/domainRe128kdn16.pdf Graphic file (type pdf)
+<use images/domainRe128kdn16.pdf>
+Package pdftex.def Info: images/domainRe128kdn16.pdf  used on input line 79.
+(pdftex.def)             Requested size: 200.30852pt x 188.92796pt.
+ [9 <./images/domainRe32kdn64.pdf> <./images/domainRe128kdn16.pdf>]) (./sections/conclusions.tex) (./sections/acknowledgements.tex) [10] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -3819,25 +3293,25 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 59263 strings out of 476076
- 1286843 string characters out of 5793775
- 2227977 words of memory out of 5000000
- 80262 multiletter control sequences out of 15000+600000
- 639170 words of font info for 121 fonts, out of 8000000 for 9000
+ 59190 strings out of 476076
+ 1286002 string characters out of 5793775
+ 2229017 words of memory out of 5000000
+ 80193 multiletter control sequences out of 15000+600000
+ 633276 words of font info for 119 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 130i,20n,131p,1360b,1858s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 130i,20n,131p,1360b,1861s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist, replaced by a fixed one
 
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symb
-ols/msbm7.pfb></usr/share/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb></usr/share/texmf-dist/fonts/type1/public/yhmath/yhcmex.pfb>
-Output written on main.pdf (10 pages, 1029191 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmib7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb></usr/share/texmf-dist/fonts/type1/public/yhmath/yhcmex.pfb>
+Output written on main.pdf (11 pages, 1121438 bytes).
 PDF statistics:
- 507 PDF objects out of 1000 (max. 8388607)
- 405 compressed objects within 5 object streams
- 91 named destinations out of 1000 (max. 500000)
- 129 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 545 PDF objects out of 1000 (max. 8388607)
+ 435 compressed objects within 5 object streams
+ 89 named destinations out of 1000 (max. 500000)
+ 139 words of extra memory for PDF output out of 10000 (max. 10000000)
 

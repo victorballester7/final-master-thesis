@@ -68,7 +68,7 @@ def getAveragedRadius(input_dir, output_file, file_name, average=False):
     data = read_data(input_dir, file_name, times_str, ext)
 
     # Do it only for the Energy (second column)
-    data = data[:, :, 1]
+    data = data[:, :, 1] ** 2
 
     radius = np.arange(0, data.shape[1]) + 1
 

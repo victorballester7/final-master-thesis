@@ -24,8 +24,6 @@ INPUT /usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 INPUT /usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 INPUT /usr/share/texmf-dist/tex/latex/titlesec/titlesec.sty
 INPUT /usr/share/texmf-dist/tex/latex/titlesec/titlesec.sty
-INPUT /usr/share/texmf-dist/tex/latex/sectsty/sectsty.sty
-INPUT /usr/share/texmf-dist/tex/latex/sectsty/sectsty.sty
 INPUT /usr/share/texmf-dist/tex/latex/bookmark/bookmark.sty
 INPUT /usr/share/texmf-dist/tex/latex/bookmark/bookmark.sty
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
@@ -719,8 +717,6 @@ INPUT /usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rmsc.enc
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc
-INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmr12.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmbx12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmbx12.tfm
 INPUT ./main.toc
 INPUT ./main.toc
@@ -790,6 +786,16 @@ INPUT ./images/forcing32_64.pdf
 INPUT ./images/forcing32_64.pdf
 INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmtt8.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmtt10.tfm
+INPUT ./images/domainRe32kdn64.pdf
+INPUT ./images/domainRe32kdn64.pdf
+INPUT images/domainRe32kdn64.pdf
+INPUT ./images/domainRe32kdn64.pdf
+INPUT ./images/domainRe32kdn64.pdf
+INPUT ./images/domainRe128kdn16.pdf
+INPUT ./images/domainRe128kdn16.pdf
+INPUT images/domainRe128kdn16.pdf
+INPUT ./images/domainRe128kdn16.pdf
+INPUT ./images/domainRe128kdn16.pdf
 INPUT ./sections/conclusions.tex
 INPUT ./sections/conclusions.tex
 INPUT sections/conclusions.tex
@@ -837,6 +843,7 @@ INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmri10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmri12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb
+INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmsy8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmtt8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmtt9.pfb
