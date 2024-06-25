@@ -7,8 +7,8 @@ plt.rc("text", usetex=True)
 
 problem = "embarrassed_2DNS"
 kdn = "02-kdn16"
-# quantity = "Energy"
-quantity = "Enstrophy"
+quantity = "Energy"
+# quantity = "Enstrophy"
 times = ["040", "080", "130", "179"]
 test = "test6"
 labels = ["$t = 0.4$", "$t = 0.8$", "$t = 1.3$", "$t = 1.79$"]
@@ -56,12 +56,18 @@ ax.loglog()
 
 # decorations
 ax.set_xlabel("$r$", fontsize=FONTSIZE)
-ax.set_ylabel("$E_r$", fontsize=FONTSIZE)
+if quantity == "Energy":
+    ax.set_ylabel("$E_r$", fontsize=FONTSIZE)
+else:
+    ax.set_ylabel("$\Omega_r$", fontsize=FONTSIZE)
 
 # remove previous ticks
 # set tick 0-pi
 ax.set_xticks([np.pi / 8, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi])
 ax.set_xticklabels([r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
+
+plt.xticks(fontsize=FONTSIZE)
+plt.yticks(fontsize=FONTSIZE)
 
 if quantity == "Energy":
     x1, x2, y1, y2 = 0.1, np.pi, 0.02, 100
@@ -73,14 +79,6 @@ else:
     ax.set_ylim(y1 - y1 / 10, y2 + y2 / 10)
 
 plt.savefig(
-    "../images/"
-    + problem
-    + "/"
-    + quantity
-    + "Prof_t.kdn"
-    + kdn[-2:]
-    + "."
-    + test
-    + ".pdf",
+    "../images/" + problem + "/" + quantity + "_t.kdn" + kdn[-2:] + "." + test + ".pdf",
     bbox_inches="tight",
 )

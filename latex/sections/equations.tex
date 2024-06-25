@@ -94,7 +94,7 @@ where the second term on \cref{eq:forcing_energy2} vanishes because of the zero 
 	\pdv{E}{t}=\frac{1}{2}\pdv{}{t}(u^2 + v^2) = f_0^2\: \Exp(f_u^2 + f_v^2)
 \end{equation}
 The implicit assumption that $\rho=1$ in the equation ensures that it precisely represents the rate of energy injected per unit area in the domain. In the simulations at each step we adjust the amplitude of the forcing term so that its variance is equal to 1, making the rate of energy injection become $f_0^2$. Since the interest is, not on the injection rate of energy per unit of area, but on the injection rate of energy per unit of area in the forcing region, the following formula for $\epsilon$ is used:
-\begin{equation}
+\begin{equation}\label{eq:epsilon}
 	\epsilon = f_0^2\: \frac{4 \pi^2}{\pi {(\pi / k_r)}^2}
 \end{equation}
 Consequently the Reynolds number becomes:
@@ -166,19 +166,19 @@ which by the Parseval identity is equivalent to the total energy in the physical
 \end{equation}
 where the second equality follows from the relation $\omega = -\laplacian \psi$.
 
-As the title suggests, the main purpose of this work is to study how turbulence is spread across the domain. Thus, quantities relating the energy (and enstrophy) contained in rings as a function of the radius are also taken into account. These variables are respectively denoted by $E_k$ and $\Omega_k$, and they are given by the following expressions:
+As the title suggests, the main purpose of this work is to study how turbulence is spread across the domain. Thus, quantities relating the energy and enstrophy contained in annuli as a function of the radius of the annuli are also taken into account. These variables are respectively denoted by $E_r$ and $\Omega_r$, and they are given by the following expressions:
 \begin{align}
-	E_k      & = \sum_{k-1<\norm{\vf{k}}\leq k} \norm{\widehat{\vf{u}}(\vf{k})}^2      \\
-	\Omega_k & = \sum_{k-1<\norm{\vf{k}}\leq k} \norm{\widehat{\vf{\omega}}(\vf{k})}^2
+	E_r      & = \sum_{r-\Delta r<\norm{\vf{x}}\leq r} \norm{{\vf{u}}(\vf{x})}^2   \\
+	\Omega_r & = \sum_{r-\Delta r<\norm{\vf{x}}\leq r} \norm{{{\omega}}(\vf{x})}^2
 \end{align}
-where $k\in\{1,\ldots,K\}$. The quantities $E_k$ and $\Omega_k$ are then plotted as a function of $k$ in order to study the energy and enstrophy distribution across the domain (see \cref{sec:results}).
+where $r\in (\Delta r, \pi)$. The quantities $E_r$ and $\Omega_r$ are then plotted as a function of $r$ in order to study the energy and enstrophy distribution across the domain (see \cref{sec:results}).
 
 Related to those two latter variables is the mean energy radius and mean enstrophy radius, which refer to a weighted average of the radius where most of the energy (and enstrophy, respectively) is contained. They are defined as:
-\begin{align}
-	\mathcal{R}_E      & = \frac{\sum_{k=1}^{K} k^2 E_k}{\sum_{k=1}^{K} E_k}           \\
-	\mathcal{R}_\Omega & = \frac{\sum_{k=1}^{K} k^2 \Omega_k}{\sum_{k=1}^{K} \Omega_k}
-\end{align}
-Note that since the domain is square, the sums $\sum_{k=1}^{K} E_k$ and $\sum_{k=1}^{K} \Omega_k$ are slightly less than the total energy $E$ and enstrophy $\Omega$ respectively, since they account for the contributions from the different annuli in the domain until their radii reach the radius of the incircle of the square.
+\begin{equation}
+	\mathcal{R}_E      = \frac{\sum_{\Delta r<r\leq \pi} r^2 E_r}{\sum_{\Delta r<r\leq \pi} E_r}\quad \text{and}  \quad
+	\mathcal{R}_\Omega = \frac{\sum_{\Delta r<r\leq \pi} r^2 \Omega_r}{\sum_{\Delta r<r\leq \pi} \Omega_r}
+\end{equation}
+Note that since the domain is square, the sums $\sum_{\Delta r<r\leq \pi}  E_r$ and $\sum_{\Delta r<r\leq \pi}  \Omega_r$ are slightly less than the total energy $E$ and enstrophy $\Omega$ respectively, since they account for the contributions from the different annuli in the domain until their radii reach the radius of the incircle of the square.
 
 Regarding the point-vortex model, the system is integrable and the following function $H$
 \begin{equation}

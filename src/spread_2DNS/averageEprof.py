@@ -77,7 +77,7 @@ def getAveragedRadius(input_dir, output_file, file_name, average=False):
 
     # multiply each row by the radius (do it vectorized)
     f = radius**2
-    meanRadius[:, 1] = np.sum(data * f, axis=1) / np.sum(data, axis=1)
+    meanRadius[:, 1] = np.sqrt(np.sum(data * f, axis=1) / np.sum(data, axis=1))
 
     with open(output_file, "w") as f:
         for row in meanRadius:

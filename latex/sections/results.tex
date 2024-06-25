@@ -61,10 +61,12 @@ The reader may observe that the resolution increases as both the Reynolds number
 
 The integration of the system of differential equations (see \cref{eq:pointvortexA_soft,eq:pointvortexB_soft}) is done using a Runge-Kutta (7)8 method for adaptative time-step by means of the Fehlberg error estimate. These adaptative Runge-Kutta methods are based on the idea of using two different approximations of the solution at each step, in this case, one of order 7 and another of order 8. Then, the difference between both approximations is used to estimate the error between one of the approximations and the real solution. If the error is below a certain threshold, the time step is increased, and if it is above, the time step is decreased. The simulations for the point vortex model are done, as opposed to the integration of the Navier-Stokes equations, in a personal computer and in a single core. In this latter simulation there is only one parameter to control, which is the radius of the perturbation region, $k_r$. As the simulation is less computationally expensive, the range of values for $k_r$ is increased to $\{8, 16, 32, 64, 128, 256\}$ compared to the Navier-Stokes simulations.
 
-All the codes and data used for the simulations as well as animations of the dynamics of both problems are available in the following repository: \url{https://github.com/victorballester7/final-master-thesis} (accessed on June 30, 2024).
-
+\newcommand{\theoldfootnote}{\thefootnote}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+All the codes and data used for the simulations as well as animations of the dynamics of both problems are available in the following repository: \url{https://github.com/victorballester7/final-master-thesis} (accessed on June 30, 2024). The pseudo-spectral codes on that repository are based on previous works from Pablo Mininni\footnote[3]{Professor in the Department of Physics at the University of Buenos Aires. Webpage: \url{http://wp.df.uba.ar/mininni/} (accessed on June 25, 2024).} and Alexandros Alexakis. The repository of Pablo Mininni is available at \url{https://github.com/pmininni/GHOST} (accessed on June 25, 2024).
+\renewcommand{\thefootnote}{\theoldfootnote}
 \subsection{Results}\label{sec:results}
-The results of the simulations are presented in this section. The first part of the section is dedicated to the results of the Navier-Stokes simulations, while the second part is dedicated to the results of the point vortex simulations.
+The results of the simulations are presented in this section. The first part is devoted to the results of the Navier-Stokes simulations, while the second part is dedicated to the results of the point vortex simulations.
 
 We start showing how the vortices spread across the domain in a visual manner.
 \begin{figure}[ht]
@@ -82,6 +84,90 @@ We start showing how the vortices spread across the domain in a visual manner.
 	\caption{Vorticity plots for different values of $k_r$ and $\Re$. The left-hand side figure is integrated with a resolution of $8192\times 8192$ and the right figure is integrated with a resolution of $4096\times 4096$.}\label{fig:vortices_evo}
 \end{figure}
 
-\cref{fig:vortices_evo} shows the vorticity evolution at two different time slices for the driven Navier-Stokes equation. The most notable feature is that the vortices appear more intense in the right plot compared to the left plot. This can be attributed to two main reasons. Firstly, the Reynolds number is smaller in the left plot, causing dissipation by viscosity to have a more significant impact, leading to a quicker decay of the intensity of the vortices. Secondly, the initial size of the vortices in the left plot is four times smaller than in the right plot, which restricts their growth in size as time progresses.
+\cref{fig:vortices_evo} shows the vorticity profile at two different time slices for the driven Navier-Stokes equation. The most notable feature is that the vortices appear more intense in the right plot compared to the left plot. This can be attributed to two main reasons. Firstly, the Reynolds number is smaller in the left plot, causing dissipation by viscosity to have a more significant impact, leading to a quicker decay of the intensity of the vortices. Secondly, the initial size of the vortices in the left plot is four times smaller than in the right plot, which restricts their growth in size as time progresses.
+casdvafv
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/Energy_t.kdn16.test6.pdf}
+		\caption{$k_r = 16$, $\Re = 16$}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/Enstrophy_t.kdn16.test6.pdf}
+		\caption{$k_r = 16$, $\Re = 16$}
+	\end{subfigure}\\
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/Energy_kdn.test7.059.pdf}
+		\caption{$\Re = 32$}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/Enstrophy_kdn.test7.059.pdf}
+		\caption{$\Re = 32$}
+	\end{subfigure}\\
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/Energy_Re.kdn16.175.pdf}
+		\caption{$k_r = 16$}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/Enstrophy_Re.kdn16.175.pdf}
+		\caption{$k_r = 16$}
+	\end{subfigure}
+	\caption{Energy and enstrophy profiles for different values of time, $k_r$ and $\Re$. The left-hand side figures show the respective plots for the energy and while in the right-hand side, the enstrophy profiles are displayed. The top plots show the profiles for different slices of time for a fixed $k_r=16$ and $\Re=16$. The units of time are those determined from the Reynolds number, that is $k_\ell^{-4/3}/\epsilon^{1/3}$, where $\epsilon$ is given in \cref{eq:epsilon}. The middle plots show the profiles for several radius of the perturbation at fixed time and fixed $\Re=32$. The bottom plots show the profiles for different Reynolds numbers at fixed time and fixed $k_r=16$. In all the plots the dashed line represents a function of the form $f(r)=A/r^2$ with $A$ being a constant.}\label{fig:energy_enstrophy}
+\end{figure}
+
+With this glimpse on the dynamics of the system, we now proceed to analyze the energy and enstrophy distributions. The following set of plots in \cref{fig:energy_enstrophy} show the energy and enstrophy evolution as a function of the distance to the center of the forcing disk in three different categories: firstly, a Reynolds number and a parameter $k_r$ are picked and the distributions of energy and enstrophy are plotted for different times; secondly, plots varying $k_r$ at fixed time and for $\Re=32$ are shown, and finally, the energy and enstrophy profiles for different Reynolds numbers at fixed time and $k_r=16$ are displayed.
+
+The
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/EnergyMeanRadius.pdf}
+		\captionof{figure}{}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/EnstrophyMeanRadius.pdf}
+		\captionof{figure}{}
+	\end{subfigure}
+	\caption{dfsd}\label{fig:energy_enstrophy_mean}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/pointvortices.R4.00440.pdf}
+		\captionof{figure}{$k_r = 16$}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/pointvortices.R32.00550.pdf}
+		\captionof{figure}{$k_r = 128$}
+	\end{subfigure}
+	\caption{dfe}\label{fig:pointvortices}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/NumVortices.pdf}
+		\caption{Density profile of the number of vortices}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}{0.44\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/NumVorticesMeanRadius.pdf}
+		\caption{Mean radius}
+	\end{subfigure}
+	\caption{dfe}\label{fig:pointvortices}
+\end{figure}
 
 \end{document}

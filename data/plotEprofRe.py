@@ -12,8 +12,8 @@ fifth_color = color_cycle[4]
 
 problem = "embarrassed_2DNS"
 kdn = "02-kdn16"
-# quantity = "Energy"
-quantity = "Enstrophy"
+quantity = "Energy"
+# quantity = "Enstrophy"
 
 tests = ["test4", "test5", "test6"]
 labels = ["$\mathrm{Re} = 4$", "$\mathrm{Re} = 8$", "$\mathrm{Re} = 16$"]
@@ -48,7 +48,7 @@ for i in range(len(data)):
 
 data_x = (np.arange(0, len(data[0][:, 0])) + 1) * (2 * np.pi / domain)
 if quantity == "Energy":
-    data_y = 10 / data_x**2
+    data_y = 12 / data_x**2
 else:
     data_y = 2000 / data_x**2
 
@@ -60,12 +60,18 @@ ax.loglog()
 
 # decorations
 ax.set_xlabel("$r$", fontsize=FONTSIZE)
-ax.set_ylabel("$E_r$", fontsize=FONTSIZE)
+if quantity == "Energy":
+    ax.set_ylabel("$E_r$", fontsize=FONTSIZE)
+else:
+    ax.set_ylabel("$\Omega_r$", fontsize=FONTSIZE)
 
 # remove previous ticks
 # set tick 0-pi
 ax.set_xticks([np.pi / 8, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi])
 ax.set_xticklabels([r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
+
+plt.xticks(fontsize=FONTSIZE)
+plt.yticks(fontsize=FONTSIZE)
 
 if quantity == "Energy":
     x1, x2, y1, y2 = 0.1, np.pi, 0.02, 100

@@ -12,8 +12,8 @@ fifth_color = color_cycle[4]
 
 problem = "embarrassed_2DNS"
 kdns = ["01-kdn8", "02-kdn16", "03-kdn32"]
-quantity = "Energy"
-# quantity = "Enstrophy"
+# quantity = "Energy"
+quantity = "Enstrophy"
 
 test = "test7"
 labels = ["$k_r = 8$", "$k_r = 16$", "$k_r = 32$"]
@@ -51,7 +51,7 @@ data_x = np.arange(0.01, np.pi, 0.01)
 if quantity == "Energy":
     data_y = 10 / data_x**2
 else:
-    data_y = 2000 / data_x**2
+    data_y = 4000 / data_x**2
 
 ax.plot(data_x, data_y, label="$\propto 1/r^2$", linestyle="dashed", color=fifth_color)
 
@@ -61,7 +61,10 @@ ax.loglog()
 
 # decorations
 ax.set_xlabel("$r$", fontsize=FONTSIZE)
-ax.set_ylabel("$E_r$", fontsize=FONTSIZE)
+if quantity == "Energy":
+    ax.set_ylabel("$E_r$", fontsize=FONTSIZE)
+else:
+    ax.set_ylabel("$\Omega_r$", fontsize=FONTSIZE)
 
 # remove previous ticks
 # set tick 0-pi
@@ -69,6 +72,9 @@ ax.set_xticks([np.pi / 16, np.pi / 8, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi
 ax.set_xticklabels(
     [r"$\pi/16$", r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"]
 )
+
+plt.xticks(fontsize=FONTSIZE)
+plt.yticks(fontsize=FONTSIZE)
 
 if quantity == "Energy":
     x1, x2, y1, y2 = 0.1, np.pi, 0.02, 100

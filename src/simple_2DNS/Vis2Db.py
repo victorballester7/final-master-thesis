@@ -121,8 +121,6 @@ for file in range(outnum_nd + 1 - first_file):
     y1 += 1024
     y2 += 1024
 
-    data_small = data2[y1:y2, x1:x2]
-
     axins.imshow(
         data2,
         cmap=color,
