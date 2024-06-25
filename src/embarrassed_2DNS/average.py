@@ -37,20 +37,27 @@ def read_data(file_name, ext):
     for n in range(N_CORES):
         # print('core', n)
         node = str(n).zfill(3)
-        with open(file_name + node + ext, "r") as f:
-            # split by columns and convert to float
-            data_node = f.readlines()
-            data_node = [row.split() for row in data_node]
-            # print(data_node)
-            data_node = np.array(data_node, dtype=float)
-            data.append(data_node)
+        try:
+            with open(file_name + node + ext, "r") as f:
+                # split by columns and convert to float
+                data_node = f.readlines()
+                data_node = [row.split() for row in data_node]
+                # print(data_node)
+                data_node = np.array(data_node, dtype=float)
+                data.append(data_node)
+        except FileNotFoundError:
+            print(f"File {file_name + node + ext} not found.")
+            continue
     # each data_node may have different number of rows
     # so we take the minimum number of rows from all data_node and truncate
-    min_rows = min([data_node.shape[0] for data_node in data])
-    data = [data_node[:min_rows] for data_node in data]
+    # if data is empty, return error
+    if not data:
+        raise FileNotFoundError("No files found.")
+    else:
+        min_rows = min([data_node.shape[0] for data_node in data])
+        data = [data_node[:min_rows] for data_node in data]
 
-    data = np.array(data)
-
+        data = np.array(data)
     return data
 
 
@@ -83,8 +90,10 @@ def average_data_multistages(input_dir, input_file, output_file, multicols):
         if i % 10 == 0:
             print("file ", i, " / ", N)
         ext = "." + str(i).zfill(3) + ".txt"
-        data = read_data(input_file, ext)
-
+        try:
+            data = read_data(input_file, ext)
+        except FileNotFoundError:
+            continue
         # do the Lp norm for each row, where p is the index of the column
         # ((1/N_CORES) * sum_cores data^p)^(1/p)
         if multicols:
@@ -153,18 +162,18 @@ def average_data():
     # ----------------------------------------
     # vectrans_xxx.node.ext.txt
 
-    input_dir = "./data/vectrans"
-    input_file = "./data/vectrans/vectrans_euu."
-    output_file = "./data/average/vectrans/vectrans_euu"
+    # input_dir = "./data/vectrans"
+    # input_file = "./data/vectrans/vectrans_euu."
+    # output_file = "./data/average/vectrans/vectrans_euu"
 
-    print("Merging data from vectrans_euu...")
-    average_data_multistages(input_dir, input_file, output_file, False)
+    # print("Merging data from vectrans_euu...")
+    # average_data_multistages(input_dir, input_file, output_file, False)
 
-    input_file = "./data/vectrans/vectrans_vrt."
-    output_file = "./data/average/vectrans/vectrans_vrt"
+    # input_file = "./data/vectrans/vectrans_vrt."
+    # output_file = "./data/average/vectrans/vectrans_vrt"
 
-    print("Merging data from vectrans_vrt...")
-    average_data_multistages(input_dir, input_file, output_file, False)
+    # print("Merging data from vectrans_vrt...")
+    # average_data_multistages(input_dir, input_file, output_file, False)
 
 
 if __name__ == "__main__":

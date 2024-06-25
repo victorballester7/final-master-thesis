@@ -2,9 +2,9 @@ import numpy as np
 import os
 
 program = "/disk"
-# folder = "/R4"
-folder = ""
-first_file = 23  # REMEMEBR THIS IS FOR THE ENERGY_STEPS, NOT OUTPUT_STEPS
+folder = "/R2"
+# folder = ""
+first_file = 19  # REMEMEBR THIS IS FOR THE ENERGY_STEPS, NOT OUTPUT_STEPS
 num_zeros_str = 5
 
 
