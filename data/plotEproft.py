@@ -7,8 +7,8 @@ plt.rc("text", usetex=True)
 
 problem = "embarrassed_2DNS"
 kdn = "02-kdn16"
-quantity = "Energy"
-# quantity = "Enstrophy"
+# quantity = "Energy"
+quantity = "Enstrophy"
 times = ["040", "080", "130", "179"]
 test = "test6"
 labels = ["$t = 0.4$", "$t = 0.8$", "$t = 1.3$", "$t = 1.79$"]
@@ -63,8 +63,8 @@ else:
 
 # remove previous ticks
 # set tick 0-pi
-ax.set_xticks([np.pi / 8, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi])
-ax.set_xticklabels([r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
+ax.set_xticks([np.pi / 16, np.pi / 8, np.pi / 4, np.pi / 2, np.pi])
+ax.set_xticklabels([r"$\pi/16$", r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$\pi$"])
 
 plt.xticks(fontsize=FONTSIZE)
 plt.yticks(fontsize=FONTSIZE)

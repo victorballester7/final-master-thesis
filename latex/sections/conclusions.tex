@@ -2,4 +2,14 @@
 
 \begin{document}
 \section{Conclusions}\label{sec:conclusions}
+This article has demonstrated that locally injected turbulence in a 2D space spreads to the boundaries of the domain, provided the Reynolds number is sufficiently high. Moreover, the profile of the energy and enstrophy density distributions as a function of the radius from the center of the domain has been claimed to follow a power law of $A/r^2$, for some constant $A$. Particularly in the case of enstrophy, the results show remarkable consistency, suggesting that as $k_r\to 0$ and sufficient time elapses, the power law for the enstrophy density distribution is expected to cover the entire range of $r$.
+
+Regarding the point vortex simulations, the plot of density of vortices in annuli as a function of the radius shows a similar profile when varying the size of the forcing region $k_r$. Moreover, the average radius, when weighted by the number of vortices, fits well with a linear function. This linear regime is also observed in the initial instances of the Navier-Stokes simulations, both when averaging with the energy density or the enstrophy density.
+
+For an extension of this work, it would be interesting to run the simulations for a longer time and higher values of $k_r$ and $\Re$ for the embarrassingly parallel code. This would allow for a more accurate determination of the accordance of the plots for the evolution of the mean radii in both the Navier-Stokes and the point vortex simulations.
+Finally, these results could be replicated with the addition of a drag force $-\alpha \mathbf{u}$ to the Navier-Stokes equations, where $\alpha$ is a constant. This would allow us to investigate whether the energy still spreads as far as the domain allows, even in the presence of the drag force. To account that in the point vortex model, an extra equation is suggested to be added to the pair of equations for $x_i$ and $y_i$. This equation would concentrate the drag effect on the intensity of circulation of the point vortex, formulated as
+\begin{equation}
+	\dot{\Gamma}_i = -\beta \Gamma_i
+\end{equation}
+for some constant $\beta$.
 \end{document}

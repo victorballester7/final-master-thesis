@@ -4,10 +4,10 @@
 \contentsline {subsection}{\numberline {2.1}Stream function formulation}{2}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Fourier space}{3}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Reynolds number}{4}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Point-vortex model}{5}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.4}Point vortex model}{5}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}Monitored quantities}{6}{subsection.2.5}%
 \contentsline {section}{\numberline {3}Simulation}{7}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Numerical setup}{7}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Results}{9}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Conclusions}{11}{section.4}%
-\contentsline {section}{References}{11}{section*.1}%
+\contentsline {section}{\numberline {4}Conclusions}{13}{section.4}%
+\contentsline {section}{References}{14}{section*.1}%

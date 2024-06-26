@@ -18,8 +18,8 @@ quantity = "Enstrophy"
 test = "test7"
 labels = ["$k_r = 8$", "$k_r = 16$", "$k_r = 32$"]
 time = "059"  # 0.68
-# domain = [2048, 2048, 4096]
-domain = [4096, 4096, 4096]
+domain = [2048, 2048, 4096]
+# domain = [4096, 4096, 4096]
 
 fig, ax = plt.subplots()
 
@@ -68,22 +68,26 @@ else:
 
 # remove previous ticks
 # set tick 0-pi
-ax.set_xticks([np.pi / 16, np.pi / 8, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi])
-ax.set_xticklabels(
-    [r"$\pi/16$", r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"]
-)
 
-plt.xticks(fontsize=FONTSIZE)
-plt.yticks(fontsize=FONTSIZE)
 
 if quantity == "Energy":
-    x1, x2, y1, y2 = 0.1, np.pi, 0.02, 100
+    x1, x2, y1, y2 = 0.03, np.pi, 0.02, 100
     ax.set_xlim(x1 - x1 / 10, x2 + x2 / 10)
     ax.set_ylim(y1 - y1 / 10, y2 + y2 / 10)
+    ax.set_xticks([np.pi / 32, np.pi / 16, np.pi / 8, np.pi / 4, np.pi / 2, np.pi])
+    ax.set_xticklabels(
+        [r"$\pi/32$", r"$\pi/16$", r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$\pi$"]
+    )
 else:
     x1, x2, y1, y2 = 0.05, np.pi, 1, 1000000
     ax.set_xlim(x1 - x1 / 10, x2 + x2 / 10)
     ax.set_ylim(y1 - y1 / 10, y2 + y2 / 10)
+    ax.set_xticks([np.pi / 32, np.pi / 16, np.pi / 8, np.pi / 4, np.pi / 2, np.pi])
+    ax.set_xticklabels(
+        [r"$\pi/32$", r"$\pi/16$", r"$\pi/8$", r"$\pi/4$", r"$\pi/2$", r"$\pi$"]
+    )
+plt.xticks(fontsize=FONTSIZE)
+plt.yticks(fontsize=FONTSIZE)
 
 plt.savefig(
     "../images/" + problem + "/" + quantity + "_kdn." + test + "." + time + ".pdf",

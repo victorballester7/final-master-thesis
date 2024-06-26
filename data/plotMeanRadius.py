@@ -5,8 +5,8 @@ from plotData import read_data, FONTSIZE
 plt.rc("text", usetex=True)
 
 problem = "embarrassed_2DNS"
-quantity = "Energy"
-# quantity = "Enstrophy"
+# quantity = "Energy"
+quantity = "Enstrophy"
 
 quantity += "MeanRadius"
 
@@ -56,9 +56,9 @@ ax.legend(fontsize=FONTSIZE)
 # decorations
 ax.set_xlabel("$t$", fontsize=FONTSIZE)
 if quantity == "EnergyMeanRadius":
-    ax.set_ylabel("$\mathcal{R}_E$", fontsize=FONTSIZE)
+    ax.set_ylabel("$\mathcal{R}_E^2$", fontsize=FONTSIZE)
 else:
-    ax.set_ylabel("$\mathcal{R}_\Omega$", fontsize=FONTSIZE)
+    ax.set_ylabel("$\mathcal{R}_\Omega^2$", fontsize=FONTSIZE)
 
 # remove previous ticks
 # set tick 0-

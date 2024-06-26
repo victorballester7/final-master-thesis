@@ -9,8 +9,10 @@ matplotlib.use("Agg")  # for not having memory leak
 
 plt.rc("text", usetex=True)
 
-frame = 440
-folder = "/R4"
+# frame = 440
+# folder = "/R4"
+frame = 550
+folder = "/R32"
 FONTSIZE = 16
 
 # get script path
@@ -18,6 +20,15 @@ script_dir = os.path.dirname(__file__)
 script_path = os.path.abspath(script_dir)
 
 folder_path = script_path + "/../../data/pointvortices"
+
+cmap = plt.get_cmap("RdBu")
+
+# Get the colors for the minimum and maximum values
+blue_max = cmap(30)[:3]  # Lowest value (blue)
+red_max = cmap(220)[:3]  # Highest value (red)
+
+print("blue_max: ", blue_max)
+print("red_max: ", red_max)
 
 # Read data
 if len(sys.argv) < 2:
@@ -81,12 +92,14 @@ ax.set_aspect("equal")
 x = np.array(data_blocks_x[frame])
 y = np.array(data_blocks_y[frame])
 c = np.array(circulation[frame])
-colors = ["red" if c[i] else "blue" for i in range(num_vortices[frame])]
-
-colors = np.array(colors)
+# colors = [red_max if c[i] else blue_max for i in range(num_vortices[frame])]
 
 for i in range(num_vortices[frame]):
-    ax.plot(x[i], y[i], "o", markersize=2, color=colors[i])
+    if c[i]:
+        ax.plot(x[i], y[i], "o", markersize=2, color=red_max)
+    else:
+        ax.plot(x[i], y[i], "o", markersize=2, color=blue_max)
+    # ax.plot(x[i], y[i], "o", markersize=2, color=colors[i])
 
 
 # Save the animation

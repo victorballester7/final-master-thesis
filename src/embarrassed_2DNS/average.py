@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import re
 import fnmatch
 
 N_CORES = 48
@@ -83,13 +84,38 @@ def get_num_files_multistages(folder_path):
     return min(num_files)
 
 
+def extract_numbers_from_filenames(directory):
+    # List all files in the given directory
+    files = os.listdir(directory)
+
+    # Regular expression to match the pattern *.000.NUMBER.txt
+    pattern = re.compile(r"\.000\.(\d+)\.txt$")
+
+    numbers = []
+
+    for filename in files:
+        match = pattern.search(filename)
+        if match:
+            # Extract the number and add it to the list
+            numbers.append(match.group(1))
+
+    # Combine all numbers into a single string
+    # numbers_string = "".join(numbers)
+
+    return numbers
+
+
 def average_data_multistages(input_dir, input_file, output_file, multicols):
     N = get_num_files_multistages(input_dir)
     print("Number of files: ", N)
-    for i in range(N):
+
+    numbers = extract_numbers_from_filenames(input_dir)
+    print("Numbers: ", numbers)
+
+    for i, num in enumerate(numbers):
         if i % 10 == 0:
             print("file ", i, " / ", N)
-        ext = "." + str(i).zfill(3) + ".txt"
+        ext = "." + num + ".txt"
         try:
             data = read_data(input_file, ext)
         except FileNotFoundError:
@@ -110,34 +136,58 @@ def average_data_multistages(input_dir, input_file, output_file, multicols):
                 for elem in row:
                     f.write(str(elem) + " ")
                 f.write("\n")
+    # for i in range(N):
+    #     if i % 10 == 0:
+    #         print("file ", i, " / ", N)
+    #     ext = "." + str(i).zfill(3) + ".txt"
+    #     try:
+    #         data = read_data(input_file, ext)
+    #     except FileNotFoundError:
+    #         continue
+    #     # do the Lp norm for each row, where p is the index of the column
+    #     # ((1/N_CORES) * sum_cores data^p)^(1/p)
+    #     if multicols:
+    #         data_avg = np.zeros(data[0].shape)
+    #         for col in range(data_avg.shape[1]):
+    #             p = col + 1
+    #             data_avg[:, col] = (np.sum(data[:, :, col] ** p, axis=0) / N_CORES) ** (
+    #                 1.00 / p
+    #             )
+    #     else:
+    #         data_avg = np.mean(data, axis=0)
+    #     with open(output_file + ext, "w") as f:
+    #         for row in data_avg:
+    #             for elem in row:
+    #                 f.write(str(elem) + " ")
+    #             f.write("\n")
 
 
 def average_data():
     # energy_bal.node.txt
 
-    input_file = "./data/energy_bal."
-    output_file = "./data/average/energy_bal.txt"
+    # input_file = "./data/energy_bal."
+    # output_file = "./data/average/energy_bal.txt"
 
-    print("Merging data from energy_bal...")
-    average_data_onestage(input_file, output_file)
+    # print("Merging data from energy_bal...")
+    # average_data_onestage(input_file, output_file)
 
-    # ----------------------------------------
-    # enstrophy_bal.node.txt
+    # # ----------------------------------------
+    # # enstrophy_bal.node.txt
 
-    input_file = "./data/enstrophy_bal."
-    output_file = "./data/average/enstrophy_bal.txt"
+    # input_file = "./data/enstrophy_bal."
+    # output_file = "./data/average/enstrophy_bal.txt"
 
-    print("Merging data from enstrophy_bal...")
-    average_data_onestage(input_file, output_file)
-    # ----------------------------------------
-    # kspectrum.node.ext.txt
+    # print("Merging data from enstrophy_bal...")
+    # average_data_onestage(input_file, output_file)
+    # # ----------------------------------------
+    # # kspectrum.node.ext.txt
 
-    input_dir = "./data/kspectrum"
-    input_file = input_dir + "/kspectrum."
-    output_file = "./data/average/kspectrum/kspectrum"
+    # input_dir = "./data/kspectrum"
+    # input_file = input_dir + "/kspectrum."
+    # output_file = "./data/average/kspectrum/kspectrum"
 
-    print("Merging data from kspectrum...")
-    average_data_multistages(input_dir, input_file, output_file, False)
+    # print("Merging data from kspectrum...")
+    # average_data_multistages(input_dir, input_file, output_file, False)
 
     # ----------------------------------------
     # EnergyProf.node.ext.txt
