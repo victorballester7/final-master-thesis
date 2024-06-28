@@ -15,10 +15,16 @@ kdn = "02-kdn16"
 # quantity = "Energy"
 quantity = "Enstrophy"
 
-tests = ["test4", "test5", "test6"]
-labels = ["$\mathrm{Re} = 4$", "$\mathrm{Re} = 8$", "$\mathrm{Re} = 16$"]
+tests = ["test3", "test4", "test5", "test6", "test7"]
+labels = [
+    "$\mathrm{Re} = 2$",
+    "$\mathrm{Re} = 4$",
+    "$\mathrm{Re} = 8$",
+    "$\mathrm{Re} = 16$",
+    "$\mathrm{Re} = 32$",
+]
 time = "175"
-domain = 2048
+domains = [1024, 2048, 2048, 2048, 2048]
 
 fig, ax = plt.subplots()
 
@@ -43,14 +49,21 @@ for test in tests:
 
 for i in range(len(data)):
     data[i][:, 0] = np.arange(0, len(data[i][:, 0])) + 1
-    data[i][:, 0] *= 2 * np.pi / domain
-    ax.plot(data[i][:, 0], data[i][:, 1] ** 2, label=labels[i])
+    data[i][:, 0] *= 2 * np.pi / domains[i]
+    if i < 4:
+        ax.plot(
+            data[i][:, 0], data[i][:, 1] ** 2, label=labels[i], color=color_cycle[i]
+        )
+    else:
+        ax.plot(
+            data[i][:, 0], data[i][:, 1] ** 2, label=labels[i], color=color_cycle[i + 1]
+        )
 
-data_x = (np.arange(0, len(data[0][:, 0])) + 1) * (2 * np.pi / domain)
+data_x = np.arange(0.01, np.pi, 0.01)
 if quantity == "Energy":
-    data_y = 12 / data_x**2
+    data_y = 20 / data_x**2
 else:
-    data_y = 2000 / data_x**2
+    data_y = 4000 / data_x**2
 
 ax.plot(data_x, data_y, label="$\propto 1/r^2$", linestyle="dashed", color=fifth_color)
 

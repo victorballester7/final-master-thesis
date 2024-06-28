@@ -49,9 +49,9 @@ for i in range(len(data)):
 
 data_x = np.arange(0.01, np.pi, 0.01)
 if quantity == "Energy":
-    data_y = 10 / data_x**2
+    data_y = 20 / data_x**2
 else:
-    data_y = 4000 / data_x**2
+    data_y = 6000 / data_x**2
 
 ax.plot(data_x, data_y, label="$\propto 1/r^2$", linestyle="dashed", color=fifth_color)
 

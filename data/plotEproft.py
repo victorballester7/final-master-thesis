@@ -7,8 +7,8 @@ plt.rc("text", usetex=True)
 
 problem = "embarrassed_2DNS"
 kdn = "02-kdn16"
-# quantity = "Energy"
-quantity = "Enstrophy"
+quantity = "Energy"
+# quantity = "Enstrophy"
 times = ["040", "080", "130", "179"]
 test = "test6"
 labels = ["$t = 0.4$", "$t = 0.8$", "$t = 1.3$", "$t = 1.79$"]
@@ -44,7 +44,7 @@ for i in range(len(data)):
 
 data_x = (np.arange(0, len(data[0][:, 0])) + 1) * (2 * np.pi / domain)
 if quantity == "Energy":
-    data_y = 10 / data_x**2
+    data_y = 15 / data_x**2
 else:
     data_y = 2000 / data_x**2
 

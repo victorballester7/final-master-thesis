@@ -4,10 +4,10 @@
 \section{Theoretical background}\label{sec:equations}
 The primary focus of this work is the integration of the incompressible Navier-Stokes equations with a random forcing term:
 \begin{align}
-	\label{eq:navier-stokes}\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + f_0\vf{f} \\
+	\label{eq:navier-stokes}\partial_t \vf{u} + (\vf{u} \cdot \grad) \vf{u} & = -\grad p + \nu\laplacian \vf{u} + \vf{f} \\
 	\label{eq:incompressibility}\divp{\vf{u}}                               & = 0
 \end{align}
-where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $f_0\vf{f}$ is a random forcing term satisfying $\divp{\vf{f}}=0$. For the sake of clarity and simplicity the amplitude factor $f_0$ of the forcing have been factor out from the force itself. The second equation is called	\emph{incompressibility condition} and translates the fact that the fluid cannot be compressed. The forcing term is chosen to be Gaussian for the vorticity formulation, which is detailed below. Throughout the project the density of the fluid is assumed to be constant and equal to 1.
+where $\vf{u}$ is the velocity field, $p$ is the pressure, $\nu$ is the kinematic viscosity, and $\vf{f}$ is a random forcing term satisfying $\divp{\vf{f}}=0$. The second equation is called	\emph{incompressibility condition} and translates the fact that the fluid cannot be compressed. The forcing term is chosen to be random and delta-correlated in time with Gaussian distribution of amplitudes, for the vorticity formulation, which is detailed below. Throughout the project the density of the fluid is assumed to be constant and equal to 1.
 
 \subsection{Stream function formulation}
 In~\cite{Batchelor2000}, a new variable is introduced in order to simplify the integration of the 2D incompressible Navier-Stokes equations. This quantity, called \emph{stream function} and denoted by $\psi$, is defined as the flow rate across a given line. More accurately, if $\mathcal{C}$ is a curve joining two points $O$ (fixed) and $P=(x,y)$, the stream function as a function of the coordinates of the point $P$ is then
@@ -22,26 +22,26 @@ where the last equality follows from the exact differential property. Thus, one 
 \begin{equation}
 	u = \pdv{\psi}{y} \quad \text{and} \quad v = -\pdv{\psi}{x}
 \end{equation}
-Note the arbitrary choice of $\vf{u}^\perp$ in the definition of the stream function. In the present work, the choice is made to be $\vf{u}^\perp = (-v,u)$, in order to keep the same sign convention as in similar works (\cite{2dturbulence,alexakisLONG}). The formulation with the alternative stream function $\psi':=-\psi$ is sometimes used in other fields of fluid dynamics, mostly in meteorology and oceanography.
+Note the arbitrary choice of sign of $\vf{u}^\perp$ in the definition of the stream function. In the present work, the choice is made to be $\vf{u}^\perp = (-v,u)$, in order to keep the same sign convention as in similar works (\cite{2dturbulence,alexakisLONG}). The formulation with the alternative stream function $\psi':=-\psi$ is sometimes used in other fields of fluid dynamics, mostly in meteorology and oceanography.
 
 Note that using this definition, the incompressible condition $\divp \vf{u}=0$ is automatically satisfied. Finally, introducing the scalar vorticity $\omega := \rotp \vf{u} = \pdv{v}{x} - \pdv{u}{y}=-\laplacian \psi$, one can rewrite the Navier-Stokes equations in terms of the this latter variable:
 \begin{align}
-	\partial_t \omega + (\vf{u} \cdot \grad) \omega & = \nu \laplacian \omega + f_0f_\omega \\
+	\partial_t \omega + (\vf{u} \cdot \grad) \omega & = \nu \laplacian \omega + f_\omega \\
 	\divp{\vf{\omega}}                              & = 0
 \end{align}
 where the rotational has been taken to both sides of \cref{eq:navier-stokes,eq:incompressibility} and basic vector identities have been used. The main objects of interest in the vorticity formulation are the \emph{vortices} (see \cref{fig:vortices_evo}), which according to~\cite{Saffman} are the local regions on the plane with non vanishing vorticity and surrounded with an irrotational flow.
 
 Now, using the relation between the stream function and the vorticity one obtains:
 \begin{equation}\label{eq:streamfunction}
-	\partial_t \psi + \laplacian^{-1} (\vf{u} \cdot \grad) \laplacian \psi = \nu \laplacian \psi + f_0f_\psi
+	\partial_t \psi + \laplacian^{-1} (\vf{u} \cdot \grad) \laplacian \psi = \nu \laplacian \psi + f_\psi
 \end{equation}
 The reader may quickly observe that this equation appears to be more complicated than the first one. However, when transforming the equation to Fourier space, it becomes much more simpler (see \cref{eq:streamfunction_fourier}), with the advantage of having a scalar function as the main unknown variable (as opposed to the velocity formulation) and removing the incompressible condition (as opposed to the vorticity formulation), which is implicit in the definition of the stream function.
 
-The forcing term is assumed to be Gaussian, in particular it is taken of the form:
+The forcing term is assumed to be random, in particular it is taken of the form:
 \begin{equation}
-	f_\omega(x,y) = \sum_{i=1}^{10} A_i \expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,1})}^2 + {(y-y_{i,1})}^2\right]\right) - A_i\expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,2})}^2 + {(y-y_{i,2})}^2\right]\right)
+	f_\omega(x,y) = f_0\sum_{i=1}^{10} A_i \expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,1})}^2 + {(y-y_{i,1})}^2\right]\right) - A_i\expp\left(-\frac{k_\ell^2}{2}\left[{(x-x_{i,2})}^2 + {(y-y_{i,2})}^2\right]\right)
 \end{equation}
-The quantities $A_i$ follow a uniform distribution between 0 and 1; $k_\ell$ quantifies the size of the vortices (thought in Fourier space) so that the vortices injected have size $\sim 1/k_\ell$, and the coordinates $x_{i,j}$, $y_{i,j}$, for $j=1,2$ are random variables that position the vortices inside a small disk of radius $k_r$ centered at the origin such that the density of vortices is (almost) constant. To be more clear, if one expresses the coordinates of the vortices in polar coordinates, the angular variable is uniformly distributed between 0 and $2\pi$ and the radial variable follows a distribution $\sqrt{\mathcal{U}(0,\pi/k_r)}$ where $\mathcal{U}(a,b)$ is the uniform distribution between $a$ and $b$. Indeed, one can easily check that the probability of finding a vortex inside a thin annulus within the perturbation region does not depend on the radius of the annulus $r$:
+The quantities $A_i$ follow a uniform distribution between 0 and 1; $f_0$ represents the amplitude factor of the forcing; $k_\ell$ quantifies the size of the vortices (thought in Fourier space) so that the vortices injected have size $\sim 1/k_\ell$, and the coordinates $x_{i,j}$, $y_{i,j}$, for $j=1,2$ are random variables that position the vortices inside a small disk of radius $k_r$ centered at the origin such that the density of vortices is (almost) constant. To be more clear, if one expresses the coordinates of the vortices in polar coordinates as $x=r\cos\theta$ and $y=r\sin\theta$, the angular variable is uniformly distributed between 0 and $2\pi$ and the radial variable follows a distribution $\sqrt{\mathcal{U}(0,\pi/k_r)}$ where $\mathcal{U}(a,b)$ is the uniform distribution between $a$ and $b$. Indeed, one can easily check that the probability of finding a vortex inside a thin annulus within the perturbation region does not depend on the radius of the annulus $r$:
 \begin{equation}
 	\Prob\left(r-\dd{r} < \sqrt{\mathcal{U}(0,\pi/k_r)} \leq r\right) = \int_{{(r-\dd{r})}^2}^{r^2} \frac{1}{\pi/k_r} \dd{s} \simeq C r \dd{r} + \mathcal{O}(\dd{r}^2)
 \end{equation}
@@ -77,7 +77,7 @@ The Reynolds number is a dimensionless quantity that characterizes the ratio of 
 \end{equation}
 In the present work, the length scale $L$ is determined by the size of the vortices injected in the disk, which in this case is $L=1/k_\ell$. The injection rate of energy is determined by the forcing term, as follows. The amplitude $f_0$ is time dependent and is chosen in such a way that $f_0^2$ is the rate at which energy is injected per unit of area in the domain. More precisely, the amplitude of the forcing is taken as $f_0/\sqrt{\Delta t/2}$, where $\Delta t$ is the time step of the simulation, a priori varying with time.
 
-To check that indeed this is the case, let $\vf{f}=(f_u,f_v)$ be the forcing term for the velocity equation in the physical space. Recall that since $\Exp(f_\omega)=0$ and $f_\omega = \rotp \vf{f}$, using the inversion formula for the curl (see \cref{eq:biotsavart}) and Fubini's theorem one obtains that $\Exp(f_u) = \Exp(f_v) = 0$. Thus, at time $t=T$ and time step $\Delta t$ one has, taking into account only the forcing term:
+To check that indeed this is the case, let $\vf{f}=\frac{f_0}{\sqrt{\Delta t/2}}(f_u,f_v)$ be the forcing term for the velocity equation in the physical space. Recall that since $\Exp(f_\omega)=0$ and $f_\omega = \rotp \vf{f}$, using the inversion formula for the curl (see \cref{eq:biotsavart}) and Fubini's theorem one obtains that $\Exp(f_u) = \Exp(f_v) = 0$. Thus, at time $t=T$ and time step $\Delta t$ one has, taking into account only the forcing term:
 \begin{equation}
 	u(\vf{x},T+\Delta t) = u(\vf{x},T) + \Delta t \:\frac{f_0}{\sqrt{\Delta t/2}}\: f_u(\vf{x}) + \cdots
 \end{equation}
@@ -103,7 +103,7 @@ because the area of the whole domain $[0,\pi]\times[0,\pi]$ is $4\pi^2$ and the 
 \end{equation}
 
 \subsection{Point vortex model}
-The study has accomplished another simulation, far from the Navier-Stokes equations, but aiming to obtain qualitatively and quantitatively similar results. This simulation is based on the point vortex model, which is a simplified version of the dynamics of a set of vortices.
+The study has been complemented by another simulation, far from the Navier-Stokes equations, but aiming to obtain qualitatively and quantitatively similar results. This simulation is based on the point vortex model, which is a simplified version of the dynamics of a set of vortices.
 
 More precisely, in the point vortex model that follows, the viscous term is neglected. Thus, this problem aims to mimic in some way the dynamics of the Navier-Stokes equations as $\nu \to 0$ (or equivalently $\Re\to\infty$, see \cref{eq:reynolds}). Moreover, vortices are considered as point-like objects, that is to say, being the vorticity singular at the position of the vortices. Because of that, the vortices are characterized by their circulation
 \begin{equation}
@@ -187,11 +187,12 @@ is a first integral of the system. Moreover the system is Hamiltonian, that is, 
 \end{align}
 At first sight, the reader may notice that the function $H$ is singular when two vortices get too close to each other. Although one could try to create an auxiliary function $f(H)$ that is regular in the whole domain and has a shape according the physical intuition while keeping the properties of a first integral, an alternative approach was chosen in this work to mimic the energy and enstrophy profiles for the Navier-Stokes equation.
 
-The idea explored here involves counting the number of point vortices in annuli and comparing the density distribution $\rho_N$ with the corresponding functions $E_r$ and $\Omega_r$.
+The idea explored here involves counting the number of point vortices in annuli and comparing the density distribution $\rho_N$ with the corresponding functions $E_r$ and $\Omega_r$. Specifically, the density of vortices $\rho_N(r)$ is defined as the linear density of vortices in the ring of radius $r$.
 
 Additionally, an equivalent mean radius is defined, which gives an insight on the average location of the vortices within the domain. Its expression is given by:
 \begin{equation}\label{eq:meanradius_vortices}
-	\mathcal{R}_N^2 = \frac{\sum_{\Delta r<r\leq \pi} r^2 \rho_N(r)}{\sum_{\Delta r<r\leq \pi} \rho_N(r)}
+	\mathcal{R}_N^2 = \frac{\sum_{\Delta r<r\leq \pi} r^2 N_r}{\sum_{\Delta r<r\leq \pi} N_r}
 \end{equation}
+where $N_r$ is the number of vortices in the annulus of radius $r$ and width $\Delta r$.
 
 \end{document}
