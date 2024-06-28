@@ -234,4 +234,14 @@ The following video shows the evolution of the vorticity field of a 2D fluid flo
 
 https://github.com/victorballester7/final-master-thesis/assets/78110444/1f183057-01e5-4a4f-bf8f-830e92b06358
 
+In this other vide, the reynolds number is increased to 128 and the perturbation region reduced to half (in diameter) of the previous one.
+
+https://github.com/victorballester7/final-master-thesis/assets/78110444/3f751025-d47b-4baf-94c9-63325bedaf00
+
 ### Point vortices
+
+In this video, we show the evolution of a pointvortex model, when we continuosly input particles in the center of the domain.
+
+https://github.com/victorballester7/final-master-thesis/assets/78110444/78ef87fe-c63b-4d4f-aa55-7986ad7073d3
+
+
