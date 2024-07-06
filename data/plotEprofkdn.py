@@ -12,12 +12,12 @@ fifth_color = color_cycle[4]
 
 problem = "embarrassed_2DNS"
 kdns = ["01-kdn8", "02-kdn16", "03-kdn32"]
-# quantity = "Energy"
-quantity = "Enstrophy"
+quantity = "Energy"
+# quantity = "Enstrophy"
 
 test = "test7"
 labels = ["$k_r = 8$", "$k_r = 16$", "$k_r = 32$"]
-time = "059"  # 0.68
+time = "999"  # 1.66
 domain = [2048, 2048, 4096]
 # domain = [4096, 4096, 4096]
 
@@ -71,7 +71,7 @@ else:
 
 
 if quantity == "Energy":
-    x1, x2, y1, y2 = 0.03, np.pi, 0.02, 100
+    x1, x2, y1, y2 = 0.03, np.pi, 0.1, 300
     ax.set_xlim(x1 - x1 / 10, x2 + x2 / 10)
     ax.set_ylim(y1 - y1 / 10, y2 + y2 / 10)
     ax.set_xticks([np.pi / 32, np.pi / 16, np.pi / 8, np.pi / 4, np.pi / 2, np.pi])

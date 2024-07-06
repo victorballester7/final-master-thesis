@@ -26,7 +26,6 @@ labels = [
 time = "175"
 domains = [1024, 2048, 2048, 2048, 2048]
 
-fig, ax = plt.subplots()
 
 data = []
 for test in tests:
@@ -46,6 +45,7 @@ for test in tests:
         )
     )
 
+fig, ax = plt.subplots()
 
 for i in range(len(data)):
     data[i][:, 0] = np.arange(0, len(data[i][:, 0])) + 1

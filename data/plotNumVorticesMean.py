@@ -18,7 +18,7 @@ data = read_data("./" + problem + "/" + test + "/" + quantity + ".txt")
 
 data[:, 0]
 # normalize the y-axis by the maximum value
-ax.plot(data[:, 0], data[:, 1] ** 2)
+ax.plot(data[:, 0], data[:, 1])
 
 data_x = np.arange(0.01, 1, 0.01)
 data_y = 0.2 / data_x
@@ -29,7 +29,7 @@ data_y = 0.2 / data_x
 
 # decorations
 ax.set_xlabel("$t$", fontsize=FONTSIZE)
-ax.set_ylabel(r"$\mathcal{R}_N^2$", fontsize=FONTSIZE)
+ax.set_ylabel(r"$\mathcal{R}_N$", fontsize=FONTSIZE)
 
 # set ticks 0-40 to 0-pi
 # ax.set_yticks([0, 5, 10, 15, 20])

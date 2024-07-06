@@ -53,7 +53,7 @@ ax.loglog()
 
 # decorations
 ax.set_xlabel("$r$", fontsize=FONTSIZE)
-ax.set_ylabel(r"$\rho_N$", fontsize=FONTSIZE)
+ax.set_ylabel(r"$\rho_r$", fontsize=FONTSIZE)
 
 # set ticks 0-1 to 0-pi
 ax.set_xticks([0.125, 0.25, 0.5, 0.75, 1])
