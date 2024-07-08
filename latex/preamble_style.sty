@@ -22,3 +22,14 @@
 {\thesubsection.}
 {1em}
 {}
+
+\newcommand\blankpage{% comando pagina vuota
+	\clearpage
+	\begingroup
+	\null
+	\thispagestyle{empty}%
+	\addtocounter{page}{-1}%
+	\hypersetup{pageanchor=false}%
+	\clearpage
+	\endgroup
+}

@@ -5,6 +5,12 @@ from plotData import read_data, FONTSIZE
 
 plt.rc("text", usetex=True)
 
+# Access the default color cycle
+color_cycle = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+
+# Get the 5th color (index 4)
+fifth_color = color_cycle[4]
+
 problem = "pointvortices/disk"
 extra = "average"
 quantity = "NumVorticesMeanRadius"
@@ -20,11 +26,13 @@ data[:, 0]
 # normalize the y-axis by the maximum value
 ax.plot(data[:, 0], data[:, 1])
 
-data_x = np.arange(0.01, 1, 0.01)
-data_y = 0.2 / data_x
-# ax.plot(data_x, data_y, label="$1/r$", linestyle="dashed", color=fifth_color)
+data_x = data[:, 0]
+data_y = 0.5 * np.sqrt(data_x)
+ax.plot(
+    data_x, data_y, label="$\propto\sqrt{t}$", linestyle="dashed", color=fifth_color
+)
 
-# ax.legend(fontsize=FONTSIZE)
+ax.legend(fontsize=FONTSIZE)
 # ax.loglog()
 
 # decorations
@@ -55,4 +63,4 @@ plt.savefig(
     "../images/" + problem + "/" + quantity + ".pdf",
     bbox_inches="tight",
 )
-plt.show()
+# plt.show()

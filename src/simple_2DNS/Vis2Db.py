@@ -40,6 +40,7 @@ STR = "fw."
 outnum_nd = get_num_files(input_dir, STR)  # we have ww, ps, fw and fp
 homogeneous = True  # True if we want the same colors for all images
 first_file = 1
+paint_arrows = True
 
 FONTSIZE = 16
 
@@ -111,48 +112,94 @@ for file in range(outnum_nd + 1 - first_file):
     ax.set_xlabel(r"$x$", fontsize=FONTSIZE)
     ax.set_ylabel(r"$y$", fontsize=FONTSIZE)
 
-    axins = zoomed_inset_axes(ax, 10, loc=1)  # zoom = 6
+    if paint_arrows:
+        # add arrows with 2 heads
+        ax.arrow(
+            reso / 2 - reso / 16,
+            reso / 2 - reso / 12,
+            reso / 8,
+            0,
+            head_width=30,
+            head_length=40,
+            fc="k",
+            ec="k",
+        )
 
-    # sub region of the original image
-    ll = 25
-    x1, x2, y1, y2 = -ll, ll, -ll, ll
-    x1 += 1024
-    x2 += 1024
-    y1 += 1024
-    y2 += 1024
+        ax.arrow(
+            reso / 2 + reso / 16,
+            reso / 2 - reso / 12,
+            -reso / 8,
+            0,
+            head_width=30,
+            head_length=40,
+            fc="k",
+            ec="k",
+        )
 
-    axins.imshow(
-        data2,
-        cmap=color,
-        vmin=zmin,
-        vmax=zmax,
-        origin="lower",
-    )
-    axins.set_xlim(x1, x2)
-    axins.set_ylim(y1, y2)
+        # add label under the arrows
+        ax.text(
+            reso / 2,
+            reso / 2 - reso / 6,
+            r"$2\pi/k_r$",
+            fontsize=FONTSIZE,
+            ha="center",
+        )
 
-    # now set lim
+    # axins = zoomed_inset_axes(ax, 10, loc=1)  # zoom = 6
 
-    # hide ticks
-    plt.xticks(visible=False)
-    plt.yticks(visible=False)
+    # # sub region of the original image
+    # ll = 25
+    # x1, x2, y1, y2 = -ll, ll, -ll, ll
+    # x1 += 1024
+    # x2 += 1024
+    # y1 += 1024
+    # y2 += 1024
 
-    # draw a bbox of the region of the inset axes in the parent axes and
-    # connecting lines between the bbox and the inset axes area
-    mark_inset(ax, axins, loc1=2, loc2=4, fc="none", ec="0.5")
+    # axins.imshow(
+    #     data2,
+    #     cmap=color,
+    #     vmin=zmin,
+    #     vmax=zmax,
+    #     origin="lower",
+    # )
+    # axins.set_xlim(x1, x2)
+    # axins.set_ylim(y1, y2)
+
+    #
+
+    # # now set lim
+
+    # # hide ticks
+    # plt.xticks(visible=False)
+    # plt.yticks(visible=False)
+
+    # # draw a bbox of the region of the inset axes in the parent axes and
+    # # connecting lines between the bbox and the inset axes area
+    # mark_inset(ax, axins, loc1=2, loc2=4, fc="none", ec="0.5")
 
     # add colorbar
     # cbar = plt.colorbar(myplot)
     # tight margins
-    filename = os.path.join(
-        script_dir,
-        "../../"
-        + output_dir
-        + "FlowD_"
-        + STR
-        + str("%03d" % (file + first_file))
-        + ".pdf",
-    )
+    if paint_arrows:
+        filename = os.path.join(
+            script_dir,
+            "../../"
+            + output_dir
+            + "FlowD_"
+            + STR
+            + str("%03d" % (file + first_file))
+            + "_arrow.pdf",
+        )
+    else:
+        filename = os.path.join(
+            script_dir,
+            "../../"
+            + output_dir
+            + "FlowD_"
+            + STR
+            + str("%03d" % (file + first_file))
+            + ".pdf",
+        )
     plt.savefig(filename, bbox_inches="tight")
     plt.close()
 print("****************************")
